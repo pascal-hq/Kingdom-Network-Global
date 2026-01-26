@@ -7,84 +7,162 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <img src="kingdom network png logo 1.png" alt="Kingdom Network Global Logo">
-        <nav>
+
+<header class="header">
+    <div class="header-inner">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="KN LOGO.png" alt="Kingdom Network Global Logo">
+        </div>
+
+        <!-- Hamburger button for mobile -->
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Navigation -->
+        <nav class="nav" id="nav-menu">
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#departments">Departments</a>
-            <a href="#contact">Contact</a>
             <a href="#founder">Founder</a>
+            <a href="#contact">Contact</a>
         </nav>
-    </header>
-    <main>
-        <section id="home">
-            <h1>Welcome to Kingdom Network Global</h1>
-            <h3>Daily Verse</h3>
-            <h2>Vision</h2>
-            <p><b>Enhancing Spiritual Growth and Stamina for This Present Age.</b></p>
-            <p>Built on the Anchor Pillars of Revelation, Manifestation, and Experience</p>
-            <p>Join the movement</p>
+    </div>
+</header>
 
-        </section>
+<main>
 
-        <section id="about">
+    <!-- HOME -->
+    <!-- HOME SECTION -->
+<!-- HOME SECTION -->
+<section id="home" class="section hero">
+    <div class="overlay"></div>
+
+    <div class="hero-inner">
+        <!-- IMAGE SLIDER -->
+        <div class="image-slider">
+            <div class="slider-track">
+                <img src="images/home1.jpg" alt="Home Image 1" class="active">
+                <img src="images/home2.jpg" alt="Home Image 2">
+                <img src="images/home3.jpg" alt="Home Image 3">
+                <img src="images/home4.jpg" alt="Home Image 4">
+                <img src="images/home5.jpg" alt="Home Image 5">
+                <img src="images/home6.jpg" alt="Home Image 6">
+            </div>
+        </div>
+
+        <!-- HERO CONTENT -->
+        <div class="hero-content">
+            <h1>Enhancing Spiritual Growth and Stamina</h1>
+            <p class="subtitle">
+                Built on the Anchor Pillars of Revelation, Manifestation, and Experience
+            </p>
+
+            <!-- DAILY VERSE -->
+            <div class="daily-verse">
+                <h3>Daily Verse</h3>
+                <p class="verse-text">“Loading daily scripture…”</p>
+                <span class="verse-ref"></span>
+            </div>
+
+            <a href="#contact" class="btn-primary">Join the Movement</a>
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- ABOUT -->
+    <section id="about" class="section bg-rotate">
+        <div class="overlay"></div>
+        <div class="content">
             <h2>About Us</h2>
+
             <h3>Who We Are</h3>
-            <p>Kingdom Network Global is a youth Christian ministry committed to raising a generation strengthened in Christ, equipped to navigate and overcome the challenges of this present age.</p>
+            <p>
+                Kingdom Network Global is a youth Christian ministry committed to raising a
+                generation strengthened in Christ and equipped to overcome the challenges
+                of this present age.
+            </p>
+
             <h3>Our Mandate</h3>
-            <p>Our major goal is to enhance spiritual growth and stamina that vitalizes believers through all vicissitudes of this present age.</p>
-            <h3>How We Fulfil This Mandate</h3>
-            <p>We achieve this through our Ministry Anchor Pillars:</p>
-            <h3>Revelation</h3>
-            <p>Raising believers with deep understanding of God’s Word and kingdom truths, enabling clarity, direction, and sound spiritual foundation.</p>
-            <h3>Manifestation</h3>
-            <p>Demonstrating the power and life of Christ through worship, service, missions, and the practical outworking of faith.</p>
-            <h3>Experience</h3>
-            <p>Cultivating personal and corporate encounters with God that transform lives and produce enduring spiritual stamina.</p>
+            <p>
+                To enhance spiritual growth and stamina that vitalizes believers through
+                all vicissitudes of this present age.
+            </p>
 
-        </section>
+            <h3>Our Anchor Pillars</h3>
 
-        <section id="departments">
-            <h1>Our Departments</h1>
-            
-                <h2>Missions Department</h2>
-                <p>Extending the Kingdom through outreach, evangelism, and community impact.</p>
-                <h2>Media Department</h2>
-                <p>Communicating revelation and testimony through digital platforms and creative expression.</p>
-                <h2>Praise & Worship Department</h2>
-                <p>Leading the ministry into tangible experiences of God’s presence</p>
-                <h2>Set & Sound</h2>
-                <p>Supporting excellence in worship and ministry atmosphere through technical service.</p>
-                <h2>Kingdom Network School of Mentorship</h2>
-                <p>Building spiritual stamina through intentional teaching, discipleship, and life-on-life mentorship.</p>
-        </section>
+            <div class="pillars">
+                <div class="pillar">
+                    <h4>Revelation</h4>
+                    <p>Deep understanding of God’s Word and Kingdom truth.</p>
+                </div>
+                <div class="pillar">
+                    <h4>Manifestation</h4>
+                    <p>Practical expression of Christ through worship and service.</p>
+                </div>
+                <div class="pillar">
+                    <h4>Experience</h4>
+                    <p>Transformative encounters that build spiritual stamina.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="founder">
+    <!-- DEPARTMENTS -->
+    <section id="departments" class="section bg-rotate alt">
+        <div class="overlay"></div>
+        <div class="content">
+            <h2>Our Departments</h2>
+
+            <div class="departments">
+                <div class="dept">Missions</div>
+                <div class="dept">Media</div>
+                <div class="dept">Praise & Worship</div>
+                <div class="dept">Set & Sound</div>
+                <div class="dept">Mentorship School</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUNDER -->
+    <section id="founder" class="section bg-rotate">
+        <div class="overlay"></div>
+        <div class="content">
             <h2>Founder & Vision Bearer</h2>
             <h3>Pst. Emmanuel Favour</h3>
-            <p>Kingdom Network Global was founded by Pst. Emmanuel Favour with a burden to see believers rooted, empowered, and victorious in Christ through revelation, manifestation, and experience.</p>
-        </section>
+            <p>
+                Kingdom Network Global was founded with a burden to see believers rooted,
+                empowered, and victorious in Christ through revelation, manifestation,
+                and experience.
+            </p>
+        </div>
+    </section>
 
-        <section id="contact">
+    <!-- CONTACT -->
+    <section id="contact" class="section bg-rotate alt">
+        <div class="overlay"></div>
+        <div class="content">
             <h2>Contact Us</h2>
-            <form>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-
-                <button type="submit">Submit</button>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
             </form>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Kingdom Network Global. All rights reserved.</p>
-    </footer>
-    <script src="main.js"></script>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 Kingdom Network Global. All rights reserved.</p>
+</footer>
+<script src="main.js"></script>
 </body>
 </html>
