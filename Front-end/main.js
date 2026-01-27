@@ -1,6 +1,6 @@
-// ================================
+// ==========================
 // 1. HAMBURGER MENU TOGGLE
-// ================================
+// ==========================
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("nav-menu");
 
@@ -19,79 +19,51 @@ document.querySelectorAll(".nav a").forEach(link => {
     });
 });
 
+// ==========================
+// 2. HOME IMAGE SLIDER
+// ==========================
+const sliderTrack = document.querySelector(".slider-track");
+const sliderImages = sliderTrack.querySelectorAll("img");
+let activeIndex = 0;
 
-// ================================
-// 2. CLICKABLE IMAGE SLIDER
-// ================================
-const slides = document.querySelectorAll(".slider-track img");
-let currentIndex = 0;
-
-// Show the first image
-slides[currentIndex].classList.add("active");
-
-// Function to show image by index
+// Show image by index
 function showImage(index) {
-    slides[currentIndex].classList.remove("active");
-    currentIndex = (index + slides.length) % slides.length; // wrap around
-    slides[currentIndex].classList.add("active");
+    sliderImages.forEach((img, i) => {
+        img.classList.toggle("active", i === index);
+    });
 }
 
-// Handle click on each image
-slides.forEach(slide => {
-    slide.addEventListener("click", (e) => {
-        const rect = slide.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
+// Move slider left or right
+function moveSlider(direction) {
+    if (direction === "next") {
+        activeIndex = (activeIndex + 1) % sliderImages.length;
+    } else if (direction === "prev") {
+        activeIndex = (activeIndex - 1 + sliderImages.length) % sliderImages.length;
+    }
+    showImage(activeIndex);
+}
 
-        if (clickX < rect.width / 2) {
-            // Clicked left half → previous image
-            showImage(currentIndex - 1);
-        } else {
-            // Clicked right half → next image
-            showImage(currentIndex + 1);
-        }
-    });
-});
+// Initial display
+showImage(activeIndex);
 
-// Optional: Auto-slide every 5 seconds
-let autoSlide = setInterval(() => {
-    showImage(currentIndex + 1);
-}, 5000);
-
-// Pause auto-slide on hover
-document.querySelector(".image-slider").addEventListener("mouseenter", () => clearInterval(autoSlide));
-document.querySelector(".image-slider").addEventListener("mouseleave", () => {
-    autoSlide = setInterval(() => showImage(currentIndex + 1), 5000);
-});
-
-
-// ================================
-// 3. AUTO-SWITCHING SECTION BACKGROUNDS
-// ================================
-const sectionsWithBg = document.querySelectorAll(".bg-rotate");
-
-const sectionImages = {
-    about: ["images/about1.jpg", "images/about2.jpg", "images/about3.jpg"],
-    departments: ["images/dept1.jpg", "images/dept2.jpg", "images/dept3.jpg"],
-    founder: ["images/founder1.jpg", "images/founder2.jpg"]
-};
-
-sectionsWithBg.forEach(section => {
-    const id = section.id;
-    if (sectionImages[id]) {
-        let index = 0;
-        setInterval(() => {
-            section.style.backgroundImage = `url('${sectionImages[id][index]}')`;
-            section.style.backgroundSize = "cover";
-            section.style.backgroundPosition = "center";
-            index = (index + 1) % sectionImages[id].length;
-        }, 5000);
+// Click to navigate (left/right side)
+const sliderContainer = document.querySelector(".image-slider");
+sliderContainer.addEventListener("click", e => {
+    const rect = sliderContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    if (x < rect.width / 2) {
+        moveSlider("prev");
+    } else {
+        moveSlider("next");
     }
 });
 
+// Optional: Auto slide every 4 seconds
+setInterval(() => moveSlider("next"), 4000);
 
-// ================================
-// 4. DAILY VERSE FETCHING
-// ================================
+// ==========================
+// 3. DAILY VERSE FETCHING
+// ==========================
 const verseTextEl = document.querySelector(".verse-text");
 const verseRefEl = document.querySelector(".verse-ref");
 
@@ -105,11 +77,35 @@ async function fetchDailyVerse() {
         verseTextEl.textContent = verse;
         verseRefEl.textContent = reference;
     } catch (error) {
-        console.error("Error fetching daily verse:", error);
+        console.error("Failed to fetch verse:", error);
         verseTextEl.textContent = "Unable to load verse today.";
         verseRefEl.textContent = "";
     }
 }
 
-// Fetch verse on page load
+// Fetch on load
 fetchDailyVerse();
+
+// ==========================
+// 4. OPTIONAL: SECTION BACKGROUND ROTATION
+// ==========================
+const bgSections = document.querySelectorAll(".bg-rotate");
+
+// Example images per section
+const sectionImages = {
+    founder: ["images/vision.jpg", "images/vision2.jpg"],
+    about: ["images/about.jpg", "images/about2.jpg"]
+};
+
+bgSections.forEach(section => {
+    const id = section.id;
+    if (!sectionImages[id]) return;
+
+    let idx = 0;
+    setInterval(() => {
+        section.style.backgroundImage = `url('${sectionImages[id][idx]}')`;
+        section.style.backgroundSize = "cover";
+        section.style.backgroundPosition = "center";
+        idx = (idx + 1) % sectionImages[id].length;
+    }, 7000); // every 7 seconds
+});
