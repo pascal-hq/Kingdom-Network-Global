@@ -12,10 +12,8 @@ hamburger.addEventListener("click", () => {
 // Close menu when a nav link is clicked (mobile)
 document.querySelectorAll(".nav a").forEach(link => {
     link.addEventListener("click", () => {
-        if (navMenu.classList.contains("active")) {
-            navMenu.classList.remove("active");
-            hamburger.classList.remove("active");
-        }
+        navMenu.classList.remove("active");
+        hamburger.classList.remove("active");
     });
 });
 
@@ -26,56 +24,59 @@ const sliderTrack = document.querySelector(".slider-track");
 const sliderImages = sliderTrack.querySelectorAll("img");
 let activeIndex = 0;
 
-// Show image by index
 function showImage(index) {
     sliderImages.forEach((img, i) => {
         img.classList.toggle("active", i === index);
     });
 }
 
-// Move slider left or right
 function moveSlider(direction) {
-    if (direction === "next") {
-        activeIndex = (activeIndex + 1) % sliderImages.length;
-    } else if (direction === "prev") {
-        activeIndex = (activeIndex - 1 + sliderImages.length) % sliderImages.length;
-    }
+    if (direction === "next") activeIndex = (activeIndex + 1) % sliderImages.length;
+    else if (direction === "prev") activeIndex = (activeIndex - 1 + sliderImages.length) % sliderImages.length;
     showImage(activeIndex);
 }
 
-// Initial display
 showImage(activeIndex);
 
-// Click to navigate (left/right side)
 const sliderContainer = document.querySelector(".image-slider");
 sliderContainer.addEventListener("click", e => {
     const rect = sliderContainer.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    if (x < rect.width / 2) {
-        moveSlider("prev");
-    } else {
-        moveSlider("next");
-    }
+    if (x < rect.width / 2) moveSlider("prev");
+    else moveSlider("next");
 });
 
-// Optional: Auto slide every 4 seconds
 setInterval(() => moveSlider("next"), 4000);
 
 // ==========================
-// 3. DAILY VERSE FETCHING
+// 3. DAILY VERSE FETCHING (Bible API NIV)
 // ==========================
 const verseTextEl = document.querySelector(".verse-text");
 const verseRefEl = document.querySelector(".verse-ref");
 
-async function fetchDailyVerse() {
-    try {
-        const response = await fetch("https://beta.ourmanna.com/api/v1/get/?format=json");
-        const data = await response.json();
-        const verse = data.verse.details.text;
-        const reference = data.verse.details.reference;
+// Optional: pre-defined daily verses (if you want rotation)
+const dailyVerses = [
+    "John 3:16",
+    "Philippians 4:13",
+    "Psalm 23:1",
+    "Romans 8:28",
+    "Proverbs 3:5"
+];
 
-        verseTextEl.textContent = verse;
-        verseRefEl.textContent = reference;
+function getTodaysVerse() {
+    // Use date to pick a verse deterministically
+    const today = new Date();
+    const index = today.getDate() % dailyVerses.length;
+    return dailyVerses[index];
+}
+
+async function fetchDailyVerse() {
+    const verse = getTodaysVerse();
+    try {
+        const response = await fetch(`https://bible-api.com/${verse}?translation=web`);
+        const data = await response.json();
+        verseTextEl.textContent = data.text;
+        verseRefEl.textContent = data.reference;
     } catch (error) {
         console.error("Failed to fetch verse:", error);
         verseTextEl.textContent = "Unable to load verse today.";
@@ -83,15 +84,12 @@ async function fetchDailyVerse() {
     }
 }
 
-// Fetch on load
 fetchDailyVerse();
 
 // ==========================
-// 4. OPTIONAL: SECTION BACKGROUND ROTATION
+// 4. SECTION BACKGROUND ROTATION
 // ==========================
 const bgSections = document.querySelectorAll(".bg-rotate");
-
-// Example images per section
 const sectionImages = {
     founder: ["images/vision.jpg", "images/vision2.jpg"],
     about: ["images/about.jpg", "images/about2.jpg"]
@@ -107,5 +105,5 @@ bgSections.forEach(section => {
         section.style.backgroundSize = "cover";
         section.style.backgroundPosition = "center";
         idx = (idx + 1) % sectionImages[id].length;
-    }, 7000); // every 7 seconds
+    }, 7000);
 });
