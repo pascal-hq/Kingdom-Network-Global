@@ -142,8 +142,11 @@ h4 {
 }
 
 .logo img {
-    width: 100%;
-    height: auto;
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+
 }
 
 /* Navigation - Tighter spacing */
