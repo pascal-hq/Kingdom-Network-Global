@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorship School - Kingdom Network Global</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .department-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+        }
+        .department-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10,17,40,0.8), rgba(10,17,40,0.95));
+            z-index: 1;
+        }
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .program-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all var(--transition-smooth);
+        }
+        .program-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+        }
+        .program-icon {
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .team-member {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            text-align: center;
+            transition: all var(--transition-smooth);
+            padding: 1.5rem;
+        }
+        .member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            border: 3px solid var(--gold-primary);
+        }
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .curriculum-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .curriculum-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .curriculum-item i {
+            color: var(--gold-primary);
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .testimonial-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .testimonial-card i {
+            font-size: 2rem;
+            color: var(--gold-primary);
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+        .register-form {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--white-off);
+            font-family: 'Inter', sans-serif;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+        .back-home {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gold-primary);
+            color: var(--navy-deep);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-smooth);
+            z-index: 100;
+        }
+        .back-home:hover {
+            transform: scale(1.1);
+            background: var(--gold-light);
+        }
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <img src="../KN LOGO.png" alt="Kingdom Network Global Logo">
+        </div>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav" id="nav-menu">
+            <a href="../index.html#home">Home</a>
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#departments">Departments</a>
+            <a href="../index.html#founder">Founder</a>
+            <a href="../index.html#contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- Department Hero -->
+    <section class="department-hero">
+        <div class="overlay"></div>
+        <div class="content" style="position: relative; z-index: 2; text-align: center;">
+            <h1>Mentorship School</h1>
+            <p style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Building spiritual stamina through intentional teaching, discipleship, and mentorship</p>
+        </div>
+    </section>
+
+    <!-- Programs -->
+    <section class="section">
+        <div class="content">
+            <h2>Our Programs</h2>
+            <div class="program-grid">
+                <div class="program-card">
+                    <div class="program-icon"><i class="fas fa-bible"></i></div>
+                    <h3>Discipleship Track</h3>
+                    <p>12-week program covering foundational Christian doctrines, prayer life, and spiritual disciplines.</p>
+                    <p style="margin-top: 0.5rem; color: var(--gold-light);"><strong>Duration:</strong> 3 months</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon"><i class="fas fa-chalkboard-user"></i></div>
+                    <h3>Leadership Academy</h3>
+                    <p>Equipping young leaders with biblical leadership principles and practical ministry skills.</p>
+                    <p style="margin-top: 0.5rem; color: var(--gold-light);"><strong>Duration:</strong> 6 months</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>One-on-One Mentorship</h3>
+                    <p>Personal mentorship matching you with experienced leaders for spiritual growth and accountability.</p>
+                    <p style="margin-top: 0.5rem; color: var(--gold-light);"><strong>Duration:</strong> Ongoing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Team -->
+    <section class="section alt">
+        <div class="content">
+            <h2>Mentorship Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="../images/mentorship-leader.jpg" alt="Michelle" onerror="this.src='../images/mentorship.jpg'">
+                    </div>
+                    <h3>Michelle</h3>
+                    <p style="color: var(--gold-light);">Program Director</p>
+                    <p>Passionate about raising the next generation of Spirit-led leaders.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="../images/mentorship-team1.jpg" alt="Assistant" onerror="this.src='../images/mentorship.jpg'">
+                    </div>
+                    <h3>Pastor Peter</h3>
+                    <p style="color: var(--gold-light);">Teaching Mentor</p>
+                    <p>Experienced Bible teacher and discipleship coach.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="../images/mentorship-team2.jpg" alt="Counselor" onerror="this.src='../images/mentorship.jpg'">
+                    </div>
+                    <h3>Ruth A.</h3>
+                    <p style="color: var(--gold-light);">Prayer & Life Coach</p>
+                    <p>Guides students in prayer and personal development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum -->
+    <section class="section">
+        <div class="content">
+            <h2>What You'll Learn</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div>
+                    <h3><i class="fas fa-dove" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Spiritual Formation</h3>
+                    <div class="curriculum-list">
+                        <div class="curriculum-item"><i class="fas fa-check-circle"></i> Prayer & Fasting</div>
+                        <div class="curriculum-item"><i class="fas fa-check-circle"></i> Scripture Study Methods</div>
+                        <div class="curriculum-item"><i class="fas fa-check-circle"></i> Hearing God's Voice</div>
+                    </div>
+                </div>
+                <div>
+                    <h3><i class="fas fa-users" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Leadership Skills</h3>
+                    <div class="curriculum-list">
+                        <div class="curriculum-item"><i class="fas fa-check-circle"></i> Servant Leadership</div>
+                        <div class="curriculum-item"><i class="fas fa-check-circle"></i> Conflict Resolution</div>
+                        <div class="curriculum-item"><i class="fas fa-check-circle"></i> Team Building</div>
+                    </div>
+                </div>
+                <div>
+                    <h3><i class="fas fa-heart" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Character Development</h3>
+                    <div class="curriculum-list">
+                        <div class="curriculum-item"><i class="fas fa-check-circle"></i> Emotional Intelligence</div>
+                        <div class="curriculum-item"><i class="fas fa-check-circle"></i> Integrity & Purity</div>
+                        <div class="curriculum-item"><i class="fas fa-check-circle"></i> Purpose Discovery</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section alt">
+        <div class="content">
+            <h2>Student Testimonials</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"The Mentorship School transformed my prayer life. I now have clarity on my purpose in ministry."</p>
+                    <h4 style="margin-top: 1rem;">- Sarah K.</h4>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"The leadership lessons I learned here are priceless. I'm now leading a small group at my local church."</p>
+                    <h4 style="margin-top: 1rem;">- John M.</h4>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"One-on-one mentorship gave me accountability and direction. Highly recommend!"</p>
+                    <h4 style="margin-top: 1rem;">- Mercy N.</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section class="section">
+        <div class="content">
+            <h2>Register for Mentorship School</h2>
+            <div class="register-form">
+                <form id="mentorshipForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="tel" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="">Select Program</option>
+                                <option>Discipleship Track (3 months)</option>
+                                <option>Leadership Academy (6 months)</option>
+                                <option>One-on-One Mentorship</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Church Name (Optional)">
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="3" placeholder="Why do you want to join the Mentorship School?"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Apply Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 Kingdom Network Global. All rights reserved.</p>
+</footer>
+
+<a href="../index.html" class="back-home">
+    <i class="fas fa-home"></i>
+</a>
+
+<script src="../js/main.js"></script>
+<script>
+    document.getElementById('mentorshipForm')?.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Application submitted! Our team will contact you within 3 days.');
+        this.reset();
+    });
+</script>
+</body>
+</html>

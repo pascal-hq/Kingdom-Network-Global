@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set & Sound - Kingdom Network Global</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .department-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+        }
+        .department-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10,17,40,0.8), rgba(10,17,40,0.95));
+            z-index: 1;
+        }
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .equipment-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all var(--transition-smooth);
+            text-align: center;
+        }
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+        }
+        .equipment-card i {
+            font-size: 3rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .team-member {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            text-align: center;
+            transition: all var(--transition-smooth);
+            padding: 1.5rem;
+        }
+        .member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            overflow: hidden;
+            border: 3px solid var(--gold-primary);
+        }
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .training-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .training-item {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .training-badge {
+            background: var(--gold-primary);
+            color: var(--navy-deep);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: var(--text-sm);
+            font-weight: 600;
+        }
+        .back-home {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gold-primary);
+            color: var(--navy-deep);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-smooth);
+            z-index: 100;
+        }
+        .back-home:hover {
+            transform: scale(1.1);
+            background: var(--gold-light);
+        }
+        @media (max-width: 768px) {
+            .training-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <img src="../KN LOGO.png" alt="Kingdom Network Global Logo">
+        </div>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav" id="nav-menu">
+            <a href="../index.html#home">Home</a>
+            <a href="../index.html#about">About</a>
+            <a href="../index.html#departments">Departments</a>
+            <a href="../index.html#founder">Founder</a>
+            <a href="../index.html#contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- Department Hero -->
+    <section class="department-hero">
+        <div class="overlay"></div>
+        <div class="content" style="position: relative; z-index: 2; text-align: center;">
+            <h1>Set & Sound</h1>
+            <p style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Supporting excellence in worship and ministry atmosphere through technical service</p>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section class="section">
+        <div class="content">
+            <h2>Our Equipment</h2>
+            <div class="equipment-grid">
+                <div class="equipment-card">
+                    <i class="fas fa-microphone-alt"></i>
+                    <h3>Audio System</h3>
+                    <p>Professional sound mixing consoles, speakers, and monitoring systems for clear worship experience.</p>
+                </div>
+                <div class="equipment-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Visual Projection</h3>
+                    <p>High-definition projectors and screens for lyrics and sermon visuals.</p>
+                </div>
+                <div class="equipment-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Stage Lighting</h3>
+                    <p>Dynamic lighting system to create an atmosphere of worship.</p>
+                </div>
+                <div class="equipment-card">
+                    <i class="fas fa-guitar"></i>
+                    <h3>Instrument Support</h3>
+                    <p>DI boxes, amplifiers, and cabling for all musical instruments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Team -->
+    <section class="section alt">
+        <div class="content">
+            <h2>Meet the Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="../images/sound-team1.jpg" alt="Mwangi" onerror="this.src='../images/sound.webp'">
+                    </div>
+                    <h3>Mwangi</h3>
+                    <p style="color: var(--gold-light);">Team Lead / Audio Engineer</p>
+                    <p>Certified sound engineer with 8+ years of experience in live sound mixing.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="../images/sound-team2.jpg" alt="Lighting Director" onerror="this.src='../images/sound.webp'">
+                    </div>
+                    <h3>James K.</h3>
+                    <p style="color: var(--gold-light);">Lighting Director</p>
+                    <p>Creates immersive lighting experiences for worship services.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="../images/sound-team3.jpg" alt="Visual Tech" onerror="this.src='../images/sound.webp'">
+                    </div>
+                    <h3>Peter O.</h3>
+                    <p style="color: var(--gold-light);">Visual Technician</p>
+                    <p>Manages projection and live streaming visuals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Schedule -->
+    <section class="section">
+        <div class="content">
+            <h2>Training Sessions</h2>
+            <div class="training-list">
+                <div class="training-item">
+                    <span><strong>🎧 Audio Mixing Basics</strong> - Learn fundamentals of sound mixing</span>
+                    <span class="training-badge">Every Monday, 4PM</span>
+                </div>
+                <div class="training-item">
+                    <span><strong>💡 Lighting Design</strong> - Creating worship atmospheres with light</span>
+                    <span class="training-badge">Every Wednesday, 3PM</span>
+                </div>
+                <div class="training-item">
+                    <span><strong>📽️ ProPresenter Training</strong> - Lyric and media presentation</span>
+                    <span class="training-badge">Every Friday, 2PM</span>
+                </div>
+                <div class="training-item">
+                    <span><strong>🔧 Equipment Maintenance</strong> - Care and troubleshooting</span>
+                    <span class="training-badge">1st Saturday of Month, 10AM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Schedule -->
+    <section class="section alt">
+        <div class="content">
+            <h2>Weekly Service Schedule</h2>
+            <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border-radius: 20px; padding: 1.5rem; margin-top: 2rem;">
+                <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--glass-border);">
+                    <span><strong>Sunday Service</strong></span>
+                    <span>Setup: 7:00 AM | Service: 9:00 AM - 12:00 PM</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--glass-border);">
+                    <span><strong>Wednesday Bible Study</strong></span>
+                    <span>Setup: 5:00 PM | Service: 6:00 PM - 8:00 PM</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.75rem 0;">
+                    <span><strong>Friday Prayer Night</strong></span>
+                    <span>Setup: 6:00 PM | Service: 7:00 PM - 9:00 PM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Call -->
+    <section class="section">
+        <div class="content" style="text-align: center;">
+            <h2>Join the Technical Team</h2>
+            <p>Are you passionate about tech and ministry? We need sound engineers, lighting techs, and visual operators.</p>
+            <p style="margin-top: 0.5rem;"><strong>No experience required — we will train you!</strong></p>
+            <a href="../index.html#contact" class="btn-primary" style="margin-top: 1.5rem;">Volunteer Today</a>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 Kingdom Network Global. All rights reserved.</p>
+</footer>
+
+<a href="../index.html" class="back-home">
+    <i class="fas fa-home"></i>
+</a>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
