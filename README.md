@@ -2,7 +2,7 @@
 
 A modern, responsive website for Kingdom Network Global - a youth-focused Christian ministry committed to raising a generation strengthened in Christ.
 
-![Kingdom Network Global](KN%20LOGO.png)
+
 
 ## 🌟 Live Demo
 
