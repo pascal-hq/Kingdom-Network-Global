@@ -14,12 +14,14 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 't_fse=e6)ieh_3sj&@8g9%)8**oy#e3fv+tuiy^a!pj$71t!6'
+# For production, set DJANGO_SECRET_KEY in .env file
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
+# Allow all hosts in development, specify in production
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -102,6 +104,11 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Media files (User uploaded content like event posters)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -115,7 +122,22 @@ CORS_ALLOWED_ORIGINS = [
     "https://kingdom-network-global.vercel.app",
 ]
 
+# Add production origin when deployed
+PRODUCTION_URL = os.getenv('PRODUCTION_URL', '')
+if PRODUCTION_URL:
+    CORS_ALLOWED_ORIGINS.append(PRODUCTION_URL)
+
 CORS_ALLOW_CREDENTIALS = True
+
+# CSRF Settings
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "https://kingdom-network-global.vercel.app",
+]
+
+if PRODUCTION_URL:
+    CSRF_TRUSTED_ORIGINS.append(PRODUCTION_URL)
 
 # REST Framework Settings
 REST_FRAMEWORK = {
@@ -123,3 +145,12 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [],
     'UNAUTHENTICATED_USER': None,
 }
+
+# Security Settings (Production)
+if not DEBUG:
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    X_FRAME_OPTIONS = 'DENY'

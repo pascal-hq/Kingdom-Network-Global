@@ -12,17 +12,42 @@ ENV/
 # Environment variables
 .env
 *.env
+.env.local
+.env.*.local
 
 # Django
 *.log
 db.sqlite3
 /staticfiles/
+media/
+*.pid
 
 # IDE
 .vscode/
 .idea/
 *.swp
+*.swo
+*~
+.DS_Store
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Frontend (if you ever add config files)
+Front-end/config.js
+Front-end/.env
+*.config.js
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

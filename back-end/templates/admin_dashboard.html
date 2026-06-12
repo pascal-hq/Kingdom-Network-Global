@@ -451,7 +451,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjciIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuMDMiLz48L3N2Zz4=');
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjciIG51bU9jdGF2ZXM9IjMiLz48L2ZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4wMyIvPjwvc3ZnPg==');
         background-repeat: repeat;
         pointer-events: none;
         opacity: 0.4;
@@ -781,14 +781,10 @@
 </div>
 
 <script>
-    // API Configuration
+    // API Configuration (NO HARDCODED SUPABASE KEYS!)
     const API_BASE = 'http://127.0.0.1:8000/api';
     let authToken = null;
     let userRole = null;
-
-    // Supabase Configuration
-    const SUPABASE_URL = 'https://ydaqzysqrajmdnijbjes.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkYXF6eXNxcmFqbWRuaWpiamVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNTMyODAsImV4cCI6MjA5NjcyOTI4MH0.OhrrRM2lqV3GKtwBZSl_aNJ_a2dkN-7z2e_SFsSThic';
 
     // Helper function to escape HTML
     function escapeHtml(text) {
@@ -798,7 +794,7 @@
         return div.innerHTML;
     }
 
-    // ========== AUTHENTICATION ==========
+    // ========== AUTHENTICATION (Now goes through Django) ==========
     async function login() {
         const email = document.getElementById('loginEmail').value;
         const password = document.getElementById('loginPassword').value;
@@ -813,13 +809,10 @@
         errorDiv.classList.add('hidden');
 
         try {
-            const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+            // Call Django login endpoint instead of Supabase directly
+            const response = await fetch(`${API_BASE}/auth/login/`, {
                 method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'apikey': SUPABASE_ANON_KEY,
-                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
 
@@ -827,7 +820,7 @@
 
             if (response.ok && data.access_token) {
                 authToken = data.access_token;
-                userRole = data.user?.app_metadata?.role || 'user';
+                userRole = data.user?.role || 'user';
                 
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('dashboardScreen').classList.remove('hidden');
@@ -840,7 +833,7 @@
                 loadEvents();
                 loadPrayers();
             } else {
-                errorDiv.textContent = data.message || data.error_description || 'Login failed. Check email and password.';
+                errorDiv.textContent = data.error || data.message || 'Login failed. Check email and password.';
                 errorDiv.classList.remove('hidden');
             }
         } catch (error) {
