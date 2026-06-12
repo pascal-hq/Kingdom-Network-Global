@@ -275,6 +275,60 @@ h4 {
     z-index: 2;
 }
 
+/* Upcoming Events Section */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.event-card-mini {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all var(--transition-smooth);
+}
+
+.event-card-mini:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-primary);
+}
+
+.event-date-mini {
+    font-size: 0.85rem;
+    color: var(--gold-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.event-title-mini {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.event-location-mini {
+    font-size: 0.85rem;
+    color: var(--gray-mid);
+    margin-bottom: 0.5rem;
+}
+
+.event-desc-mini {
+    font-size: 0.85rem;
+    color: var(--white-off);
+    opacity: 0.8;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+.loading, .empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--gray-mid);
+}
 /* Image Slider */
 .image-slider {
     width: 100%;
@@ -359,6 +413,134 @@ h4 {
     display: block;
 }
 
+/* Prayer Request Section */
+.prayer-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.prayer-form-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--gold-light);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.875rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--white-off);
+    font-family: 'Inter', sans-serif;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold-primary);
+}
+
+.prayer-success {
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid #22c55e;
+    color: #22c55e;
+    padding: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Events Grid */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.event-card-mini {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all var(--transition-smooth);
+}
+
+.event-card-mini:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-primary);
+}
+
+.event-date-mini {
+    font-size: 0.85rem;
+    color: var(--gold-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.event-title-mini {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.event-location-mini {
+    font-size: 0.85rem;
+    color: #94A3B8;
+}
+
+.event-desc-mini {
+    font-size: 0.85rem;
+    color: var(--white-off);
+    opacity: 0.8;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.loading, .empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #94A3B8;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    .prayer-form-container {
+        padding: 1.5rem;
+    }
+}
 /* Daily Verse */
 .daily-verse {
     background: var(--glass-bg);
@@ -511,7 +693,7 @@ h4 {
 
 .department-image {
     width: 100%;
-    height: 220px;
+    height: 200px;
     overflow: hidden;
 }
 

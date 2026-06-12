@@ -21,33 +21,28 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Stylesheet - CORRECT PATH (same folder) -->
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Rest of your head content... -->
 </head>
 <body>
 
 <header class="header">
     <div class="header-inner">
-        <!-- Logo -->
         <div class="logo">
             <img src="KN LOGO.png" alt="Kingdom Network Global Logo">
         </div>
-
-        <!-- Hamburger button for mobile -->
         <button class="hamburger" id="hamburger">
             <span></span>
             <span></span>
             <span></span>
         </button>
-
-        <!-- Navigation -->
         <nav class="nav" id="nav-menu">
             <a href="#home">Home</a>
             <a href="#about">About</a>
+            <a href="#events">Events</a>
             <a href="#departments">Departments</a>
             <a href="#founder">Founder</a>
+            <a href="#prayer">Prayer</a>
             <a href="#contact">Contact</a>
         </nav>
     </div>
@@ -58,9 +53,7 @@
     <!-- ========== HOME / HERO SECTION ========== -->
     <section id="home" class="section hero">
         <div class="overlay"></div>
-
         <div class="hero-inner">
-            <!-- IMAGE SLIDER -->
             <div class="image-slider">
                 <div class="slider-track">
                     <img src="images/home1.webp" alt="Kingdom Network Global worship gathering" class="active">
@@ -71,20 +64,15 @@
                     <img src="images/home6.webp" alt="Church service congregation">
                 </div>
             </div>
-
-            <!-- HERO TEXT CONTENT -->
             <div class="hero-content">
                 <h1>Welcome to <br><strong>Kingdom Network Global</strong></h1>
                 <p><em><u>Revelation, Manifestation, and Experience</u></em></p>
-
-                <!-- DAILY VERSE -->
                 <div class="daily-verse">
                     <h3><i class="fas fa-bible"></i> Daily Verse</h3>
                     <p class="verse-text">“Loading daily scripture…”</p>
                     <span class="verse-ref"></span>
                 </div>
-
-                <a href="#contact" class="btn-primary"><i class="fas fa-heart"></i> Our Generation Must Be Saved</a>
+                <a href="#prayer" class="btn-primary"><i class="fas fa-heart"></i> Our Generation Must Be Saved</a>
             </div>
         </div>
     </section>
@@ -92,176 +80,126 @@
     <!-- ========== ABOUT SECTION ========== -->
     <section id="about" class="section about">
         <div class="content about-inner scroll-reveal">
-            <!-- TEXT SIDE -->
             <div class="about-content">
                 <h2>About Kingdom Network Global</h2>
-
-                <p>
-                    <strong>Kingdom Network Global</strong> is a youth-focused Christian ministry committed to raising a generation strengthened in Christ, equipped to overcome the challenges of this present age.
-                </p>
-
-                <p>
-                    Our mission is to enhance spiritual growth, deepen revelation, and cultivate lasting spiritual stamina in believers, empowering them to live victorious and impactful lives.
-                </p>
-
+                <p><strong>Kingdom Network Global</strong> is a youth-focused Christian ministry committed to raising a generation strengthened in Christ, equipped to overcome the challenges of this present age.</p>
+                <p>Our mission is to enhance spiritual growth, deepen revelation, and cultivate lasting spiritual stamina in believers, empowering them to live victorious and impactful lives.</p>
                 <h3>Our Anchor Pillars</h3>
-
                 <div class="pillars">
                     <div class="pillar">
                         <i class="fas fa-lightbulb" style="font-size: 2rem; color: var(--gold-primary); margin-bottom: 1rem; display: inline-block;"></i>
                         <h4>Revelation</h4>
-                        <p>Guiding believers into a deeper understanding of God's Word and Kingdom truths.</p>
+                        <p id="pillarRevelation">Guiding believers into a deeper understanding of God's Word and Kingdom truths.</p>
                     </div>
                     <div class="pillar">
                         <i class="fas fa-hands-praying" style="font-size: 2rem; color: var(--gold-primary); margin-bottom: 1rem; display: inline-block;"></i>
                         <h4>Manifestation</h4>
-                        <p>Demonstrating the power and life of Christ through worship, service, and practical faith.</p>
+                        <p id="pillarManifestation">Demonstrating the power and life of Christ through worship, service, and practical faith.</p>
                     </div>
                     <div class="pillar">
                         <i class="fas fa-heart" style="font-size: 2rem; color: var(--gold-primary); margin-bottom: 1rem; display: inline-block;"></i>
                         <h4>Experience</h4>
-                        <p>Encouraging personal and corporate encounters with God that transform hearts and sustain spiritual growth.</p>
+                        <p id="pillarExperience">Encouraging personal and corporate encounters with God that transform hearts and sustain spiritual growth.</p>
                     </div>
                 </div>
             </div>
-
-            <!-- IMAGE SIDE -->
             <div class="about-image">
                 <img src="images/about.webp" alt="Kingdom Network Global ministry gathering">
             </div>
         </div>
     </section>
 
+    <!-- ========== UPCOMING EVENTS SECTION ========== -->
+    <section id="events" class="section alt">
+        <div class="content">
+            <h2 class="scroll-reveal">📅 Upcoming Events</h2>
+            <div id="upcomingEvents" class="events-grid scroll-reveal">
+                <div class="loading">Loading events...</div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#contact" class="btn-primary">Join an Event</a>
+            </div>
+        </div>
+    </section>
+
     <!-- ========== DEPARTMENTS SECTION ========== -->
-    <section id="departments" class="section alt">
+    <section id="departments" class="section">
         <div class="content">
             <h2 class="scroll-reveal">Our Departments</h2>
-
-            <div class="departments-center">
-                <!-- Department 1: Missions -->
-                <div class="department-card scroll-reveal">
-                    <div class="department-frame">
-                        <div class="department-image">
-                            <img src="images/missions.webp" alt="Missions Department - Outreach and Evangelism">
-                        </div>
-                        <div class="department-body">
-                            <h3>Missions</h3>
-                            <p>Extending the Kingdom through outreach, evangelism, and community impact.</p>
-                            <h4>Team Lead</h4>
-                            <p>Jackson</p>
-                            <a href="departments/missions.html" class="btn-more">
-                                <span> More...  </span>
-                                <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Department 2: Media -->
-                <div class="department-card scroll-reveal">
-                    <div class="department-frame">
-                        <div class="department-image">
-                            <img src="images/media.webp" alt="Media Department - Digital Platforms and Creative Expression">
-                        </div>
-                        <div class="department-body">
-                            <h3>Media</h3>
-                            <p>Communicating revelation and testimony through digital platforms and creative expression.</p>
-                            <h4>Team Lead</h4>
-                            <p>Derek</p>
-                            <a href="departments/media.html" class="btn-more">
-                                <span> More...  </span>
-                                <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Department 3: Praise & Worship -->
-                <div class="department-card scroll-reveal">
-                    <div class="department-frame">
-                        <div class="department-image">
-                            <img src="images/Worship.webp" alt="Praise and Worship Department">
-                        </div>
-                        <div class="department-body">
-                            <h3>Praise & Worship</h3>
-                            <p>Leading the ministry into tangible experiences of God's presence through worship.</p>
-                            <h4>Team Lead</h4>
-                            <p>Stephanie</p>
-                            <a href="departments/worship.html" class="btn-more">
-                                <span> More...  </span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Department 4: Set & Sound -->
-                <div class="department-card scroll-reveal">
-                    <div class="department-frame">
-                        <div class="department-image">
-                            <img src="images/sound.webp" alt="Set and Sound Department - Technical Support">
-                        </div>
-                        <div class="department-body">
-                            <h3>Set & Sound</h3>
-                            <p>Supporting excellence in worship and ministry atmosphere through technical service.</p>
-                            <h4>Team Lead</h4>
-                            <p>Mwangi</p>
-                            <a href="departments/sound.html" class="btn-more">More... <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Department 5: Mentorship School -->
-                <div class="department-card scroll-reveal">
-                    <div class="department-frame">
-                        <div class="department-image">
-                            <img src="images/mentorship.jpg" alt="Mentorship School - Discipleship and Teaching">
-                        </div>
-                        <div class="department-body">
-                            <h3>Mentorship School</h3>
-                            <p>Building spiritual stamina through intentional teaching, discipleship, and mentorship.</p>
-                            <h4>Team Lead</h4>
-                            <p>Michelle</p>
-                            <a href="departments/mentorship.html" class="btn-more">More... <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <div id="departmentsContainer" class="departments-center">
+                <div class="loading">Loading departments...</div>
             </div>
         </div>
     </section>
 
     <!-- ========== FOUNDER SECTION ========== -->
-    <section id="founder" class="section">
+    <section id="founder" class="section alt">
         <div class="content founder-inner scroll-reveal">
-            <!-- Image on the left -->
             <div class="founder-image">
                 <img src="images/vision.webp" alt="Pastor Emmanuel Favour - Founder of Kingdom Network Global">
             </div>
-
-            <!-- Text on the right -->
             <div class="founder-text">
                 <h2>Founder & Vision Bearer</h2>
                 <h3>Pst. Emmanuel Favour</h3>
-
-                <p>
-                    Pastor Emmanuel Favour is the founder and president of Kingdom Network Global, a youth-focused Christian ministry committed to raising a generation of believers empowered by spiritual revelation, practical experience, and unwavering stamina in Christ. With a passion to see young people rooted, victorious, and effective in their calling, he leads the ministry through teaching, mentorship, worship, and outreach programs. Under his guidance, Kingdom Network Global mobilizes youth to walk confidently in purpose, live out the Gospel in everyday life, and impact their communities positively. Through his leadership, Pastor Emmanuel emphasizes spiritual growth, discipleship, and authentic encounters with God, shaping a movement that equips believers to thrive in all areas of life.
-                </p>
-
-                <!-- Social Links -->
+                <p>Pastor Emmanuel Favour is the founder and president of Kingdom Network Global, a youth-focused Christian ministry committed to raising a generation of believers empowered by spiritual revelation, practical experience, and unwavering stamina in Christ. With a passion to see young people rooted, victorious, and effective in their calling, he leads the ministry through teaching, mentorship, worship, and outreach programs. Under his guidance, Kingdom Network Global mobilizes youth to walk confidently in purpose, live out the Gospel in everyday life, and impact their communities positively. Through his leadership, Pastor Emmanuel emphasizes spiritual growth, discipleship, and authentic encounters with God, shaping a movement that equips believers to thrive in all areas of life.</p>
                 <div class="founder-links">
-                    <a href="https://www.facebook.com/mannu favour" target="_blank">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
-                    <a href="https://www.instagram.com/mannu_favour" target="_blank">
-                        <i class="fab fa-instagram"></i> Instagram
-                    </a>
-                    <a href="https://www.tiktok.com/@mannufavour" target="_blank">
-                        <i class="fab fa-tiktok"></i> TikTok
-                    </a>
-                    <a href="https://www.youtube.com/@pastoremmanuelfavour" target="_blank">
-                        <i class="fab fa-youtube"></i> YouTube
-                    </a>
-                    <a href="mailto:emunyao17@gmail.com">
-                        <i class="fas fa-envelope"></i> Email
-                    </a>
+                    <a href="https://www.facebook.com/mannu favour" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://www.instagram.com/mannu_favour" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="https://www.tiktok.com/@mannufavour" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+                    <a href="https://www.youtube.com/@pastoremmanuelfavour" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="mailto:emunyao17@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRAYER REQUEST SECTION ========== -->
+    <section id="prayer" class="section">
+        <div class="content prayer-container scroll-reveal">
+            <h2 style="text-align: center;">🙏 Prayer Request</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Share your prayer needs with us. Our team will stand with you in prayer.</p>
+            
+            <div class="prayer-form-container">
+                <form id="prayerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Your Name</label>
+                            <input type="text" id="prayerName" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="prayerEmail" placeholder="Your email (optional)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-tag"></i> Prayer Category</label>
+                        <select id="prayerCategory" required>
+                            <option value="">Select a category</option>
+                            <option>Health & Healing</option>
+                            <option>Family & Relationships</option>
+                            <option>Finances & Provision</option>
+                            <option>Guidance & Direction</option>
+                            <option>Salvation for Loved Ones</option>
+                            <option>Church & Ministry</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-heart"></i> Your Prayer Request</label>
+                        <textarea id="prayerRequest" rows="5" placeholder="Share what you'd like us to pray about..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="prayerConfidential">
+                            <i class="fas fa-lock"></i> Keep this request confidential (only shared with prayer team)
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-pray"></i> Submit Prayer Request
+                    </button>
+                </form>
+                <div id="prayerSuccess" class="prayer-success hidden">
+                    <i class="fas fa-check-circle"></i> Prayer request submitted! Our team will pray for you.
                 </div>
             </div>
         </div>
@@ -272,24 +210,12 @@
         <div class="content contact-center scroll-reveal">
             <h2>Contact Us</h2>
             <p>For inquiries, collaborations, or to join the movement, reach out to us through any of the platforms below. We would love to connect with you!</p>
-
-            <!-- Social / Contact Links with Icons -->
             <div class="contact-links">
-                <a href="https://www.facebook.com/kingdomnetworkglobal" target="_blank">
-                    <i class="fab fa-facebook-f"></i> Facebook
-                </a>
-                <a href="https://www.instagram.com/kingdomnetwork254" target="_blank">
-                    <i class="fab fa-instagram"></i> Instagram
-                </a>
-                <a href="https://wa.me/254706432620" target="_blank">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-                <a href="https://www.youtube.com/@kingdomnetworkglobal3108" target="_blank">
-                    <i class="fab fa-youtube"></i> YouTube
-                </a>
-                <a href="mailto:kingdomnetwork254@gmail.com">
-                    <i class="fas fa-envelope"></i> Email
-                </a>
+                <a href="https://www.facebook.com/kingdomnetworkglobal" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://www.instagram.com/kingdomnetwork254" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://wa.me/254706432620" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://www.youtube.com/@kingdomnetworkglobal3108" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="mailto:kingdomnetwork254@gmail.com"><i class="fas fa-envelope"></i> Email</a>
             </div>
         </div>
     </section>
@@ -301,49 +227,25 @@
 </footer>
 
 <!-- JavaScript -->
-<script src="main.js"></script>
-
-<!-- Additional JavaScript for features -->
 <script>
-    // Auto-update footer year
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-    // Scroll reveal animation
-    const revealElements = document.querySelectorAll('.scroll-reveal');
+    // ========== HAMBURGER MENU ==========
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
     
-    function checkReveal() {
-        const windowHeight = window.innerHeight;
-        const revealThreshold = 100;
-        
-        revealElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            if (elementTop < windowHeight - revealThreshold) {
-                element.classList.add('revealed');
-            }
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
         });
     }
-    
-    window.addEventListener('scroll', checkReveal);
-    window.addEventListener('load', checkReveal);
-    
-    // Header scroll effect (adds scrolled class)
-    const header = document.querySelector('.header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-    
-    // Active navigation link highlighting
+
+    // ========== SMOOTH SCROLLING & ACTIVE NAV ==========
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav a');
     
     function updateActiveNav() {
         let current = '';
         const scrollPosition = window.scrollY + 150;
-        
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionBottom = sectionTop + section.offsetHeight;
@@ -351,7 +253,6 @@
                 current = section.getAttribute('id');
             }
         });
-        
         navLinks.forEach(link => {
             link.classList.remove('active');
             const href = link.getAttribute('href').substring(1);
@@ -361,33 +262,239 @@
         });
     }
     
-    window.addEventListener('scroll', updateActiveNav);
-    window.addEventListener('load', updateActiveNav);
-    
-    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 e.preventDefault();
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Close mobile menu after clicking
-                const navMenu = document.getElementById('nav-menu');
-                const hamburger = document.getElementById('hamburger');
-                if (navMenu.classList.contains('active')) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                     hamburger.classList.remove('active');
                 }
             }
         });
     });
+    
+    // ========== HEADER SCROLL EFFECT ==========
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        updateActiveNav();
+    });
+    
+    // ========== SCROLL REVEAL ==========
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    function checkReveal() {
+        const windowHeight = window.innerHeight;
+        revealElements.forEach(element => {
+            if (element.getBoundingClientRect().top < windowHeight - 100) {
+                element.classList.add('revealed');
+            }
+        });
+    }
+    
+    // ========== FOOTER YEAR ==========
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
+    // ========== API CONFIGURATION ==========
+    const API_BASE = 'http://127.0.0.1:8000/api';
+    
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+    
+    // ========== LOAD MINISTRY SETTINGS ==========
+    async function loadMinistrySettings() {
+        try {
+            const response = await fetch(`${API_BASE}/public/settings/`);
+            const data = await response.json();
+            
+            const pillarRevelation = document.getElementById('pillarRevelation');
+            const pillarManifestation = document.getElementById('pillarManifestation');
+            const pillarExperience = document.getElementById('pillarExperience');
+            
+            if (pillarRevelation && data.pillar_revelation) pillarRevelation.textContent = data.pillar_revelation;
+            if (pillarManifestation && data.pillar_manifestation) pillarManifestation.textContent = data.pillar_manifestation;
+            if (pillarExperience && data.pillar_experience) pillarExperience.textContent = data.pillar_experience;
+        } catch (error) {
+            console.error('Failed to load ministry settings:', error);
+        }
+    }
+    
+    // ========== LOAD EVENTS ==========
+    async function loadEvents() {
+        const eventsContainer = document.getElementById('upcomingEvents');
+        if (!eventsContainer) return;
+        
+        try {
+            const response = await fetch(`${API_BASE}/public/events/`);
+            const events = await response.json();
+            
+            if (events.length === 0) {
+                eventsContainer.innerHTML = '<div class="empty-state">No upcoming events. Check back soon!</div>';
+                return;
+            }
+            
+            const today = new Date().toISOString().split('T')[0];
+            const upcomingEvents = events.filter(event => event.date >= today).slice(0, 6);
+            
+            if (upcomingEvents.length === 0) {
+                eventsContainer.innerHTML = '<div class="empty-state">No upcoming events. Check back soon!</div>';
+                return;
+            }
+            
+            eventsContainer.innerHTML = upcomingEvents.map(event => `
+                <div class="event-card-mini">
+                    <div class="event-date-mini">📅 ${formatDate(event.date)}</div>
+                    <div class="event-title-mini">${escapeHtml(event.title)}</div>
+                    <div class="event-location-mini">📍 ${escapeHtml(event.location)}</div>
+                    ${event.description ? `<div class="event-desc-mini">${escapeHtml(event.description.substring(0, 100))}${event.description.length > 100 ? '...' : ''}</div>` : ''}
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error('Failed to load events:', error);
+            eventsContainer.innerHTML = '<div class="empty-state">Unable to load events</div>';
+        }
+    }
+    
+    // ========== LOAD DEPARTMENTS ==========
+    async function loadDepartments() {
+        const container = document.getElementById('departmentsContainer');
+        if (!container) return;
+        
+        container.innerHTML = '<div class="loading">Loading departments...</div>';
+        
+        try {
+            const response = await fetch(`${API_BASE}/public/content/`);
+            const allContent = await response.json();
+            const departments = allContent.filter(item => item.type === 'department');
+            
+            if (departments.length === 0) {
+                container.innerHTML = '<div class="empty-state">No departments found</div>';
+                return;
+            }
+            
+            departments.sort((a, b) => (a.data?.order || 0) - (b.data?.order || 0));
+            
+            container.innerHTML = departments.map(dept => {
+                const data = dept.data || {};
+                const deptKey = dept.key;
+                return `
+                    <div class="department-card scroll-reveal">
+                        <div class="department-frame">
+                            <div class="department-image">
+                                <img src="images/${deptKey}.webp" alt="${data.name || deptKey} Department" onerror="this.src='images/placeholder.jpg'">
+                            </div>
+                            <div class="department-body">
+                                <h3>${escapeHtml(data.name || deptKey)}</h3>
+                                <p>${escapeHtml(data.description || '')}</p>
+                                <h4>Team Lead</h4>
+                                <p>${escapeHtml(data.team_lead || 'TBA')}</p>
+                                <a href="departments/${deptKey}.html" class="btn-more">
+                                    <span>More...</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Re-trigger scroll reveal for new elements
+            const newRevealElements = document.querySelectorAll('.scroll-reveal');
+            newRevealElements.forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add('revealed');
+                }
+            });
+            
+        } catch (error) {
+            console.error('Failed to load departments:', error);
+            container.innerHTML = '<div class="empty-state">Unable to load departments. Please ensure the backend is running.</div>';
+        }
+    }
+    
+    // ========== PRAYER FORM ==========
+    function setupPrayerForm() {
+        const prayerForm = document.getElementById('prayerForm');
+        const successDiv = document.getElementById('prayerSuccess');
+        
+        if (!prayerForm) return;
+        
+        prayerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('prayerName')?.value || '',
+                email: document.getElementById('prayerEmail')?.value || '',
+                category: document.getElementById('prayerCategory')?.value || '',
+                request: document.getElementById('prayerRequest')?.value || ''
+            };
+            
+            const submitBtn = prayerForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn?.textContent || 'Submit';
+            
+            if (submitBtn) {
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/public/prayer/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    prayerForm.reset();
+                    if (successDiv) {
+                        successDiv.classList.remove('hidden');
+                        setTimeout(() => successDiv.classList.add('hidden'), 5000);
+                    }
+                    alert('✅ Prayer request submitted! Our team will pray for you.');
+                } else {
+                    const error = await response.json();
+                    alert('❌ Failed to submit: ' + (error.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Prayer submission error:', error);
+                alert('❌ Network error. Please try again.');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+        });
+    }
+    
+    // ========== INITIALIZE EVERYTHING ==========
+    document.addEventListener('DOMContentLoaded', () => {
+        loadMinistrySettings();
+        loadEvents();
+        loadDepartments();
+        setupPrayerForm();
+        checkReveal();
+    });
+    
+    window.addEventListener('scroll', checkReveal);
+    window.addEventListener('load', updateActiveNav);
 </script>
 
 </body>
