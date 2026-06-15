@@ -782,7 +782,9 @@
 
 <script>
     // API Configuration 
-    const API_BASE = 'https://kingdom-network-global.onrender.com';
+    const API_BASE = window.location.hostname === 'localhost' 
+    ? 'http://127.0.0.1:8000/api'
+    : 'https://kingdom-network-global.onrender.com/api';
     let authToken = null;
     let userRole = null;
 
