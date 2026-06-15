@@ -157,9 +157,9 @@ if not DEBUG:
     
     
 # Production settings
-import dj_database_url
+#import dj_database_url
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+#MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
