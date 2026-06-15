@@ -9,23 +9,39 @@ import uuid
 def get_user_role_from_token(request):
     """Extract user role from Authorization header"""
     auth_header = request.headers.get('Authorization', '')
+    print(f"🔍 Auth header: {auth_header[:50] if auth_header else 'None'}...")
+    
     if not auth_header or not auth_header.startswith('Bearer '):
+        print("❌ No Bearer token found")
         return None
     
     token = auth_header.replace('Bearer ', '')
+    print(f"🔍 Token: {token[:50]}...")
+    
     try:
-        user = supabase.auth.get_user(token)
-        if user.user:
-            return user.user.app_metadata.get('role', 'user')
+        # Verify the token with Supabase
+        user_response = supabase.auth.get_user(token)
+        print(f"🔍 Supabase response: {user_response}")
+        
+        if user_response and user_response.user:
+            role = user_response.user.app_metadata.get('role', 'user')
+            print(f"✅ User role from metadata: {role}")
+            return role
+        else:
+            print("❌ No user found in response")
+            return None
     except Exception as e:
-        print(f"Auth error: {e}")
-    return None
+        print(f"❌ Auth error details: {e}")
+        return None
 
 def is_admin(request):
-    return get_user_role_from_token(request) == 'admin'
+    role = get_user_role_from_token(request)
+    print(f"🔍 is_admin check - role: {role}")
+    return role == 'admin'
 
 def is_manager(request):
     role = get_user_role_from_token(request)
+    print(f"🔍 is_manager check - role: {role}")
     return role in ['admin', 'manager']
 
 # ========== PUBLIC ENDPOINTS (No authentication needed) ==========
@@ -158,21 +174,47 @@ def mark_prayer_responded(request, prayer_id):
 @api_view(['GET', 'PUT'])
 def manage_ministry_settings(request):
     """Admin only: Get or update ministry settings"""
+    print("=" * 50)
+    print("📌 manage_ministry_settings called")
+    print(f"Method: {request.method}")
+    
     if not is_admin(request):
+        print("❌ Admin access denied")
         return Response({'error': 'Admin access required'}, status=status.HTTP_403_FORBIDDEN)
+    
+    print("✅ Admin access granted")
     
     try:
         if request.method == 'GET':
+            print("📡 Fetching ministry settings from Supabase...")
             response = supabase.table('ministry_settings').select('*').limit(1).execute()
-            return Response(response.data[0] if response.data else {})
+            print(f"📡 Supabase response: {response.data}")
+            
+            if response.data and len(response.data) > 0:
+                return Response(response.data[0])
+            else:
+                print("⚠️ No settings found, returning empty")
+                return Response({}, status=status.HTTP_404_NOT_FOUND)
         
         elif request.method == 'PUT':
             settings_id = request.data.get('id')
+            print(f"📡 Updating settings ID: {settings_id}")
+            
             if not settings_id:
                 return Response({'error': 'Settings ID required'}, status=status.HTTP_400_BAD_REQUEST)
-            response = supabase.table('ministry_settings').update(request.data).eq('id', settings_id).execute()
-            return Response(response.data)
+            
+            update_data = {
+                'mission': request.data.get('mission', ''),
+                'vision': request.data.get('vision', ''),
+                'pillar_revelation': request.data.get('pillar_revelation', ''),
+                'pillar_manifestation': request.data.get('pillar_manifestation', ''),
+                'pillar_experience': request.data.get('pillar_experience', '')
+            }
+            
+            response = supabase.table('ministry_settings').update(update_data).eq('id', settings_id).execute()
+            return Response(response.data[0] if response.data else {})
     except Exception as e:
+        print(f"❌ Error: {e}")
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET', 'PUT', 'DELETE'])

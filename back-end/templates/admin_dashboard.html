@@ -1038,22 +1038,25 @@
     let currentSettingsId = null;
 
     async function openSettingsModal() {
-        try {
-            const response = await apiCall('/admin/settings/');
-            const data = await response.json();
-            
-            currentSettingsId = data.id;
-            document.getElementById('settingsMission').value = data.mission || '';
-            document.getElementById('settingsVision').value = data.vision || '';
-            document.getElementById('settingsRevelation').value = data.pillar_revelation || '';
-            document.getElementById('settingsManifestation').value = data.pillar_manifestation || '';
-            document.getElementById('settingsExperience').value = data.pillar_experience || '';
-            
-            document.getElementById('settingsModal').style.display = 'flex';
-        } catch (error) {
-            alert('Failed to load settings: ' + error.message);
-        }
+    try {
+        const response = await apiCall('/admin/settings/');
+        const data = await response.json();
+        
+        console.log('Settings data:', data); // Debug: check what's returned
+        
+        currentSettingsId = data.id;
+        document.getElementById('settingsMission').value = data.mission || '';
+        document.getElementById('settingsVision').value = data.vision || '';
+        document.getElementById('settingsRevelation').value = data.pillar_revelation || '';
+        document.getElementById('settingsManifestation').value = data.pillar_manifestation || '';
+        document.getElementById('settingsExperience').value = data.pillar_experience || '';
+        
+        document.getElementById('settingsModal').style.display = 'flex';
+    } catch (error) {
+        console.error('Failed to load settings:', error);
+        alert('Failed to load settings: ' + error.message);
     }
+}
 
     async function saveSettings(e) {
         e.preventDefault();
