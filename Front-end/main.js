@@ -3,6 +3,11 @@
 // All Features: Hamburger | Slider | Bible API | Scroll Effects
 // ========================================
 
+// ========== API CONFIGURATION ==========
+const API_BASE = window.location.hostname === 'localhost' 
+    ? 'http://127.0.0.1:8000/api'
+    : 'https://kingdom-network-global.onrender.com/api';
+
 // ========== 1. HAMBURGER MENU ==========
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("nav-menu");
@@ -238,8 +243,222 @@ if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
 }
 
-// ========== 9. DEPARTMENT PAGE FORM HANDLERS ==========
-// Check if we're on a department page with a join form
+// ========== 9. LOAD MINISTRY SETTINGS ==========
+async function loadMinistrySettings() {
+    try {
+        const response = await fetch(`${API_BASE}/public/settings/`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        
+        const pillarRevelation = document.getElementById('pillarRevelation');
+        const pillarManifestation = document.getElementById('pillarManifestation');
+        const pillarExperience = document.getElementById('pillarExperience');
+        
+        if (pillarRevelation && data.pillar_revelation) pillarRevelation.textContent = data.pillar_revelation;
+        if (pillarManifestation && data.pillar_manifestation) pillarManifestation.textContent = data.pillar_manifestation;
+        if (pillarExperience && data.pillar_experience) pillarExperience.textContent = data.pillar_experience;
+    } catch (error) {
+        console.error('Failed to load ministry settings:', error);
+    }
+}
+
+// ========== 10. LOAD EVENTS (with retry) ==========
+async function loadEvents(retryCount = 0) {
+    const eventsContainer = document.getElementById('upcomingEvents');
+    if (!eventsContainer) return;
+    
+    eventsContainer.innerHTML = '<div class="loading">Loading events...</div>';
+    
+    try {
+        const response = await fetch(`${API_BASE}/public/events/`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const events = await response.json();
+        
+        if (events.length === 0) {
+            eventsContainer.innerHTML = '<div class="empty-state">No upcoming events. Check back soon!</div>';
+            return;
+        }
+        
+        const today = new Date().toISOString().split('T')[0];
+        const upcomingEvents = events.filter(event => event.date >= today).slice(0, 6);
+        
+        if (upcomingEvents.length === 0) {
+            eventsContainer.innerHTML = '<div class="empty-state">No upcoming events. Check back soon!</div>';
+            return;
+        }
+        
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        eventsContainer.innerHTML = upcomingEvents.map(event => `
+            <div class="event-card-mini">
+                <div class="event-date-mini">📅 ${formatDate(event.date)}</div>
+                <div class="event-title-mini">${escapeHtml(event.title)}</div>
+                <div class="event-location-mini">📍 ${escapeHtml(event.location)}</div>
+                ${event.description ? `<div class="event-desc-mini">${escapeHtml(event.description.substring(0, 100))}${event.description.length > 100 ? '...' : ''}</div>` : ''}
+            </div>
+        `).join('');
+        
+    } catch (error) {
+        console.error('Failed to load events:', error);
+        
+        if (retryCount < 3) {
+            const delay = 1000 * Math.pow(2, retryCount);
+            console.log(`Retrying events... attempt ${retryCount + 1} in ${delay}ms`);
+            setTimeout(() => loadEvents(retryCount + 1), delay);
+        } else {
+            eventsContainer.innerHTML = `
+                <div class="empty-state">
+                    Unable to load events.
+                    <button onclick="loadEvents()" class="btn-retry">Retry</button>
+                </div>
+            `;
+        }
+    }
+}
+
+// ========== 11. LOAD DEPARTMENTS (with retry) ==========
+async function loadDepartments(retryCount = 0) {
+    const container = document.getElementById('departmentsContainer');
+    if (!container) return;
+    
+    container.innerHTML = '<div class="loading">Loading departments...</div>';
+    
+    try {
+        const response = await fetch(`${API_BASE}/public/content/`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const allContent = await response.json();
+        const departments = allContent.filter(item => item.type === 'department');
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        if (departments.length === 0) {
+            container.innerHTML = '<div class="empty-state">No departments found</div>';
+            return;
+        }
+        
+        departments.sort((a, b) => (a.data?.order || 0) - (b.data?.order || 0));
+        
+        container.innerHTML = departments.map(dept => {
+            const data = dept.data || {};
+            const deptKey = dept.key;
+            return `
+                <div class="department-card scroll-reveal">
+                    <div class="department-frame">
+                        <div class="department-image">
+                            <img src="images/${deptKey}.webp" alt="${data.name || deptKey} Department" onerror="this.src='images/placeholder.jpg'">
+                        </div>
+                        <div class="department-body">
+                            <h3>${escapeHtml(data.name || deptKey)}</h3>
+                            <p>${escapeHtml(data.description || '')}</p>
+                            <h4>Team Lead</h4>
+                            <p>${escapeHtml(data.team_lead || 'TBA')}</p>
+                            <a href="departments/${deptKey}.html" class="btn-more">
+                                <span>More...</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        // Re-trigger scroll reveal for new elements
+        const newRevealElements = document.querySelectorAll('.scroll-reveal');
+        newRevealElements.forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                el.classList.add('revealed');
+            }
+        });
+        
+    } catch (error) {
+        console.error('Failed to load departments:', error);
+        
+        if (retryCount < 3) {
+            const delay = 1000 * Math.pow(2, retryCount);
+            console.log(`Retrying departments... attempt ${retryCount + 1} in ${delay}ms`);
+            setTimeout(() => loadDepartments(retryCount + 1), delay);
+        } else {
+            container.innerHTML = `
+                <div class="empty-state">
+                    Unable to load departments.
+                    <button onclick="loadDepartments()" class="btn-retry">Retry</button>
+                </div>
+            `;
+        }
+    }
+}
+
+// ========== 12. PRAYER FORM ==========
+function setupPrayerForm() {
+    const prayerForm = document.getElementById('prayerForm');
+    const successDiv = document.getElementById('prayerSuccess');
+    
+    if (!prayerForm) return;
+    
+    prayerForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            name: document.getElementById('prayerName')?.value || '',
+            email: document.getElementById('prayerEmail')?.value || '',
+            category: document.getElementById('prayerCategory')?.value || '',
+            request: document.getElementById('prayerRequest')?.value || ''
+        };
+        
+        const submitBtn = prayerForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn?.textContent || 'Submit';
+        
+        if (submitBtn) {
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+        }
+        
+        try {
+            const response = await fetch(`${API_BASE}/public/prayer/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            
+            if (response.ok) {
+                prayerForm.reset();
+                if (successDiv) {
+                    successDiv.classList.remove('hidden');
+                    setTimeout(() => successDiv.classList.add('hidden'), 5000);
+                }
+                alert('✅ Prayer request submitted! Our team will pray for you.');
+            } else {
+                const error = await response.json();
+                alert('❌ Failed to submit: ' + (error.error || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Prayer submission error:', error);
+            alert('❌ Network error. Please try again.');
+        } finally {
+            if (submitBtn) {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+    });
+}
+
+// ========== 13. DEPARTMENT PAGE FORM HANDLERS ==========
 const mentorshipForm = document.getElementById("mentorshipForm");
 if (mentorshipForm) {
     mentorshipForm.addEventListener("submit", function(e) {
@@ -258,27 +477,41 @@ if (missionsForm) {
     });
 }
 
-// ========== 10. IMAGE FALLBACK HANDLER ==========
-// Prevent broken images from showing ugly icons
+// ========== 14. IMAGE FALLBACK HANDLER ==========
 document.querySelectorAll("img").forEach(img => {
     img.addEventListener("error", function() {
-        // Don't replace with default if it's already trying to load a fallback
         if (!this.src.includes("placeholder")) {
             console.log("Image failed to load:", this.src);
-            // Optional: set a placeholder color instead of broken icon
-            this.style.backgroundColor = "rgba(201, 160, 61, 0.2";
+            this.style.backgroundColor = "rgba(201, 160, 61, 0.2)";
             this.style.minHeight = "100px";
         }
     });
 });
 
-// ========== 11. VIDEO GALLERY PLACEHOLDER (for Media page) ==========
-// Replace YouTube embed placeholders with actual videos if needed
+// ========== 15. VIDEO GALLERY PLACEHOLDER ==========
 const youtubeIframes = document.querySelectorAll('iframe[src*="VIDEO_ID"]');
 youtubeIframes.forEach(iframe => {
-    // This is just a placeholder - you can replace with actual video IDs
     console.log("Please replace VIDEO_ID with actual YouTube video IDs in Media page");
 });
 
-// ========== 12. PAGE LOAD COMPLETE ==========
+// ========== 16. INITIALIZE EVERYTHING ==========
+document.addEventListener('DOMContentLoaded', () => {
+    // Load everything in parallel using Promise.allSettled
+    Promise.allSettled([
+        loadMinistrySettings(),
+        loadEvents(),
+        loadDepartments(),
+        setupPrayerForm()
+    ]).then(results => {
+        results.forEach((result, index) => {
+            if (result.status === 'rejected') {
+                console.warn(`Feature ${index} failed to load:`, result.reason);
+            }
+        });
+    });
+    
+    checkScrollReveal();
+});
+
+// ========== 17. PAGE LOAD COMPLETE ==========
 console.log("Kingdom Network Global - Website loaded successfully");

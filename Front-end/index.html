@@ -322,6 +322,7 @@
     async function loadMinistrySettings() {
         try {
             const response = await fetch(`${API_BASE}/public/settings/`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
             
             const pillarRevelation = document.getElementById('pillarRevelation');
@@ -336,13 +337,16 @@
         }
     }
     
-    // ========== LOAD EVENTS ==========
-    async function loadEvents() {
+    // ========== LOAD EVENTS (with retry) ==========
+    async function loadEvents(retryCount = 0) {
         const eventsContainer = document.getElementById('upcomingEvents');
         if (!eventsContainer) return;
         
+        eventsContainer.innerHTML = '<div class="loading">Loading events...</div>';
+        
         try {
             const response = await fetch(`${API_BASE}/public/events/`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const events = await response.json();
             
             if (events.length === 0) {
@@ -366,14 +370,27 @@
                     ${event.description ? `<div class="event-desc-mini">${escapeHtml(event.description.substring(0, 100))}${event.description.length > 100 ? '...' : ''}</div>` : ''}
                 </div>
             `).join('');
+            
         } catch (error) {
             console.error('Failed to load events:', error);
-            eventsContainer.innerHTML = '<div class="empty-state">Unable to load events</div>';
+            
+            if (retryCount < 3) {
+                const delay = 1000 * Math.pow(2, retryCount);
+                console.log(`Retrying events... attempt ${retryCount + 1} in ${delay}ms`);
+                setTimeout(() => loadEvents(retryCount + 1), delay);
+            } else {
+                eventsContainer.innerHTML = `
+                    <div class="empty-state">
+                        Unable to load events.
+                        <button onclick="loadEvents()" class="btn-retry">Retry</button>
+                    </div>
+                `;
+            }
         }
     }
     
-    // ========== LOAD DEPARTMENTS ==========
-    async function loadDepartments() {
+    // ========== LOAD DEPARTMENTS (with retry) ==========
+    async function loadDepartments(retryCount = 0) {
         const container = document.getElementById('departmentsContainer');
         if (!container) return;
         
@@ -381,6 +398,7 @@
         
         try {
             const response = await fetch(`${API_BASE}/public/content/`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const allContent = await response.json();
             const departments = allContent.filter(item => item.type === 'department');
             
@@ -425,7 +443,19 @@
             
         } catch (error) {
             console.error('Failed to load departments:', error);
-            container.innerHTML = '<div class="empty-state">Unable to load departments. Please ensure the backend is running.</div>';
+            
+            if (retryCount < 3) {
+                const delay = 1000 * Math.pow(2, retryCount);
+                console.log(`Retrying departments... attempt ${retryCount + 1} in ${delay}ms`);
+                setTimeout(() => loadDepartments(retryCount + 1), delay);
+            } else {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        Unable to load departments.
+                        <button onclick="loadDepartments()" class="btn-retry">Retry</button>
+                    </div>
+                `;
+            }
         }
     }
     
@@ -486,10 +516,20 @@
     
     // ========== INITIALIZE EVERYTHING ==========
     document.addEventListener('DOMContentLoaded', () => {
-        loadMinistrySettings();
-        loadEvents();
-        loadDepartments();
-        setupPrayerForm();
+        // Load everything in parallel using Promise.allSettled
+        Promise.allSettled([
+            loadMinistrySettings(),
+            loadEvents(),
+            loadDepartments(),
+            setupPrayerForm()
+        ]).then(results => {
+            results.forEach((result, index) => {
+                if (result.status === 'rejected') {
+                    console.warn(`Feature ${index} failed to load:`, result.reason);
+                }
+            });
+        });
+        
         checkReveal();
     });
     
