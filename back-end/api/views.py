@@ -239,13 +239,15 @@ def manage_content(request, content_id):
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
-def get_all_content_admin(request):
-    """Admin only: Get all content"""
-    if not is_admin(request):
-        return Response({'error': 'Admin access required'}, status=status.HTTP_403_FORBIDDEN)
-    
+def get_public_content(request):
+    """Public: Get all departments and content"""
     try:
+        print("🔍 get_public_content called")
+        print(f"🔍 Supabase URL: {supabase.supabase_url}")
         response = supabase.table('content').select('*').execute()
+        print(f"📡 Response data: {response.data}")
+        print(f"📡 Response count: {len(response.data) if response.data else 0}")
         return Response(response.data)
     except Exception as e:
+        print(f"❌ Error: {e}")
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
