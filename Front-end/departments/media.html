@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Same department page base styles */
         .department-hero {
             min-height: 50vh;
             display: flex;
@@ -25,6 +24,31 @@
             background: linear-gradient(135deg, rgba(10,17,40,0.8), rgba(10,17,40,0.95));
             z-index: 1;
         }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition-smooth);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            font-family: 'Playfair Display', serif;
+        }
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -39,13 +63,15 @@
             overflow: hidden;
             text-align: center;
             transition: all var(--transition-smooth);
-            padding: 1.5rem;
+        }
+        .team-member:hover {
+            transform: translateY(-5px);
         }
         .member-image {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            margin: 0 auto 1rem;
+            margin: 2rem auto 1rem;
             overflow: hidden;
             border: 3px solid var(--gold-primary);
         }
@@ -76,20 +102,53 @@
             aspect-ratio: 16/9;
             border: none;
         }
-        .platform-stats {
+        .event-list {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .event-item {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
-            margin: 2rem 0;
+            gap: 1rem;
         }
-        .platform {
-            text-align: center;
-            padding: 1rem;
+        .event-date-badge {
+            background: var(--gold-primary);
+            color: var(--navy-deep);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: var(--text-sm);
         }
-        .platform i {
-            font-size: 3rem;
-            color: var(--gold-primary);
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-smooth);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
         .back-home {
             position: fixed;
@@ -106,10 +165,13 @@
             text-decoration: none;
             z-index: 100;
         }
+        .back-home:hover {
+            transform: scale(1.1);
+            background: var(--gold-light);
+        }
         @media (max-width: 768px) {
-            .video-grid {
-                grid-template-columns: 1fr;
-            }
+            .video-grid { grid-template-columns: 1fr; }
+            .event-item { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -118,7 +180,7 @@
 <header class="header">
     <div class="header-inner">
         <div class="logo">
-            <img src="..//KN LOGO.png" alt="Kingdom Network Global Logo">
+            <img src="../KN LOGO.png" alt="Kingdom Network Global Logo">
         </div>
         <button class="hamburger" id="hamburger">
             <span></span>
@@ -139,34 +201,30 @@
     <section class="department-hero">
         <div class="overlay"></div>
         <div class="content" style="position: relative; z-index: 2; text-align: center;">
-            <h1>Media Department</h1>
-            <p style="font-size: 1.25rem;">Communicating revelation and testimony through digital platforms</p>
+            <h1 id="deptName">Media Department</h1>
+            <p id="deptTagline" style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Communicating revelation and testimony through digital platforms</p>
         </div>
     </section>
 
     <section class="section">
         <div class="content">
             <h2>Our Reach</h2>
-            <div class="platform-stats">
-                <div class="platform">
-                    <i class="fab fa-youtube"></i>
-                    <h3>YouTube</h3>
-                    <p>1.2K+ Subscribers</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="statYoutube">1.2K+</div>
+                    <p>YouTube Subscribers</p>
                 </div>
-                <div class="platform">
-                    <i class="fab fa-instagram"></i>
-                    <h3>Instagram</h3>
-                    <p>5K+ Followers</p>
+                <div class="stat-card">
+                    <div class="stat-number" id="statInstagram">5K+</div>
+                    <p>Instagram Followers</p>
                 </div>
-                <div class="platform">
-                    <i class="fab fa-facebook"></i>
-                    <h3>Facebook</h3>
-                    <p>3K+ Followers</p>
+                <div class="stat-card">
+                    <div class="stat-number" id="statFacebook">3K+</div>
+                    <p>Facebook Followers</p>
                 </div>
-                <div class="platform">
-                    <i class="fab fa-tiktok"></i>
-                    <h3>TikTok</h3>
-                    <p>10K+ Followers</p>
+                <div class="stat-card">
+                    <div class="stat-number" id="statTikTok">10K+</div>
+                    <p>TikTok Followers</p>
                 </div>
             </div>
         </div>
@@ -178,27 +236,27 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/media-team1.jpg" alt="Derek" onerror="this.src='../images/media.webp'">
+                        <img src="../images/derek.webp" alt="Derek" onerror="this.src='../images/media.webp'">
                     </div>
-                    <h3>Derek</h3>
+                    <h3 id="deptLeadName">Derek</h3>
                     <p style="color: var(--gold-light);">Team Lead</p>
-                    <p>Creative director overseeing all media production.</p>
+                    <p id="deptLeadBio" style="padding: 0 1rem 1rem;">Creative director overseeing all media production.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/pascal.webp" alt="Content Creator" onerror="this.src='../images/media.webp'">
+                        <img src="../images/grace.webp" alt="Content Creator" onerror="this.src='../images/media.webp'">
                     </div>
-                    <h3>Pascal</h3>
+                    <h3>Grace W.</h3>
                     <p style="color: var(--gold-light);">Content Creator</p>
-                    <p>Photographer</p>
+                    <p style="padding: 0 1rem 1rem;">Creates engaging social media content and reels.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/rango.webp" alt="Video Editor" onerror="this.src='../images/media.webp'">
+                        <img src="../images/brian.webp" alt="Video Editor" onerror="this.src='../images/media.webp'">
                     </div>
-                    <h3>Rango</h3>
+                    <h3>Brian K.</h3>
                     <p style="color: var(--gold-light);">Video Editor</p>
-                    <p>Creates engaging social media content and reels.</p>
+                    <p style="padding: 0 1rem 1rem;">Edits sermons and ministry highlight videos.</p>
                 </div>
             </div>
         </div>
@@ -235,12 +293,43 @@
 
     <section class="section alt">
         <div class="content">
+            <h2>Upcoming Events</h2>
+            <div id="deptEvents" class="event-list">
+                <div class="event-item">
+                    <span><em>Loading events...</em></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="content">
+            <h2>Gallery</h2>
+            <div id="deptGallery" class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="../images/home1.webp" alt="Gallery image" onerror="this.src='../images/media.webp'">
+                </div>
+                <div class="gallery-item">
+                    <img src="../images/home2.webp" alt="Gallery image" onerror="this.src='../images/media.webp'">
+                </div>
+                <div class="gallery-item">
+                    <img src="../images/home3.webp" alt="Gallery image" onerror="this.src='../images/media.webp'">
+                </div>
+                <div class="gallery-item">
+                    <img src="../images/home4.webp" alt="Gallery image" onerror="this.src='../images/media.webp'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt">
+        <div class="content">
             <h2>Social Media</h2>
-            <div class="contact-links" style="margin-top: 2rem;">
-                <a href="https://www.youtube.com/@kingdomnetworkglobal3108" target="_blank"><i class="fab fa-youtube"></i> Subscribe on YouTube</a>
-                <a href="https://www.instagram.com/kingdomnetwork254" target="_blank"><i class="fab fa-instagram"></i> Follow on Instagram</a>
-                <a href="https://www.facebook.com/kingdomnetworkglobal" target="_blank"><i class="fab fa-facebook"></i> Like on Facebook</a>
-                <a href="https://www.tiktok.com/@mannufavour" target="_blank"><i class="fab fa-tiktok"></i> Follow on TikTok</a>
+            <div class="contact-links" style="margin-top: 2rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+                <a href="https://www.youtube.com/@kingdomnetworkglobal3108" target="_blank" style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); padding: 0.75rem 1.5rem; border-radius: 50px; color: var(--white-off); text-decoration: none;"><i class="fab fa-youtube"></i> Subscribe on YouTube</a>
+                <a href="https://www.instagram.com/kingdomnetwork254" target="_blank" style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); padding: 0.75rem 1.5rem; border-radius: 50px; color: var(--white-off); text-decoration: none;"><i class="fab fa-instagram"></i> Follow on Instagram</a>
+                <a href="https://www.facebook.com/kingdomnetworkglobal" target="_blank" style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); padding: 0.75rem 1.5rem; border-radius: 50px; color: var(--white-off); text-decoration: none;"><i class="fab fa-facebook"></i> Like on Facebook</a>
+                <a href="https://www.tiktok.com/@mannufavour" target="_blank" style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); padding: 0.75rem 1.5rem; border-radius: 50px; color: var(--white-off); text-decoration: none;"><i class="fab fa-tiktok"></i> Follow on TikTok</a>
             </div>
         </div>
     </section>
@@ -255,5 +344,85 @@
 </a>
 
 <script src="../main.js"></script>
+<script>
+    const API_BASE = window.location.hostname === 'localhost' 
+        ? 'http://127.0.0.1:8000/api'
+        : 'https://kingdom-network-global.onrender.com/api';
+    const DEPT_KEY = 'media';
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
+    async function loadDepartmentPage() {
+        try {
+            const response = await fetch(`${API_BASE}/public/content/`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const allContent = await response.json();
+            const dept = allContent.find(item => item.key === DEPT_KEY && item.type === 'department');
+            if (!dept) return;
+            const data = dept.data || {};
+            document.getElementById('deptName').textContent = data.name || 'Media Department';
+            document.getElementById('deptTagline').textContent = data.description || '';
+            document.getElementById('deptLeadName').textContent = data.team_lead || 'TBA';
+            document.getElementById('deptLeadBio').textContent = data.lead_bio || `Leading the ${data.name || 'Media'} team with creativity and excellence.`;
+
+            if (data.stats) {
+                document.getElementById('statYoutube').textContent = data.stats.youtube || '1.2K+';
+                document.getElementById('statInstagram').textContent = data.stats.instagram || '5K+';
+                document.getElementById('statFacebook').textContent = data.stats.facebook || '3K+';
+                document.getElementById('statTikTok').textContent = data.stats.tiktok || '10K+';
+            }
+
+            if (data.gallery && data.gallery.length > 0) {
+                const galleryContainer = document.getElementById('deptGallery');
+                galleryContainer.innerHTML = data.gallery.map(img => `
+                    <div class="gallery-item">
+                        <img src="${img}" alt="Gallery image" onerror="this.src='../images/media.webp'">
+                    </div>
+                `).join('');
+            }
+
+            await loadDepartmentEvents();
+        } catch (error) {
+            console.error('Failed to load department:', error);
+        }
+    }
+
+    async function loadDepartmentEvents() {
+        const eventContainer = document.getElementById('deptEvents');
+        if (!eventContainer) return;
+        try {
+            const response = await fetch(`${API_BASE}/public/events/`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const allEvents = await response.json();
+            const today = new Date().toISOString().split('T')[0];
+            const upcomingEvents = allEvents.filter(event => event.date >= today).slice(0, 4);
+            if (upcomingEvents.length === 0) {
+                eventContainer.innerHTML = `<div class="event-item"><span><em>No upcoming events. Check back soon!</em></span></div>`;
+                return;
+            }
+            eventContainer.innerHTML = upcomingEvents.map(event => `
+                <div class="event-item">
+                    <span><strong>${escapeHtml(event.title)}</strong>${event.location ? ` - ${escapeHtml(event.location)}` : ''}</span>
+                    <span class="event-date-badge">${formatDate(event.date)}</span>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error('Failed to load events:', error);
+            eventContainer.innerHTML = `<div class="event-item"><span><em>Unable to load events</em></span></div>`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadDepartmentPage);
+</script>
 </body>
 </html>

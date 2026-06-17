@@ -24,6 +24,31 @@
             background: linear-gradient(135deg, rgba(10,17,40,0.8), rgba(10,17,40,0.95));
             z-index: 1;
         }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition-smooth);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            font-family: 'Playfair Display', serif;
+        }
         .equipment-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -36,18 +61,14 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 1.5rem;
-            transition: all var(--transition-smooth);
             text-align: center;
+            transition: all var(--transition-smooth);
         }
         .equipment-card:hover {
             transform: translateY(-5px);
             border-color: var(--gold-primary);
         }
-        .equipment-card i {
-            font-size: 3rem;
-            color: var(--gold-primary);
-            margin-bottom: 1rem;
-        }
+        .equipment-card i { font-size: 3rem; color: var(--gold-primary); margin-bottom: 1rem; }
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -59,11 +80,11 @@
             backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            overflow: hidden;
             text-align: center;
-            transition: all var(--transition-smooth);
             padding: 1.5rem;
+            transition: all var(--transition-smooth);
         }
+        .team-member:hover { transform: translateY(-5px); }
         .member-image {
             width: 150px;
             height: 150px;
@@ -99,8 +120,55 @@
             color: var(--navy-deep);
             padding: 0.25rem 0.75rem;
             border-radius: 50px;
-            font-size: var(--text-sm);
             font-weight: 600;
+        }
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .event-item {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .event-date-badge {
+            background: var(--gold-primary);
+            color: var(--navy-deep);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: var(--text-sm);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-smooth);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
         .back-home {
             position: fixed;
@@ -115,8 +183,6 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            box-shadow: var(--shadow-lg);
-            transition: all var(--transition-smooth);
             z-index: 100;
         }
         .back-home:hover {
@@ -124,11 +190,8 @@
             background: var(--gold-light);
         }
         @media (max-width: 768px) {
-            .training-item {
-                flex-direction: column;
-                gap: 0.5rem;
-                text-align: center;
-            }
+            .training-item { flex-direction: column; gap: 0.5rem; text-align: center; }
+            .event-item { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -155,60 +218,65 @@
 </header>
 
 <main>
-    <!-- Department Hero -->
     <section class="department-hero">
         <div class="overlay"></div>
         <div class="content" style="position: relative; z-index: 2; text-align: center;">
-            <h1>Set & Sound</h1>
-            <p style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Supporting excellence in worship and ministry atmosphere through technical service</p>
+            <h1 id="deptName">Set & Sound</h1>
+            <p id="deptTagline" style="font-size: 1.25rem;">Supporting excellence in worship and ministry atmosphere through technical service</p>
         </div>
     </section>
 
-    <!-- Equipment Section -->
     <section class="section">
         <div class="content">
-            <h2>Our Equipment</h2>
-            <div class="equipment-grid">
-                <div class="equipment-card">
-                    <i class="fas fa-microphone-alt"></i>
-                    <h3>Audio System</h3>
-                    <p>Professional sound mixing consoles, speakers, and monitoring systems for clear worship experience.</p>
+            <h2>Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="statEvents">200+</div>
+                    <p>Events Supported</p>
                 </div>
-                <div class="equipment-card">
-                    <i class="fas fa-video"></i>
-                    <h3>Visual Projection</h3>
-                    <p>High-definition projectors and screens for lyrics and sermon visuals.</p>
+                <div class="stat-card">
+                    <div class="stat-number" id="statVolunteers">15</div>
+                    <p>Technical Volunteers</p>
                 </div>
-                <div class="equipment-card">
-                    <i class="fas fa-lightbulb"></i>
-                    <h3>Stage Lighting</h3>
-                    <p>Dynamic lighting system to create an atmosphere of worship.</p>
+                <div class="stat-card">
+                    <div class="stat-number" id="statTraining">10</div>
+                    <p>Training Sessions</p>
                 </div>
-                <div class="equipment-card">
-                    <i class="fas fa-guitar"></i>
-                    <h3>Instrument Support</h3>
-                    <p>DI boxes, amplifiers, and cabling for all musical instruments.</p>
+                <div class="stat-card">
+                    <div class="stat-number" id="statHours">500+</div>
+                    <p>Service Hours</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Meet the Team -->
     <section class="section alt">
+        <div class="content">
+            <h2>Our Equipment</h2>
+            <div class="equipment-grid">
+                <div class="equipment-card"><i class="fas fa-microphone-alt"></i><h3>Audio System</h3><p>Professional sound mixing consoles, speakers, and monitoring systems.</p></div>
+                <div class="equipment-card"><i class="fas fa-video"></i><h3>Visual Projection</h3><p>High-definition projectors and screens for lyrics and sermon visuals.</p></div>
+                <div class="equipment-card"><i class="fas fa-lightbulb"></i><h3>Stage Lighting</h3><p>Dynamic lighting system to create an atmosphere of worship.</p></div>
+                <div class="equipment-card"><i class="fas fa-guitar"></i><h3>Instrument Support</h3><p>DI boxes, amplifiers, and cabling for all musical instruments.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
         <div class="content">
             <h2>Meet the Team</h2>
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/sound-team1.jpg" alt="Mwangi" onerror="this.src='../images/sound.webp'">
+                        <img src="../images/mwangi.webp" alt="Mwangi" onerror="this.src='../images/sound.webp'">
                     </div>
-                    <h3>Mwangi</h3>
+                    <h3 id="deptLeadName">Mwangi</h3>
                     <p style="color: var(--gold-light);">Team Lead / Audio Engineer</p>
-                    <p>Certified sound engineer with 8+ years of experience in live sound mixing.</p>
+                    <p id="deptLeadBio">Certified sound engineer with 8+ years of experience in live sound mixing.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/sound-team2.jpg" alt="Lighting Director" onerror="this.src='../images/sound.webp'">
+                        <img src="../images/james.webp" alt="Lighting" onerror="this.src='../images/sound.webp'">
                     </div>
                     <h3>James K.</h3>
                     <p style="color: var(--gold-light);">Lighting Director</p>
@@ -216,7 +284,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/sound-team3.jpg" alt="Visual Tech" onerror="this.src='../images/sound.webp'">
+                        <img src="../images/peter.webp" alt="Visual" onerror="this.src='../images/sound.webp'">
                     </div>
                     <h3>Peter O.</h3>
                     <p style="color: var(--gold-light);">Visual Technician</p>
@@ -226,59 +294,55 @@
         </div>
     </section>
 
-    <!-- Training Schedule -->
-    <section class="section">
+    <section class="section alt">
         <div class="content">
             <h2>Training Sessions</h2>
             <div class="training-list">
-                <div class="training-item">
-                    <span><strong>🎧 Audio Mixing Basics</strong> - Learn fundamentals of sound mixing</span>
-                    <span class="training-badge">Every Monday, 4PM</span>
-                </div>
-                <div class="training-item">
-                    <span><strong>💡 Lighting Design</strong> - Creating worship atmospheres with light</span>
-                    <span class="training-badge">Every Wednesday, 3PM</span>
-                </div>
-                <div class="training-item">
-                    <span><strong>📽️ ProPresenter Training</strong> - Lyric and media presentation</span>
-                    <span class="training-badge">Every Friday, 2PM</span>
-                </div>
-                <div class="training-item">
-                    <span><strong>🔧 Equipment Maintenance</strong> - Care and troubleshooting</span>
-                    <span class="training-badge">1st Saturday of Month, 10AM</span>
+                <div class="training-item"><span><strong>🎧 Audio Mixing Basics</strong> - Learn fundamentals</span><span class="training-badge">Every Monday, 4PM</span></div>
+                <div class="training-item"><span><strong>💡 Lighting Design</strong> - Creating worship atmospheres</span><span class="training-badge">Every Wednesday, 3PM</span></div>
+                <div class="training-item"><span><strong>📽️ ProPresenter Training</strong> - Lyric and media</span><span class="training-badge">Every Friday, 2PM</span></div>
+                <div class="training-item"><span><strong>🔧 Equipment Maintenance</strong> - Care & troubleshooting</span><span class="training-badge">1st Saturday, 10AM</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="content">
+            <h2>Upcoming Events</h2>
+            <div id="deptEvents" class="event-list">
+                <div class="event-item">
+                    <span><em>Loading events...</em></span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Service Schedule -->
     <section class="section alt">
         <div class="content">
-            <h2>Weekly Service Schedule</h2>
-            <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border-radius: 20px; padding: 1.5rem; margin-top: 2rem;">
-                <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--glass-border);">
-                    <span><strong>Sunday Service</strong></span>
-                    <span>Setup: 7:00 AM | Service: 9:00 AM - 12:00 PM</span>
+            <h2>Gallery</h2>
+            <div id="deptGallery" class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="../images/home1.webp" alt="Gallery image" onerror="this.src='../images/sound.webp'">
                 </div>
-                <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--glass-border);">
-                    <span><strong>Wednesday Bible Study</strong></span>
-                    <span>Setup: 5:00 PM | Service: 6:00 PM - 8:00 PM</span>
+                <div class="gallery-item">
+                    <img src="../images/home2.webp" alt="Gallery image" onerror="this.src='../images/sound.webp'">
                 </div>
-                <div style="display: flex; justify-content: space-between; padding: 0.75rem 0;">
-                    <span><strong>Friday Prayer Night</strong></span>
-                    <span>Setup: 6:00 PM | Service: 7:00 PM - 9:00 PM</span>
+                <div class="gallery-item">
+                    <img src="../images/home3.webp" alt="Gallery image" onerror="this.src='../images/sound.webp'">
+                </div>
+                <div class="gallery-item">
+                    <img src="../images/home4.webp" alt="Gallery image" onerror="this.src='../images/sound.webp'">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Join Call -->
     <section class="section">
         <div class="content" style="text-align: center;">
             <h2>Join the Technical Team</h2>
             <p>Are you passionate about tech and ministry? We need sound engineers, lighting techs, and visual operators.</p>
             <p style="margin-top: 0.5rem;"><strong>No experience required — we will train you!</strong></p>
-            <a href="../index.html#contact" class="btn-primary" style="margin-top: 1.5rem;">Volunteer Today</a>
+            <a href="../index.html#contact" class="btn-primary" style="margin-top: 1.5rem; display: inline-block;">Volunteer Today</a>
         </div>
     </section>
 </main>
@@ -292,5 +356,85 @@
 </a>
 
 <script src="../main.js"></script>
+<script>
+    const API_BASE = window.location.hostname === 'localhost' 
+        ? 'http://127.0.0.1:8000/api'
+        : 'https://kingdom-network-global.onrender.com/api';
+    const DEPT_KEY = 'sound';
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
+    async function loadDepartmentPage() {
+        try {
+            const response = await fetch(`${API_BASE}/public/content/`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const allContent = await response.json();
+            const dept = allContent.find(item => item.key === DEPT_KEY && item.type === 'department');
+            if (!dept) return;
+            const data = dept.data || {};
+            document.getElementById('deptName').textContent = data.name || 'Set & Sound';
+            document.getElementById('deptTagline').textContent = data.description || '';
+            document.getElementById('deptLeadName').textContent = data.team_lead || 'TBA';
+            document.getElementById('deptLeadBio').textContent = data.lead_bio || `Leading the ${data.name || 'Sound'} team with technical excellence.`;
+
+            if (data.stats) {
+                document.getElementById('statEvents').textContent = data.stats.events || '200+';
+                document.getElementById('statVolunteers').textContent = data.stats.volunteers || '15';
+                document.getElementById('statTraining').textContent = data.stats.training || '10';
+                document.getElementById('statHours').textContent = data.stats.hours || '500+';
+            }
+
+            if (data.gallery && data.gallery.length > 0) {
+                const galleryContainer = document.getElementById('deptGallery');
+                galleryContainer.innerHTML = data.gallery.map(img => `
+                    <div class="gallery-item">
+                        <img src="${img}" alt="Gallery image" onerror="this.src='../images/sound.webp'">
+                    </div>
+                `).join('');
+            }
+
+            await loadDepartmentEvents();
+        } catch (error) {
+            console.error('Failed to load department:', error);
+        }
+    }
+
+    async function loadDepartmentEvents() {
+        const eventContainer = document.getElementById('deptEvents');
+        if (!eventContainer) return;
+        try {
+            const response = await fetch(`${API_BASE}/public/events/`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const allEvents = await response.json();
+            const today = new Date().toISOString().split('T')[0];
+            const upcomingEvents = allEvents.filter(event => event.date >= today).slice(0, 4);
+            if (upcomingEvents.length === 0) {
+                eventContainer.innerHTML = `<div class="event-item"><span><em>No upcoming events. Check back soon!</em></span></div>`;
+                return;
+            }
+            eventContainer.innerHTML = upcomingEvents.map(event => `
+                <div class="event-item">
+                    <span><strong>${escapeHtml(event.title)}</strong>${event.location ? ` - ${escapeHtml(event.location)}` : ''}</span>
+                    <span class="event-date-badge">${formatDate(event.date)}</span>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error('Failed to load events:', error);
+            eventContainer.innerHTML = `<div class="event-item"><span><em>Unable to load events</em></span></div>`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadDepartmentPage);
+</script>
 </body>
 </html>

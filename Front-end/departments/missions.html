@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Department page additional styles */
         .department-hero {
             min-height: 50vh;
             display: flex;
@@ -15,7 +14,6 @@
             position: relative;
             padding-top: 100px;
         }
-        
         .department-hero::before {
             content: '';
             position: absolute;
@@ -26,14 +24,12 @@
             background: linear-gradient(135deg, rgba(10,17,40,0.8), rgba(10,17,40,0.95));
             z-index: 1;
         }
-        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
             margin: 3rem 0;
         }
-        
         .stat-card {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
@@ -43,26 +39,22 @@
             text-align: center;
             transition: all var(--transition-smooth);
         }
-        
         .stat-card:hover {
             transform: translateY(-5px);
             border-color: var(--gold-primary);
         }
-        
         .stat-number {
             font-size: 3rem;
             font-weight: 700;
             color: var(--gold-primary);
             font-family: 'Playfair Display', serif;
         }
-        
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
-        
         .team-member {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
@@ -72,11 +64,9 @@
             text-align: center;
             transition: all var(--transition-smooth);
         }
-        
         .team-member:hover {
             transform: translateY(-5px);
         }
-        
         .member-image {
             width: 150px;
             height: 150px;
@@ -85,20 +75,17 @@
             overflow: hidden;
             border: 3px solid var(--gold-primary);
         }
-        
         .member-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
         .event-list {
             display: flex;
             flex-direction: column;
             gap: 1rem;
             margin-top: 2rem;
         }
-        
         .event-item {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
@@ -111,8 +98,7 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-        
-        .event-date {
+        .event-date-badge {
             background: var(--gold-primary);
             color: var(--navy-deep);
             padding: 0.5rem 1rem;
@@ -120,14 +106,12 @@
             font-weight: 600;
             font-size: var(--text-sm);
         }
-        
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
-        
         .gallery-item {
             border-radius: 16px;
             overflow: hidden;
@@ -135,18 +119,15 @@
             cursor: pointer;
             transition: all var(--transition-smooth);
         }
-        
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform var(--transition-smooth);
         }
-        
         .gallery-item:hover img {
             transform: scale(1.1);
         }
-        
         .join-form {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
@@ -155,11 +136,9 @@
             padding: 2rem;
             margin-top: 2rem;
         }
-        
         .form-group {
             margin-bottom: 1.5rem;
         }
-        
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -171,14 +150,12 @@
             color: var(--white-off);
             font-family: 'Inter', sans-serif;
         }
-        
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: var(--gold-primary);
         }
-        
         .back-home {
             position: fixed;
             bottom: 30px;
@@ -196,12 +173,20 @@
             transition: all var(--transition-smooth);
             z-index: 100;
         }
-        
         .back-home:hover {
             transform: scale(1.1);
             background: var(--gold-light);
         }
-        
+        .loading-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--white-off);
+        }
+        .error-state {
+            text-align: center;
+            padding: 3rem;
+            color: #ef4444;
+        }
         @media (max-width: 768px) {
             .event-item {
                 flex-direction: column;
@@ -237,8 +222,8 @@
     <section class="department-hero">
         <div class="overlay"></div>
         <div class="content" style="position: relative; z-index: 2; text-align: center;">
-            <h1>Missions Department</h1>
-            <p style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Extending the Kingdom through outreach, evangelism, and community impact</p>
+            <h1 id="deptName">Missions Department</h1>
+            <p id="deptTagline" style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Extending the Kingdom through outreach, evangelism, and community impact</p>
         </div>
     </section>
 
@@ -248,19 +233,19 @@
             <h2>Our Impact</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number">30+</div>
+                    <div class="stat-number" id="statOutreaches">30+</div>
                     <p>Outreaches Completed</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">2,500+</div>
+                    <div class="stat-number" id="statLivesReached">2,500+</div>
                     <p>Lives Reached</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">5</div>
+                    <div class="stat-number" id="statFields">5</div>
                     <p>Active Mission Fields</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">47</div>
+                    <div class="stat-number" id="statVolunteers">47</div>
                     <p>Volunteers</p>
                 </div>
             </div>
@@ -273,11 +258,11 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
                 <div>
                     <h3>Our Mission</h3>
-                    <p>To take the Gospel to unreached communities through strategic outreach programs, evangelism campaigns, and sustainable community development projects.</p>
+                    <p id="deptMission">To take the Gospel to unreached communities through strategic outreach programs, evangelism campaigns, and sustainable community development projects.</p>
                 </div>
                 <div>
                     <h3>Our Vision</h3>
-                    <p>To see every soul in Kenya and beyond have an opportunity to hear the Gospel and experience God's love in practical ways.</p>
+                    <p id="deptVision">To see every soul in Kenya and beyond have an opportunity to hear the Gospel and experience God's love in practical ways.</p>
                 </div>
             </div>
         </div>
@@ -290,11 +275,11 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/bishop.webp" alt="Team Lead Jack" onerror="this.src='../images/missions.webp'">
+                        <img src="../images/bishop.webp" alt="Team Lead" onerror="this.src='../images/missions.webp'">
                     </div>
-                    <h3>Jackson Musya (Bishop)</h3>
+                    <h3 id="deptLeadName">Jackson Musya (Bishop)</h3>
                     <p style="color: var(--gold-light);">Team Lead</p>
-                    <p style="padding: 0 1rem 1rem;">Passionate about reaching the unreached and mobilizing youth for missions.</p>
+                    <p id="deptLeadBio" style="padding: 0 1rem 1rem;">Passionate about reaching the unreached and mobilizing youth for missions.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
@@ -320,22 +305,9 @@
     <section class="section alt">
         <div class="content">
             <h2>Upcoming Events</h2>
-            <div class="event-list">
+            <div id="deptEvents" class="event-list">
                 <div class="event-item">
-                    <span><strong>Street Outreach - CBD</strong></span>
-                    <span class="event-date">March 15, 2026</span>
-                </div>
-                <div class="event-item">
-                    <span><strong>School Visitation Program</strong></span>
-                    <span class="event-date">March 22, 2026</span>
-                </div>
-                <div class="event-item">
-                    <span><strong>Medical Camp & Evangelism</strong></span>
-                    <span class="event-date">April 5, 2026</span>
-                </div>
-                <div class="event-item">
-                    <span><strong>Prison Outreach</strong></span>
-                    <span class="event-date">April 19, 2026</span>
+                    <span><em>Loading events...</em></span>
                 </div>
             </div>
         </div>
@@ -345,18 +317,18 @@
     <section class="section">
         <div class="content">
             <h2>Gallery</h2>
-            <div class="gallery-grid">
+            <div id="deptGallery" class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="../images/home1.webp" alt="Outreach 1" onerror="this.src='../images/missions.webp'">
+                    <img src="../images/home1.webp" alt="Gallery image" onerror="this.src='../images/missions.webp'">
                 </div>
                 <div class="gallery-item">
-                    <img src="../images/home2.webp" alt="Outreach 2" onerror="this.src='../images/missions.webp'">
+                    <img src="../images/home2.webp" alt="Gallery image" onerror="this.src='../images/missions.webp'">
                 </div>
                 <div class="gallery-item">
-                    <img src="../images/home3.webp" alt="Outreach 3" onerror="this.src='../images/missions.webp'">
+                    <img src="../images/home3.webp" alt="Gallery image" onerror="this.src='../images/missions.webp'">
                 </div>
                 <div class="gallery-item">
-                    <img src="../images/home4.webp" alt="Outreach 4" onerror="this.src='../images/missions.webp'">
+                    <img src="../images/home4.webp" alt="Gallery image" onerror="this.src='../images/missions.webp'">
                 </div>
             </div>
         </div>
@@ -406,7 +378,113 @@
 
 <script src="../main.js"></script>
 <script>
-    // Form submission handler
+    const API_BASE = window.location.hostname === 'localhost' 
+        ? 'http://127.0.0.1:8000/api'
+        : 'https://kingdom-network-global.onrender.com/api';
+
+    const DEPT_KEY = 'missions';
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+
+    async function loadDepartmentPage() {
+        try {
+            document.getElementById('deptName').textContent = 'Loading...';
+            
+            const response = await fetch(`${API_BASE}/public/content/`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const allContent = await response.json();
+            const dept = allContent.find(item => item.key === DEPT_KEY && item.type === 'department');
+            
+            if (!dept) {
+                document.getElementById('deptName').textContent = 'Department Not Found';
+                return;
+            }
+
+            const data = dept.data || {};
+
+            document.getElementById('deptName').textContent = data.name || 'Missions Department';
+            document.getElementById('deptTagline').textContent = data.description || '';
+            document.getElementById('deptMission').textContent = data.mission || data.description || '';
+            document.getElementById('deptVision').textContent = data.vision || 'To impact lives through this ministry.';
+            document.getElementById('deptLeadName').textContent = data.team_lead || 'TBA';
+            document.getElementById('deptLeadBio').textContent = data.lead_bio || `Leading the ${data.name || 'Missions'} team with passion and dedication.`;
+
+            if (data.stats) {
+                document.getElementById('statOutreaches').textContent = data.stats.outreaches || '30+';
+                document.getElementById('statLivesReached').textContent = data.stats.lives_reached || '2,500+';
+                document.getElementById('statFields').textContent = data.stats.fields || '5';
+                document.getElementById('statVolunteers').textContent = data.stats.volunteers || '47';
+            }
+
+            if (data.gallery && data.gallery.length > 0) {
+                const galleryContainer = document.getElementById('deptGallery');
+                galleryContainer.innerHTML = data.gallery.map(img => `
+                    <div class="gallery-item">
+                        <img src="${img}" alt="Gallery image" onerror="this.src='../images/missions.webp'">
+                    </div>
+                `).join('');
+            }
+
+            await loadDepartmentEvents();
+
+        } catch (error) {
+            console.error('Failed to load department:', error);
+            document.getElementById('deptName').textContent = 'Error Loading Department';
+        }
+    }
+
+    async function loadDepartmentEvents() {
+        const eventContainer = document.getElementById('deptEvents');
+        if (!eventContainer) return;
+
+        try {
+            const response = await fetch(`${API_BASE}/public/events/`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const allEvents = await response.json();
+            
+            const today = new Date().toISOString().split('T')[0];
+            const upcomingEvents = allEvents
+                .filter(event => event.date >= today)
+                .slice(0, 4);
+
+            if (upcomingEvents.length === 0) {
+                eventContainer.innerHTML = `
+                    <div class="event-item">
+                        <span><em>No upcoming events. Check back soon!</em></span>
+                    </div>
+                `;
+                return;
+            }
+
+            eventContainer.innerHTML = upcomingEvents.map(event => `
+                <div class="event-item">
+                    <span><strong>${escapeHtml(event.title)}</strong>${event.location ? ` - ${escapeHtml(event.location)}` : ''}</span>
+                    <span class="event-date-badge">${formatDate(event.date)}</span>
+                </div>
+            `).join('');
+
+        } catch (error) {
+            console.error('Failed to load events:', error);
+            eventContainer.innerHTML = `
+                <div class="event-item">
+                    <span><em>Unable to load events</em></span>
+                </div>
+            `;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadDepartmentPage);
+
     document.getElementById('missionsJoinForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         alert('Thank you for your interest! We will contact you soon.');
