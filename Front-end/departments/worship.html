@@ -361,40 +361,59 @@
         return new Date(dateString).toLocaleDateString(undefined, options);
     }
 
-    async function loadDepartmentPage() {
-        try {
-            const response = await fetch(`${API_BASE}/public/content/`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const allContent = await response.json();
-            const dept = allContent.find(item => item.key === DEPT_KEY && item.type === 'department');
-            if (!dept) return;
-            const data = dept.data || {};
-            document.getElementById('deptName').textContent = data.name || 'Praise & Worship';
-            document.getElementById('deptTagline').textContent = data.description || '';
-            document.getElementById('deptLeadName').textContent = data.team_lead || 'TBA';
-            document.getElementById('deptLeadBio').textContent = data.lead_bio || `Leading the ${data.name || 'Worship'} team with passion.`;
-
-            if (data.stats) {
-                document.getElementById('statServices').textContent = data.stats.services || '50+';
-                document.getElementById('statSongs').textContent = data.stats.songs || '100+';
-                document.getElementById('statTeam').textContent = data.stats.team || '20';
-                document.getElementById('statAlbums').textContent = data.stats.albums || '3';
-            }
-
-            if (data.gallery && data.gallery.length > 0) {
-                const galleryContainer = document.getElementById('deptGallery');
-                galleryContainer.innerHTML = data.gallery.map(img => `
-                    <div class="gallery-item">
-                        <img src="${img}" alt="Gallery image" onerror="this.src='../images/Worship.webp'">
-                    </div>
-                `).join('');
-            }
-
-            await loadDepartmentEvents();
-        } catch (error) {
-            console.error('Failed to load department:', error);
+   async function loadDepartmentPage() {
+    try {
+        document.getElementById('deptName').textContent = 'Loading...';
+        
+        const response = await fetch(`${API_BASE}/public/content/`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const departments = await response.json();
+        const dept = departments.find(item => item.key === DEPT_KEY);
+        
+        if (!dept) {
+            document.getElementById('deptName').textContent = 'Department Not Found';
+            return;
         }
+
+        const data = dept;
+
+        // Update hero section
+        document.getElementById('deptName').textContent = data.name || 'Department';
+        document.getElementById('deptTagline').textContent = data.description || '';
+
+        // Update mission & vision
+        document.getElementById('deptMission').textContent = data.mission || data.description || '';
+        document.getElementById('deptVision').textContent = data.vision || 'To impact lives through this ministry.';
+
+        // Update team lead
+        document.getElementById('deptLeadName').textContent = data.team_lead || 'TBA';
+        document.getElementById('deptLeadBio').textContent = data.lead_bio || `Leading the ${data.name || 'department'} team with passion and dedication.`;
+
+        // Update stats
+        if (data.stats) {
+            document.getElementById('statOutreaches').textContent = data.stats.outreaches || '30+';
+            document.getElementById('statLivesReached').textContent = data.stats.lives_reached || '2,500+';
+            document.getElementById('statFields').textContent = data.stats.fields || '5';
+            document.getElementById('statVolunteers').textContent = data.stats.volunteers || '47';
+        }
+
+        // Update gallery
+        if (data.gallery && data.gallery.length > 0) {
+            const galleryContainer = document.getElementById('deptGallery');
+            galleryContainer.innerHTML = data.gallery.map(img => `
+                <div class="gallery-item">
+                    <img src="${img}" alt="Gallery image" onerror="this.src='../images/${DEPT_KEY}.webp'">
+                </div>
+            `).join('');
+        }
+
+        await loadDepartmentEvents();
+
+    } catch (error) {
+        console.error('Failed to load department:', error);
+        document.getElementById('deptName').textContent = 'Error Loading Department';
     }
+}
 
     async function loadDepartmentEvents() {
         const eventContainer = document.getElementById('deptEvents');

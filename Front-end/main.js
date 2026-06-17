@@ -4,10 +4,7 @@
 // ========================================
 
 // ========== API CONFIGURATION ==========
-const API_BASE = window.location.hostname === 'localhost' 
-    ? 'http://127.0.0.1:8000/api'
-    : 'https://kingdom-network-global.onrender.com/api';
-
+const API_BASE = 'http://127.0.0.1:8000/api';
 // ========== 1. HAMBURGER MENU ==========
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("nav-menu");
@@ -326,7 +323,7 @@ async function loadEvents(retryCount = 0) {
     }
 }
 
-// ========== 11. LOAD DEPARTMENTS (with retry) ==========
+// ========== LOAD DEPARTMENTS ==========
 async function loadDepartments(retryCount = 0) {
     const container = document.getElementById('departmentsContainer');
     if (!container) return;
@@ -336,46 +333,34 @@ async function loadDepartments(retryCount = 0) {
     try {
         const response = await fetch(`${API_BASE}/public/content/`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const allContent = await response.json();
-        const departments = allContent.filter(item => item.type === 'department');
-        
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+        const departments = await response.json();
         
         if (departments.length === 0) {
             container.innerHTML = '<div class="empty-state">No departments found</div>';
             return;
         }
         
-        departments.sort((a, b) => (a.data?.order || 0) - (b.data?.order || 0));
+        departments.sort((a, b) => a.order - b.order);
         
-        container.innerHTML = departments.map(dept => {
-            const data = dept.data || {};
-            const deptKey = dept.key;
-            return `
-                <div class="department-card scroll-reveal">
-                    <div class="department-frame">
-                        <div class="department-image">
-                            <img src="images/${deptKey}.webp" alt="${data.name || deptKey} Department" onerror="this.src='images/placeholder.jpg'">
-                        </div>
-                        <div class="department-body">
-                            <h3>${escapeHtml(data.name || deptKey)}</h3>
-                            <p>${escapeHtml(data.description || '')}</p>
-                            <h4>Team Lead</h4>
-                            <p>${escapeHtml(data.team_lead || 'TBA')}</p>
-                            <a href="departments/${deptKey}.html" class="btn-more">
-                                <span>More...</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
+        container.innerHTML = departments.map(dept => `
+            <div class="department-card scroll-reveal">
+                <div class="department-frame">
+                    <div class="department-image">
+                        <img src="images/${dept.key}.webp" alt="${dept.name} Department" onerror="this.src='images/placeholder.jpg'">
+                    </div>
+                    <div class="department-body">
+                        <h3>${escapeHtml(dept.name)}</h3>
+                        <p>${escapeHtml(dept.description)}</p>
+                        <h4>Team Lead</h4>
+                        <p>${escapeHtml(dept.team_lead || 'TBA')}</p>
+                        <a href="departments/${dept.key}.html" class="btn-more">
+                            <span>More...</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
-            `;
-        }).join('');
+            </div>
+        `).join('');
         
         // Re-trigger scroll reveal for new elements
         const newRevealElements = document.querySelectorAll('.scroll-reveal');
