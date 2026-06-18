@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 from datetime import date
 
 from .models import Department, Event, MinistrySetting, PrayerRequest
@@ -38,13 +39,33 @@ def get_public_ministry_settings(request):
     return Response({})
 
 @api_view(['POST'])
+@csrf_exempt
 def submit_prayer_request(request):
     """Public: Submit a prayer request"""
-    serializer = PrayerRequestSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({'message': 'Prayer request submitted'}, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        # Log the incoming data for debugging
+        print(f"📝 Prayer request received: {request.data}")
+        
+        serializer = PrayerRequestSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            print(f"✅ Prayer request saved: {serializer.data}")
+            return Response(
+                {'message': 'Prayer request submitted successfully'}, 
+                status=status.HTTP_201_CREATED
+            )
+        else:
+            print(f"❌ Prayer request validation failed: {serializer.errors}")
+            return Response(
+                {'error': 'Validation failed', 'details': serializer.errors}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+    except Exception as e:
+        print(f"❌ Prayer request error: {e}")
+        return Response(
+            {'error': 'An error occurred', 'details': str(e)}, 
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
 
 # ========== ADMIN/MANAGER ENDPOINTS ==========
 

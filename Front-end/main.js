@@ -5,6 +5,20 @@
 
 // ========== API CONFIGURATION ==========
 const API_BASE = 'http://127.0.0.1:8000/api';
+
+// ========== HELPER FUNCTIONS ==========
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+}
+
 // ========== 1. HAMBURGER MENU ==========
 const hamburger = document.getElementById("hamburger");
 const navMenu = document.getElementById("nav-menu");
@@ -15,7 +29,6 @@ if (hamburger && navMenu) {
         hamburger.classList.toggle("active");
     });
 
-    // Close menu when any nav link is clicked
     document.querySelectorAll(".nav a").forEach(link => {
         link.addEventListener("click", () => {
             navMenu.classList.remove("active");
@@ -55,12 +68,10 @@ function stopSlider() {
     if (sliderInterval) clearInterval(sliderInterval);
 }
 
-// Initialize slider
 if (sliderImages.length) {
     showImage(activeIndex);
     startSlider();
 
-    // Click on slider sides to navigate
     const sliderContainer = document.querySelector(".image-slider");
     if (sliderContainer) {
         sliderContainer.addEventListener("click", (e) => {
@@ -71,22 +82,20 @@ if (sliderImages.length) {
             } else {
                 moveSlider("next");
             }
-            // Reset timer after manual click
             startSlider();
         });
 
-        // Pause on hover
         sliderContainer.addEventListener("mouseenter", stopSlider);
         sliderContainer.addEventListener("mouseleave", startSlider);
     }
 }
 
-// ========== 3. DAILY VERSE (Bible API) ==========
+// ========== 3. DAILY VERSE (Local Only - No API) ==========
 const verseTextEl = document.querySelector(".verse-text");
 const verseRefEl = document.querySelector(".verse-ref");
 
-// Pre-defined verses as fallback
-const fallbackVerses = [
+// Pre-defined verses
+const localVerses = [
     { text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.", ref: "John 3:16" },
     { text: "I can do all things through Christ who strengthens me.", ref: "Philippians 4:13" },
     { text: "The Lord is my shepherd; I shall not want.", ref: "Psalm 23:1" },
@@ -122,31 +131,20 @@ const fallbackVerses = [
 function getVerseOfTheDay() {
     const today = new Date();
     const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-    return fallbackVerses[dayOfYear % fallbackVerses.length];
+    return localVerses[dayOfYear % localVerses.length];
 }
 
-async function fetchDailyVerse() {
-    if (!verseTextEl) return;
-
-    try {
-        const verse = getVerseOfTheDay();
-        const response = await fetch(`https://bible-api.com/${verse.ref}?translation=web`);
-        
-        if (!response.ok) throw new Error("API failed");
-        
-        const data = await response.json();
-        verseTextEl.textContent = data.text || verse.text;
-        verseRefEl.textContent = data.reference || verse.ref;
-    } catch (error) {
-        console.log("Using fallback verse");
-        const fallback = getVerseOfTheDay();
-        verseTextEl.textContent = fallback.text;
-        verseRefEl.textContent = fallback.ref;
-    }
+function displayDailyVerse() {
+    if (!verseTextEl || !verseRefEl) return;
+    
+    const verse = getVerseOfTheDay();
+    verseTextEl.textContent = verse.text;
+    verseRefEl.textContent = verse.ref;
+    console.log('📖 Daily verse loaded:', verse.ref);
 }
 
-// Load verse when page loads
-fetchDailyVerse();
+// Display verse immediately
+displayDailyVerse();
 
 // ========== 4. HEADER SCROLL EFFECT ==========
 const header = document.querySelector(".header");
@@ -161,7 +159,7 @@ function handleHeaderScroll() {
 }
 
 window.addEventListener("scroll", handleHeaderScroll);
-handleHeaderScroll(); // Run on load
+handleHeaderScroll();
 
 // ========== 5. ACTIVE NAVIGATION HIGHLIGHT ==========
 const sections = document.querySelectorAll("section");
@@ -284,18 +282,6 @@ async function loadEvents(retryCount = 0) {
             return;
         }
         
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString(undefined, options);
-        }
-        
-        function escapeHtml(text) {
-            if (!text) return '';
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
         eventsContainer.innerHTML = upcomingEvents.map(event => `
             <div class="event-card-mini">
                 <div class="event-date-mini">📅 ${formatDate(event.date)}</div>
@@ -323,7 +309,7 @@ async function loadEvents(retryCount = 0) {
     }
 }
 
-// ========== LOAD DEPARTMENTS ==========
+// ========== 11. LOAD DEPARTMENTS (with retry) ==========
 async function loadDepartments(retryCount = 0) {
     const container = document.getElementById('departmentsContainer');
     if (!container) return;
@@ -346,7 +332,7 @@ async function loadDepartments(retryCount = 0) {
             <div class="department-card scroll-reveal">
                 <div class="department-frame">
                     <div class="department-image">
-                        <img src="images/${dept.key}.webp" alt="${dept.name} Department" onerror="this.src='images/placeholder.jpg'">
+                        <img src="images/${dept.key}.webp" alt="${dept.name} Department" onerror="this.onerror=null; this.src='images/placeholder.jpg'">
                     </div>
                     <div class="department-body">
                         <h3>${escapeHtml(dept.name)}</h3>
@@ -362,13 +348,12 @@ async function loadDepartments(retryCount = 0) {
             </div>
         `).join('');
         
-        // Re-trigger scroll reveal for new elements
-        const newRevealElements = document.querySelectorAll('.scroll-reveal');
-        newRevealElements.forEach(el => {
-            if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+        // Force reveal after loading
+        setTimeout(() => {
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
                 el.classList.add('revealed');
-            }
-        });
+            });
+        }, 100);
         
     } catch (error) {
         console.error('Failed to load departments:', error);

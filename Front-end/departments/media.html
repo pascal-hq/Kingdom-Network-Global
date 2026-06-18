@@ -244,7 +244,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/grace.webp" alt="Content Creator" onerror="this.src='../images/media.webp'">
+                        <img src="../images/placeholder.webp" alt="Content Creator" onerror="this.src='../images/media.webp'">
                     </div>
                     <h3>Grace W.</h3>
                     <p style="color: var(--gold-light);">Content Creator</p>
@@ -252,7 +252,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/brian.webp" alt="Video Editor" onerror="this.src='../images/media.webp'">
+                        <img src="../images/placeholder.webp" alt="Video Editor" onerror="this.src='../images/media.webp'">
                     </div>
                     <h3>Brian K.</h3>
                     <p style="color: var(--gold-light);">Video Editor</p>
@@ -345,9 +345,7 @@
 
 <script src="../main.js"></script>
 <script>
-    const API_BASE = window.location.hostname === 'localhost' 
-        ? 'http://127.0.0.1:8000/api'
-        : 'https://kingdom-network-global.onrender.com/api';
+    const API_BASE = 'http://127.0.0.1:8000/api';
     const DEPT_KEY = 'media';
 
     function escapeHtml(text) {
