@@ -561,7 +561,7 @@ h4 {
     transform: scale(1.05);
 }
 
-/* ---------- DEPARTMENTS SECTION ---------- */
+/* ---------- DEPARTMENTS SECTION - AUTO-ADJUST TO IMAGE ---------- */
 .departments-center {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -571,6 +571,7 @@ h4 {
 
 .department-card {
     perspective: 1000px;
+    height: 100%;
 }
 
 .department-frame {
@@ -595,16 +596,14 @@ h4 {
 .department-image {
     width: 100%;
     height: auto;
-    max-height: 300px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.03);
+    line-height: 0;
 }
 
 .department-image img {
     width: 100%;
     height: auto;
-    max-height: 300px;
-    object-fit: contain;
     display: block;
     transition: transform var(--transition-smooth);
 }
@@ -616,6 +615,8 @@ h4 {
 .department-body {
     padding: 1.5rem;
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .department-body h3 {
@@ -678,7 +679,7 @@ h4 {
     transform: translateY(0px);
 }
 
-/* ---------- EVENTS SECTION ---------- */
+/* ---------- EVENTS SECTION - AUTO-ADJUST TO IMAGE ---------- */
 .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -700,6 +701,8 @@ h4 {
     max-width: 400px;
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .event-card-mini:hover {
@@ -711,18 +714,16 @@ h4 {
 .event-poster {
     width: 100%;
     height: auto;
-    max-height: 350px;
-    overflow: hidden;
     border-radius: 12px;
     margin-bottom: 0.75rem;
     background: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    line-height: 0;
 }
 
 .event-poster img {
     width: 100%;
     height: auto;
-    max-height: 350px;
-    object-fit: contain;
     display: block;
     transition: transform 0.3s ease;
 }
@@ -1051,23 +1052,6 @@ select {
         max-width: 400px;
     }
     
-    /* Mobile image adjustments */
-    .department-image {
-        max-height: 220px;
-    }
-    
-    .department-image img {
-        max-height: 220px;
-    }
-    
-    .event-poster {
-        max-height: 280px;
-    }
-    
-    .event-poster img {
-        max-height: 280px;
-    }
-    
     .form-row {
         grid-template-columns: 1fr;
     }
@@ -1092,22 +1076,6 @@ select {
     
     h2 {
         font-size: 1.5rem;
-    }
-    
-    .department-image {
-        max-height: 180px;
-    }
-    
-    .department-image img {
-        max-height: 180px;
-    }
-    
-    .event-poster {
-        max-height: 220px;
-    }
-    
-    .event-poster img {
-        max-height: 220px;
     }
     
     .event-card-mini {
