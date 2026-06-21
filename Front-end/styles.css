@@ -792,6 +792,50 @@ h4 {
     transform: translateY(0px);
 }
 
+/* ========== DROPDOWN FIX - Dark Background with Light Text ========== */
+
+/* Style for all select dropdowns */
+select {
+    background-color: #1B2A4A !important;  /* Dark navy background */
+    color: #F4F6F9 !important;             /* Light text color */
+    border: 1px solid rgba(201, 160, 61, 0.3) !important;
+    padding: 0.7rem 1rem !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.95rem !important;
+    appearance: auto !important;           /* Keep native dropdown arrow */
+    -webkit-appearance: auto !important;
+}
+
+/* Style for dropdown options */
+select option {
+    background-color: #1B2A4A !important;  /* Dark background */
+    color: #F4F6F9 !important;             /* Light text */
+    padding: 0.5rem !important;
+}
+
+/* Hover effect for options */
+select option:hover {
+    background-color: #C9A03D !important;  /* Gold on hover */
+    color: #0A1128 !important;             /* Dark text on gold */
+}
+
+/* Focus state for dropdowns */
+select:focus {
+    outline: none !important;
+    border-color: #C9A03D !important;
+    box-shadow: 0 0 0 2px rgba(201, 160, 61, 0.3) !important;
+}
+
+/* Dark mode dropdown arrow (optional - works in some browsers) */
+select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C9A03D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem !important;
+}
 .scroll-reveal {
     opacity: 0;
     transform: translateY(30px);
