@@ -7,3 +7,4 @@ apt-get update && apt-get install -y libpq-dev gcc
 pip install -r requirements.txt
 python manage.py collectstatic --noinput
 python manage.py migrate
+python create_superuser.py
