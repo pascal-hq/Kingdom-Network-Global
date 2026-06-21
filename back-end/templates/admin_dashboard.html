@@ -277,7 +277,7 @@
                 <button class="close-modal" onclick="closeModal('eventModal')">&times;</button>
             </div>
             <form id="eventForm" onsubmit="saveEvent(event)">
-                <input type="hidden" id="eventId">
+                <input type="hidden" id="eventId" value="">
                 <div class="form-group">
                     <label>Title</label>
                     <input type="text" id="eventTitle" required>
@@ -524,8 +524,11 @@
 
         async function editEvent(eventId) {
             try {
+                console.log('Loading event with ID:', eventId);
                 const response = await fetch(`${API_BASE}/events/${eventId}/`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const event = await response.json();
+                
                 document.getElementById('eventModalTitle').textContent = 'Edit Event';
                 document.getElementById('eventId').value = event.id;
                 document.getElementById('eventTitle').value = event.title;
@@ -546,46 +549,84 @@
                 
                 document.getElementById('eventModal').style.display = 'flex';
             } catch (error) {
-                alert('Failed to load event');
+                console.error('Error loading event:', error);
+                alert('Failed to load event: ' + error.message);
             }
         }
 
         async function saveEvent(e) {
             e.preventDefault();
+            
             const eventId = document.getElementById('eventId').value;
+            console.log('Event ID from hidden field:', eventId);
+            
             const data = {
                 title: document.getElementById('eventTitle').value,
                 date: document.getElementById('eventDate').value,
                 location: document.getElementById('eventLocation').value,
                 description: document.getElementById('eventDescription').value,
-                poster_url: document.getElementById('eventPosterUrl').value
+                poster_url: document.getElementById('eventPosterUrl').value || null
             };
+            
+            console.log('Saving data:', data);
+            
             try {
-                const url = eventId ? `${API_BASE}/events/${eventId}/` : `${API_BASE}/events/`;
-                const method = eventId ? 'PUT' : 'POST';
+                let url, method;
+                if (eventId && eventId !== '') {
+                    url = `${API_BASE}/events/${eventId}/`;
+                    method = 'PUT';
+                } else {
+                    url = `${API_BASE}/events/`;
+                    method = 'POST';
+                }
+                
+                console.log(`Sending ${method} request to:`, url);
+                
                 const response = await fetch(url, {
                     method: method,
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    credentials: 'same-origin',
                     body: JSON.stringify(data)
                 });
+                
+                const result = await response.json();
+                console.log('Response:', result);
+                
                 if (response.ok) {
                     closeModal('eventModal');
                     loadEvents();
+                    alert('✅ Event saved successfully!');
                 } else {
-                    alert('Failed to save event');
+                    alert('Failed to save event: ' + (result.error || result.message || 'Unknown error'));
                 }
             } catch (error) {
-                alert('Error saving event');
+                console.error('Error saving event:', error);
+                alert('Error saving event: ' + error.message);
             }
         }
 
         async function deleteEvent(eventId) {
             if (confirm('Delete this event?')) {
                 try {
-                    const response = await fetch(`${API_BASE}/events/${eventId}/`, { method: 'DELETE' });
-                    if (response.ok) loadEvents();
+                    const response = await fetch(`${API_BASE}/events/${eventId}/`, { 
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken')
+                        },
+                        credentials: 'same-origin'
+                    });
+                    if (response.ok) {
+                        loadEvents();
+                        alert('✅ Event deleted!');
+                    } else {
+                        alert('Failed to delete event');
+                    }
                 } catch (error) {
-                    alert('Error deleting event');
+                    console.error('Error deleting event:', error);
+                    alert('Error deleting event: ' + error.message);
                 }
             }
         }
@@ -620,10 +661,22 @@
 
         async function markResponded(prayerId) {
             try {
-                const response = await fetch(`${API_BASE}/prayers/${prayerId}/respond/`, { method: 'PUT' });
-                if (response.ok) loadPrayers();
+                const response = await fetch(`${API_BASE}/prayers/${prayerId}/respond/`, { 
+                    method: 'PUT',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    credentials: 'same-origin'
+                });
+                if (response.ok) {
+                    loadPrayers();
+                    alert('✅ Prayer marked as responded!');
+                } else {
+                    alert('Failed to mark as responded');
+                }
             } catch (error) {
-                alert('Error updating prayer');
+                console.error('Error updating prayer:', error);
+                alert('Error updating prayer: ' + error.message);
             }
         }
 
@@ -655,12 +708,18 @@
             try {
                 const response = await fetch(`${API_BASE}/admin/settings/`, {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    credentials: 'same-origin',
                     body: JSON.stringify(data)
                 });
                 if (response.ok) {
                     alert('✅ Settings saved!');
                     closeModal('settingsModal');
+                } else {
+                    alert('Failed to save settings');
                 }
             } catch (error) {
                 alert('Error saving settings');
@@ -681,8 +740,6 @@
                 const response = await fetch(`${API_BASE}/admin/content/`);
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const departments = await response.json();
-                
-                console.log('All departments:', departments);
                 
                 if (!departments || departments.length === 0) {
                     container.innerHTML = '<div class="loading">No departments found</div>';
@@ -712,8 +769,6 @@
                 const response = await fetch(`${API_BASE}/admin/content/${deptId}/`);
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const dept = await response.json();
-                
-                console.log('Department data:', dept);
                 
                 if (!dept || !dept.id) {
                     alert('Failed to load department data');
@@ -749,13 +804,19 @@
             try {
                 const response = await fetch(`${API_BASE}/admin/content/${deptId}/`, {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    credentials: 'same-origin',
                     body: JSON.stringify(data)
                 });
                 if (response.ok) {
                     alert('✅ Department saved!');
                     closeModal('editDeptModal');
                     loadDepartmentsForEdit();
+                } else {
+                    alert('Failed to save department');
                 }
             } catch (error) {
                 alert('Error saving department');
