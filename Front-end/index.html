@@ -303,37 +303,50 @@
     }
 
     // ========== LOAD EVENTS ==========
-    async function loadEvents() {
-        const container = document.getElementById('upcomingEvents');
-        if (!container) return;
-        container.innerHTML = '<div class="loading">Loading events...</div>';
+async function loadEvents() {
+    const container = document.getElementById('upcomingEvents');
+    if (!container) return;
+    container.innerHTML = '<div class="loading">Loading events...</div>';
 
-        try {
-            const response = await fetch(`${API_BASE}/public/events/`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const events = await response.json();
+    try {
+        const response = await fetch(`${API_BASE}/public/events/`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const events = await response.json();
 
-            if (!events || events.length === 0) {
-                container.innerHTML = '<div class="empty-state">No upcoming events</div>';
-                return;
-            }
+        console.log('Events received:', events);  // Debug log
 
-            const today = new Date().toISOString().split('T')[0];
-            const upcoming = events.filter(e => e.date >= today).slice(0, 6);
-
-            container.innerHTML = upcoming.map(event => `
-                <div class="event-card-mini">
-                    <div class="event-date-mini">📅 ${formatDate(event.date)}</div>
-                    <div class="event-title-mini">${escapeHtml(event.title)}</div>
-                    <div class="event-location-mini">📍 ${escapeHtml(event.location)}</div>
-                </div>
-            `).join('');
-
-        } catch (error) {
-            console.error('Failed to load events:', error);
-            container.innerHTML = '<div class="empty-state">Unable to load events</div>';
+        if (!events || events.length === 0) {
+            container.innerHTML = '<div class="empty-state">No upcoming events</div>';
+            return;
         }
+
+        const today = new Date().toISOString().split('T')[0];
+        const upcoming = events.filter(e => e.date >= today).slice(0, 6);
+
+        if (upcoming.length === 0) {
+            container.innerHTML = '<div class="empty-state">No upcoming events</div>';
+            return;
+        }
+
+        container.innerHTML = upcoming.map(event => `
+            <div class="event-card-mini">
+                ${event.poster_url ? `
+                    <div class="event-poster">
+                        <img src="${event.poster_url}" alt="${event.title}" onerror="this.style.display='none'">
+                    </div>
+                ` : ''}
+                <div class="event-date-mini">📅 ${formatDate(event.date)}</div>
+                <div class="event-title-mini">${escapeHtml(event.title)}</div>
+                <div class="event-location-mini">📍 ${escapeHtml(event.location)}</div>
+                ${event.description ? `<div class="event-desc-mini">${escapeHtml(event.description.substring(0, 100))}${event.description.length > 100 ? '...' : ''}</div>` : ''}
+            </div>
+        `).join('');
+
+    } catch (error) {
+        console.error('Failed to load events:', error);
+        container.innerHTML = '<div class="empty-state">Unable to load events</div>';
     }
+}
 
     // ========== LOAD MINISTRY SETTINGS ==========
     async function loadMinistrySettings() {

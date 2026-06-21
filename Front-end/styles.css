@@ -527,6 +527,42 @@ h4 {
     border-top: 1px solid var(--glass-border);
 }
 
+/* ========== EVENT POSTER STYLES ========== */
+.event-poster {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    background: rgba(255,255,255,0.05);
+}
+
+.event-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.event-card-mini:hover .event-poster img {
+    transform: scale(1.05);
+}
+
+.event-card-mini {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all var(--transition-smooth);
+    overflow: hidden;
+}
+
+.event-card-mini:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-primary);
+}
+
 .loading, .empty-state {
     text-align: center;
     padding: 2rem;
