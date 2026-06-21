@@ -43,7 +43,6 @@ def get_public_ministry_settings(request):
 def submit_prayer_request(request):
     """Public: Submit a prayer request"""
     try:
-        # Log the incoming data for debugging
         print(f"📝 Prayer request received: {request.data}")
         
         serializer = PrayerRequestSerializer(data=request.data)
@@ -87,13 +86,18 @@ def manage_events(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT', 'DELETE'])
+# ========== FIXED: Added GET method to manage_event_detail ==========
+@api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAdminOrManager])
 def manage_event_detail(request, event_id):
     try:
         event = Event.objects.get(id=event_id)
     except Event.DoesNotExist:
         return Response({'error': 'Event not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = EventSerializer(event)
+        return Response(serializer.data)
 
     if request.method == 'PUT':
         serializer = EventSerializer(event, data=request.data, partial=True)
@@ -176,7 +180,9 @@ def manage_content(request, content_id):
     if request.method == 'DELETE':
         department.delete()
         return Response({'message': 'Department deleted'})
-    
+
+
+# ========== CLOUDINARY IMAGE UPLOAD ==========
 import cloudinary.uploader
 
 @api_view(['POST'])
