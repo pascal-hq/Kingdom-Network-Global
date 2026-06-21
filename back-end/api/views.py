@@ -176,3 +176,24 @@ def manage_content(request, content_id):
     if request.method == 'DELETE':
         department.delete()
         return Response({'message': 'Department deleted'})
+    
+import cloudinary.uploader
+
+@api_view(['POST'])
+@permission_classes([IsAdminOrManager])
+def upload_image(request):
+    """Upload an image to Cloudinary"""
+    try:
+        file = request.FILES.get('file')
+        if not file:
+            return Response({'error': 'No file provided'}, status=400)
+        
+        # Upload to Cloudinary
+        result = cloudinary.uploader.upload(file)
+        
+        return Response({
+            'url': result['secure_url'],
+            'public_id': result['public_id']
+        }, status=201)
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)

@@ -86,6 +86,18 @@
             transition: all 0.3s;
         }
         .btn-secondary:hover { background: rgba(201,160,61,0.15); }
+        .btn-upload {
+            background: rgba(201,160,61,0.2);
+            border: 1px solid rgba(201,160,61,0.3);
+            color: #C9A03D;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+        .btn-upload:hover { background: rgba(201,160,61,0.3); }
         /* Grid */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
         /* Item Cards */
@@ -173,6 +185,10 @@
             outline: none;
             border-color: #C9A03D;
         }
+        .form-group input[type="file"] {
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.05);
+        }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
         .admin-badge {
             background: #C9A03D;
@@ -184,10 +200,24 @@
         }
         .admin-section { border-color: rgba(201,160,61,0.4); }
         .loading { text-align: center; padding: 2rem; color: #94A3B8; }
+        .preview-image {
+            max-width: 150px;
+            max-height: 100px;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            border: 1px solid rgba(201,160,61,0.2);
+        }
+        .upload-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
         @media (max-width: 768px) {
             .form-row { grid-template-columns: 1fr; }
             .header { padding: 0.75rem 1rem; flex-direction: column; gap: 0.5rem; }
             .container { padding: 1rem; }
+            .upload-row { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -265,8 +295,13 @@
                     <textarea id="eventDescription" rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Poster URL</label>
-                    <input type="url" id="eventPoster" placeholder="https://example.com/poster.jpg">
+                    <label>Upload Poster</label>
+                    <div class="upload-row">
+                        <input type="file" id="eventPosterFile" accept="image/*">
+                        <button type="button" class="btn-upload" onclick="uploadPoster()">Upload</button>
+                    </div>
+                    <input type="hidden" id="eventPosterUrl">
+                    <div id="posterPreview"></div>
                 </div>
                 <button type="submit" class="btn-primary" style="width:100%;">Save Event</button>
             </form>
@@ -375,6 +410,21 @@
             document.getElementById(id).style.display = 'none';
         }
 
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
         // Close modals on outside click
         window.onclick = function(event) {
             document.querySelectorAll('.modal').forEach(modal => {
@@ -385,6 +435,48 @@
         // ========== Logout ==========
         function logout() {
             window.location.href = '/logout/';
+        }
+
+        // ========== Cloudinary Upload ==========
+        async function uploadPoster() {
+            const fileInput = document.getElementById('eventPosterFile');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file first');
+                return;
+            }
+
+            const previewDiv = document.getElementById('posterPreview');
+            previewDiv.innerHTML = '<div class="loading" style="padding:0.5rem;">Uploading...</div>';
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch(`${API_BASE}/admin/upload/`, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('eventPosterUrl').value = data.url;
+                    previewDiv.innerHTML = `
+                        <img src="${data.url}" class="preview-image" alt="Uploaded poster">
+                        <p style="font-size:0.75rem;color:#94A3B8;margin-top:0.25rem;">✅ Uploaded successfully</p>
+                    `;
+                } else {
+                    previewDiv.innerHTML = `<p style="color:#ef4444;">❌ Upload failed: ${data.error || 'Unknown error'}</p>`;
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                previewDiv.innerHTML = `<p style="color:#ef4444;">❌ Error uploading: ${error.message}</p>`;
+            }
         }
 
         // ========== Load Events ==========
@@ -402,6 +494,7 @@
                         <div class="item-info">
                             <h3>${escapeHtml(event.title)}</h3>
                             <p>📅 ${formatDate(event.date)} • 📍 ${escapeHtml(event.location)}</p>
+                            ${event.poster_url ? `<p style="font-size:0.7rem;color:#C9A03D;">📷 Poster uploaded</p>` : ''}
                         </div>
                         <div class="item-actions">
                             <button class="btn-edit" onclick="editEvent('${event.id}')">✏️</button>
@@ -423,7 +516,9 @@
             document.getElementById('eventDate').value = '';
             document.getElementById('eventLocation').value = '';
             document.getElementById('eventDescription').value = '';
-            document.getElementById('eventPoster').value = '';
+            document.getElementById('eventPosterUrl').value = '';
+            document.getElementById('eventPosterFile').value = '';
+            document.getElementById('posterPreview').innerHTML = '';
             document.getElementById('eventModal').style.display = 'flex';
         }
 
@@ -437,7 +532,18 @@
                 document.getElementById('eventDate').value = event.date;
                 document.getElementById('eventLocation').value = event.location;
                 document.getElementById('eventDescription').value = event.description || '';
-                document.getElementById('eventPoster').value = event.poster_url || '';
+                document.getElementById('eventPosterUrl').value = event.poster_url || '';
+                document.getElementById('eventPosterFile').value = '';
+                
+                if (event.poster_url) {
+                    document.getElementById('posterPreview').innerHTML = `
+                        <img src="${event.poster_url}" class="preview-image" alt="Current poster">
+                        <p style="font-size:0.75rem;color:#94A3B8;margin-top:0.25rem;">Current poster</p>
+                    `;
+                } else {
+                    document.getElementById('posterPreview').innerHTML = '';
+                }
+                
                 document.getElementById('eventModal').style.display = 'flex';
             } catch (error) {
                 alert('Failed to load event');
@@ -452,7 +558,7 @@
                 date: document.getElementById('eventDate').value,
                 location: document.getElementById('eventLocation').value,
                 description: document.getElementById('eventDescription').value,
-                poster_url: document.getElementById('eventPoster').value
+                poster_url: document.getElementById('eventPosterUrl').value
             };
             try {
                 const url = eventId ? `${API_BASE}/events/${eventId}/` : `${API_BASE}/events/`;

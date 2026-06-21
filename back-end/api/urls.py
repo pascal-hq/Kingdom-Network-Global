@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/content/', views.get_all_content, name='all_content'),
     path('admin/content/<uuid:content_id>/', views.manage_content, name='manage_content'),
     path('admin/settings/', views.manage_ministry_settings, name='settings'),
+    path('admin/upload/', views.upload_image, name='upload_image'),
 ]
