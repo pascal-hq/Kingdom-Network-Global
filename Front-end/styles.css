@@ -359,84 +359,6 @@ h4 {
     display: block;
 }
 
-/* ---------- UPCOMING EVENTS SECTION ---------- */
-.events-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.event-card-mini {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    padding: 1.5rem;
-    transition: all var(--transition-smooth);
-    overflow: hidden;
-    max-width: 400px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-.event-card-mini:hover {
-    transform: translateY(-5px);
-    border-color: var(--gold-primary);
-}
-
-/* Event Poster */
-.event-poster {
-    width: 100%;
-    height: 400px; 
-    overflow: hidden;
-    border-radius: 12px;
-    margin-bottom: 0.75rem;
-    background: rgba(255, 255, 255, 0.05);
-}
-.event-poster img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.event-card-mini:hover .event-poster img {
-    transform: scale(1.05);
-}
-
-.event-date-mini {
-    font-size: 0.85rem;
-    color: var(--gold-primary);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.event-title-mini {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-}
-
-.event-location-mini {
-    font-size: 0.85rem;
-    color: var(--gray-mid);
-}
-
-.event-desc-mini {
-    font-size: 0.85rem;
-    color: var(--white-off);
-    opacity: 0.8;
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--glass-border);
-}
-
 /* ---------- DAILY VERSE ---------- */
 .daily-verse {
     background: var(--glass-bg);
@@ -669,22 +591,26 @@ h4 {
     box-shadow: var(--shadow-lg);
 }
 
+/* Department Image - Auto-adjusts to uploaded image */
 .department-image {
     width: 100%;
-    height: 200px;
+    height: auto;
+    max-height: 300px;
     overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .department-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+    display: block;
     transition: transform var(--transition-smooth);
 }
 
 .department-frame:hover .department-image img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .department-body {
@@ -750,6 +676,87 @@ h4 {
 
 .department-body .btn-more:active {
     transform: translateY(0px);
+}
+
+/* ---------- EVENTS SECTION ---------- */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.event-card-mini {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all var(--transition-smooth);
+    overflow: hidden;
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.event-card-mini:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-primary);
+}
+
+/* Event Poster - Auto-adjusts to uploaded image */
+.event-poster {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.event-poster img {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.event-card-mini:hover .event-poster img {
+    transform: scale(1.05);
+}
+
+.event-date-mini {
+    font-size: 0.85rem;
+    color: var(--gold-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.event-title-mini {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.event-location-mini {
+    font-size: 0.85rem;
+    color: var(--gray-mid);
+}
+
+.event-desc-mini {
+    font-size: 0.85rem;
+    color: var(--white-off);
+    opacity: 0.8;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--glass-border);
 }
 
 /* ---------- FOUNDER SECTION ---------- */
@@ -1044,22 +1051,21 @@ select {
         max-width: 400px;
     }
     
-    .event-poster {
-        width: 100%;
-    height: auto;  /* ← Auto-adjusts to image height */
-    overflow: hidden;
-    border-radius: 12px;
-    margin-bottom: 0.75rem;
-    background: rgba(255, 255, 255, 0.05);
-
+    /* Mobile image adjustments */
+    .department-image {
+        max-height: 220px;
     }
     
+    .department-image img {
+        max-height: 220px;
+    }
+    
+    .event-poster {
+        max-height: 280px;
+    }
     
     .event-poster img {
-    width: 100%;
-    height: auto;  /* ← Maintains original aspect ratio */
-    display: block;
-    transition: transform 0.3s ease;
+        max-height: 280px;
     }
     
     .form-row {
@@ -1088,8 +1094,20 @@ select {
         font-size: 1.5rem;
     }
     
+    .department-image {
+        max-height: 180px;
+    }
+    
+    .department-image img {
+        max-height: 180px;
+    }
+    
     .event-poster {
-        height: 150px;
+        max-height: 220px;
+    }
+    
+    .event-poster img {
+        max-height: 220px;
     }
     
     .event-card-mini {
