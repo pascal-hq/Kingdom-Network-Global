@@ -1046,6 +1046,14 @@ select {
     
     .event-poster {
         height: 400px;
+        min-height: 400px;
+        aspect-ratio: 4 / 5;
+    }
+    }
+    
+    .event-poster img {
+        object-fit: contain;
+        background: #0A1128;
     }
     
     .form-row {
