@@ -1045,15 +1045,21 @@ select {
     }
     
     .event-poster {
-        height: 400px;
-        min-height: 400px;
-        aspect-ratio: 4 / 5;
-    }
+        width: 100%;
+    height: auto;  /* ← Auto-adjusts to image height */
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+
     }
     
+    
     .event-poster img {
-        object-fit: contain;
-        background: #0A1128;
+    width: 100%;
+    height: auto;  /* ← Maintains original aspect ratio */
+    display: block;
+    transition: transform 0.3s ease;
     }
     
     .form-row {
