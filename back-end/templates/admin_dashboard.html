@@ -249,7 +249,7 @@
         <!-- Prayer Requests Section -->
         <div class="card">
             <div class="card-header">
-                <h2>🙏 Prayer Requests</h2>
+                <h2>Prayer Requests</h2>
             </div>
             <div id="prayersList" class="grid">
                 <div class="loading">Loading prayer requests...</div>
@@ -823,11 +823,157 @@
             }
         }
 
+        // ========== SESSION TIMEOUT WARNING ==========
+        let sessionTimer;
+        let warningTimer;
+        let isWarningShown = false;
+        const SESSION_TIMEOUT = 180; // 3 minutes in seconds
+        const WARNING_TIME = 30; // Show warning 30 seconds before timeout
+
+        function startSessionTimer() {
+            let timeLeft = SESSION_TIMEOUT;
+
+            clearInterval(sessionTimer);
+            clearTimeout(warningTimer);
+            isWarningShown = false;
+
+            warningTimer = setTimeout(() => {
+                showSessionWarning();
+            }, (SESSION_TIMEOUT - WARNING_TIME) * 1000);
+
+            sessionTimer = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(sessionTimer);
+                    // Auto logout
+                    logout();
+                }
+            }, 1000);
+        }
+
+        function showSessionWarning() {
+            if (isWarningShown) return;
+            isWarningShown = true;
+
+            // Create warning modal
+            const warningModal = document.createElement('div');
+            warningModal.id = 'sessionWarningModal';
+            warningModal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.85);
+                backdrop-filter: blur(8px);
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            `;
+
+            warningModal.innerHTML = `
+                <div style="
+                    background: #1B2A4A;
+                    border: 1px solid rgba(201,160,61,0.4);
+                    border-radius: 24px;
+                    padding: 2.5rem;
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+                ">
+                    <h2 style="color: #C9A03D; font-size: 1.5rem; margin-bottom: 1rem;">
+                        ⏰ Session Expiring Soon
+                    </h2>
+                    <p style="color: #F4F6F9; margin-bottom: 1.5rem;">
+                        You will be logged out in <strong id="countdownDisplay" style="color: #C9A03D;">30</strong> seconds due to inactivity.
+                    </p>
+                    <p style="color: #94A3B8; font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Press any key or click anywhere to stay logged in.
+                    </p>
+                    <button onclick="resetSession()" style="
+                        background: linear-gradient(135deg, #C9A03D, #A8842A);
+                        color: #0A1128;
+                        border: none;
+                        padding: 0.7rem 2rem;
+                        border-radius: 50px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        font-size: 1rem;
+                        transition: all 0.3s;
+                    ">Stay Logged In</button>
+                </div>
+            `;
+
+            document.body.appendChild(warningModal);
+
+            // Countdown inside warning
+            let countdown = WARNING_TIME;
+            const countdownEl = warningModal.querySelector('#countdownDisplay');
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                if (countdownEl) {
+                    countdownEl.textContent = countdown;
+                }
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                }
+            }, 1000);
+
+            // Listen for any user activity
+            const resetSessionOnActivity = () => {
+                resetSession();
+                document.removeEventListener('keydown', resetSessionOnActivity);
+                document.removeEventListener('click', resetSessionOnActivity);
+                document.removeEventListener('mousemove', resetSessionOnActivity);
+            };
+
+            document.addEventListener('keydown', resetSessionOnActivity);
+            document.addEventListener('click', resetSessionOnActivity);
+            document.addEventListener('mousemove', resetSessionOnActivity);
+        }
+
+        function resetSession() {
+            // Remove the warning modal
+            const modal = document.getElementById('sessionWarningModal');
+            if (modal) {
+                modal.remove();
+            }
+            isWarningShown = false;
+
+            // Reset the session timer
+            startSessionTimer();
+
+            // Send a keep-alive request to the server
+            fetch('/api/auth/keep-alive/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                credentials: 'same-origin'
+            }).catch(err => console.log('Keep-alive failed:', err));
+        }
+
         // ========== Initialize ==========
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Dashboard loaded!');
             loadEvents();
             loadPrayers();
+            
+            // Start session timer
+            startSessionTimer();
+            
+            // Reset session timer on user activity
+            document.addEventListener('click', function() {
+                startSessionTimer();
+            });
+            document.addEventListener('keydown', function() {
+                startSessionTimer();
+            });
+            document.addEventListener('mousemove', function() {
+                startSessionTimer();
+            });
         });
     </script>
 

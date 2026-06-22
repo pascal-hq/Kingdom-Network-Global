@@ -16,8 +16,10 @@ urlpatterns = [
     path('prayers/', views.manage_prayer_requests, name='prayers'),
     path('prayers/<uuid:prayer_id>/respond/', views.manage_prayer_requests, name='prayer_respond'),
 
+    # ========== AUTH ==========
+    path('auth/keep-alive/', views.keep_alive, name='keep_alive'),
+
     # ========== ADMIN ONLY ==========
-    # IMPORTANT: List URL must come BEFORE detail URL
     path('admin/content/', views.get_all_content, name='all_content'),
     path('admin/content/<uuid:content_id>/', views.manage_content, name='manage_content'),
     path('admin/settings/', views.manage_ministry_settings, name='settings'),

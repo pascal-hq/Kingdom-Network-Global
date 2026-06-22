@@ -1,9 +1,11 @@
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from datetime import date
 
 from .models import Department, Event, MinistrySetting, PrayerRequest
@@ -39,10 +41,10 @@ def get_public_ministry_settings(request):
         return Response(serializer.data)
     return Response({})
 
-# ========== FIXED: Public prayer request endpoint ==========
 @api_view(['POST'])
 @csrf_exempt
-@permission_classes([AllowAny])  # ← Allow any user (no authentication required)
+@authentication_classes([])
+@permission_classes([AllowAny])
 def submit_prayer_request(request):
     """Public: Submit a prayer request"""
     try:
@@ -75,15 +77,15 @@ def submit_prayer_request(request):
                 status=status.HTTP_201_CREATED
             )
         else:
-            print(f"❌ Prayer request validation failed: {serializer.errors}")
+            print(f"❌ Validation failed: {serializer.errors}")
             return Response(
                 {'error': 'Validation failed', 'details': serializer.errors}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
     except Exception as e:
-        print(f"❌ Prayer request error: {e}")
+        print(f"❌ Error: {e}")
         return Response(
-            {'error': 'An error occurred', 'details': str(e)}, 
+            {'error': str(e)}, 
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
@@ -107,7 +109,6 @@ def manage_events(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# ========== FIXED: Added GET method to manage_event_detail ==========
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAdminOrManager])
 def manage_event_detail(request, event_id):
@@ -148,6 +149,19 @@ def manage_prayer_requests(request, prayer_id=None):
         prayer.is_responded = True
         prayer.save()
         return Response({'message': 'Prayer marked as responded'})
+
+# ========== KEEP ALIVE ENDPOINT ==========
+
+@api_view(['POST'])
+@login_required
+def keep_alive(request):
+    """Keep the session alive by resetting the session expiry"""
+    try:
+        # Refresh the session to reset the expiry timer
+        request.session.modified = True
+        return Response({'status': 'ok', 'message': 'Session refreshed'})
+    except Exception as e:
+        return Response({'status': 'error', 'message': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 # ========== ADMIN ONLY ENDPOINTS ==========
 

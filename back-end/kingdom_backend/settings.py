@@ -144,3 +144,8 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
     X_FRAME_OPTIONS = 'DENY'
+    
+# ========== SESSION SECURITY ==========
+SESSION_COOKIE_AGE = 180  # 3 minutes in seconds
+SESSION_SAVE_EVERY_REQUEST = True  # Reset timer on each request
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Expire when browser closes
