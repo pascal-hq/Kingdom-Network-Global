@@ -468,14 +468,14 @@
                     document.getElementById('eventPosterUrl').value = data.url;
                     previewDiv.innerHTML = `
                         <img src="${data.url}" class="preview-image" alt="Uploaded poster">
-                        <p style="font-size:0.75rem;color:#94A3B8;margin-top:0.25rem;">✅ Uploaded successfully</p>
+                        <p style="font-size:0.75rem;color:#94A3B8;margin-top:0.25rem;">Uploaded successfully</p>
                     `;
                 } else {
-                    previewDiv.innerHTML = `<p style="color:#ef4444;">❌ Upload failed: ${data.error || 'Unknown error'}</p>`;
+                    previewDiv.innerHTML = `<p style="color:#ef4444;">Upload failed: ${data.error || 'Unknown error'}</p>`;
                 }
             } catch (error) {
                 console.error('Upload error:', error);
-                previewDiv.innerHTML = `<p style="color:#ef4444;">❌ Error uploading: ${error.message}</p>`;
+                previewDiv.innerHTML = `<p style="color:#ef4444;">Error uploading: ${error.message}</p>`;
             }
         }
 
@@ -493,12 +493,12 @@
                     <div class="item-card">
                         <div class="item-info">
                             <h3>${escapeHtml(event.title)}</h3>
-                            <p>📅 ${formatDate(event.date)} • 📍 ${escapeHtml(event.location)}</p>
-                            ${event.poster_url ? `<p style="font-size:0.7rem;color:#C9A03D;">📷 Poster uploaded</p>` : ''}
+                            <p>${formatDate(event.date)} • 📍 ${escapeHtml(event.location)}</p>
+                            ${event.poster_url ? `<p style="font-size:0.7rem;color:#C9A03D;">Poster uploaded</p>` : ''}
                         </div>
                         <div class="item-actions">
-                            <button class="btn-edit" onclick="editEvent('${event.id}')">✏️</button>
-                            <button class="btn-delete" onclick="deleteEvent('${event.id}')">🗑️</button>
+                            <button class="btn-edit" onclick="editEvent('${event.id}')"></button>
+                            <button class="btn-delete" onclick="deleteEvent('${event.id}')"></button>
                         </div>
                     </div>
                 `).join('');
@@ -598,7 +598,7 @@
                 if (response.ok) {
                     closeModal('eventModal');
                     loadEvents();
-                    alert('✅ Event saved successfully!');
+                    alert('Event saved successfully!');
                 } else {
                     alert('Failed to save event: ' + (result.error || result.message || 'Unknown error'));
                 }
@@ -620,7 +620,7 @@
                     });
                     if (response.ok) {
                         loadEvents();
-                        alert('✅ Event deleted!');
+                        alert('Event deleted!');
                     } else {
                         alert('Failed to delete event');
                     }
@@ -670,7 +670,7 @@
                 });
                 if (response.ok) {
                     loadPrayers();
-                    alert('✅ Prayer marked as responded!');
+                    alert('Prayer marked as responded!');
                 } else {
                     alert('Failed to mark as responded');
                 }
@@ -716,7 +716,7 @@
                     body: JSON.stringify(data)
                 });
                 if (response.ok) {
-                    alert('✅ Settings saved!');
+                    alert('Settings saved!');
                     closeModal('settingsModal');
                 } else {
                     alert('Failed to save settings');
@@ -812,7 +812,7 @@
                     body: JSON.stringify(data)
                 });
                 if (response.ok) {
-                    alert('✅ Department saved!');
+                    alert('Department saved!');
                     closeModal('editDeptModal');
                     loadDepartmentsForEdit();
                 } else {

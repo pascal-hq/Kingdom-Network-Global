@@ -94,7 +94,7 @@
     <!-- EVENTS SECTION -->
     <section id="events" class="section alt">
         <div class="content">
-            <h2 class="scroll-reveal">📅 Upcoming Events</h2>
+            <h2 class="scroll-reveal">Upcoming Events</h2>
             <div id="upcomingEvents" class="events-grid scroll-reveal">
                 <div class="loading">Loading events...</div>
             </div>
@@ -135,7 +135,7 @@
     <!-- PRAYER SECTION -->
     <section id="prayer" class="section">
         <div class="content prayer-container scroll-reveal">
-            <h2 style="text-align:center;">🙏 Prayer Request</h2>
+            <h2 style="text-align:center;">Prayer Request</h2>
             <div class="prayer-form-container">
                 <form id="prayerForm">
                     <div class="form-group">
@@ -150,7 +150,7 @@
                     </div>
                     <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Submit Prayer Request</button>
                 </form>
-                <div id="prayerSuccess" class="prayer-success hidden">✅ Prayer request submitted!</div>
+                <div id="prayerSuccess" class="prayer-success hidden">Prayer request submitted!</div>
             </div>
         </div>
     </section>
@@ -239,7 +239,7 @@
         
         verseTextEl.textContent = verse.text;
         verseRefEl.textContent = verse.ref;
-        console.log('📖 Daily verse loaded:', verse.ref);
+        console.log('Daily verse loaded:', verse.ref);
     }
 
     // ========== LOAD DEPARTMENTS ==========
@@ -335,7 +335,7 @@ async function loadEvents() {
                         <img src="${event.poster_url}" alt="${event.title}" onerror="this.style.display='none'">
                     </div>
                 ` : ''}
-                <div class="event-date-mini">📅 ${formatDate(event.date)}</div>
+                <div class="event-date-mini">${formatDate(event.date)}</div>
                 <div class="event-title-mini">${escapeHtml(event.title)}</div>
                 <div class="event-location-mini">📍 ${escapeHtml(event.location)}</div>
                 ${event.description ? `<div class="event-desc-mini">${escapeHtml(event.description.substring(0, 100))}${event.description.length > 100 ? '...' : ''}</div>` : ''}
@@ -442,8 +442,8 @@ async function loadEvents() {
 
     // ========== INITIALIZE ==========
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 Loading page...');
-        console.log('📡 API_BASE:', API_BASE);
+        console.log('Loading page...');
+        console.log('API_BASE:', API_BASE);
         
         loadDailyVerse(); // Verse loads instantly
         loadMinistrySettings();
