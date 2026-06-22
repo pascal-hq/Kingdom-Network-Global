@@ -138,18 +138,35 @@
             <h2 style="text-align:center;">Prayer Request</h2>
             <div class="prayer-form-container">
                 <form id="prayerForm">
-                    <div class="form-group">
-                        <input type="text" id="prayerName" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="prayerEmail" placeholder="Your Email (optional)">
-                    </div>
-                    
-                    <div class="form-group">
-                        <textarea id="prayerRequest" rows="4" placeholder="Share your prayer request..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Submit Prayer Request</button>
-                </form>
+    <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="prayerName" placeholder="Enter your name" required>
+    </div>
+    <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="prayerEmail" placeholder="Your email (optional)">
+    </div>
+    <div class="form-group">
+        <label>Prayer Category</label>
+        <select id="prayerCategory" required>
+            <option value="">Select a category</option>
+            <option>Health & Healing</option>
+            <option>Family & Relationships</option>
+            <option>Finances & Provision</option>
+            <option>Guidance & Direction</option>
+            <option>Salvation for Loved Ones</option>
+            <option>Church & Ministry</option>
+            <option>Other</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Your Prayer Request</label>
+        <textarea id="prayerRequest" rows="5" placeholder="Share what you'd like us to pray about..." required></textarea>
+    </div>
+    <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">
+        <i class="fas fa-pray"></i> Submit Prayer Request
+    </button>
+</form>
                 <div id="prayerSuccess" class="prayer-success hidden">Prayer request submitted!</div>
             </div>
         </div>
@@ -364,41 +381,99 @@ async function loadEvents() {
     }
 
     // ========== PRAYER FORM ==========
-    function setupPrayerForm() {
-        const form = document.getElementById('prayerForm');
-        if (!form) return;
-
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const data = {
-                name: document.getElementById('prayerName').value,
-                email: document.getElementById('prayerEmail').value,
-                category: document.getElementById('prayerCategory').value,
-                request: document.getElementById('prayerRequest').value
-            };
-
-            try {
-                const response = await fetch(`${API_BASE}/public/prayer/`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                if (response.ok) {
-                    document.getElementById('prayerSuccess').classList.remove('hidden');
-                    form.reset();
-                    setTimeout(() => {
-                        document.getElementById('prayerSuccess').classList.add('hidden');
-                    }, 5000);
-                } else {
-                    alert('Failed to submit prayer request');
-                }
-            } catch (error) {
-                console.error('Prayer submission error:', error);
-                alert('Network error. Please try again.');
-            }
-        });
+function setupPrayerForm() {
+    const form = document.getElementById('prayerForm');
+    if (!form) {
+        console.error('Prayer form not found!');
+        return;
     }
+
+    console.log('Prayer form found, setting up...');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        console.log('Prayer form submitted');
+
+        // Get form elements with null checks
+        const nameInput = document.getElementById('prayerName');
+        const emailInput = document.getElementById('prayerEmail');
+        const categorySelect = document.getElementById('prayerCategory');
+        const requestTextarea = document.getElementById('prayerRequest');
+
+        // Check if all elements exist
+        if (!nameInput || !categorySelect || !requestTextarea) {
+            console.error('Missing form elements:', {
+                name: !!nameInput,
+                category: !!categorySelect,
+                request: !!requestTextarea
+            });
+            alert('Form is incomplete. Please refresh the page and try again.');
+            return;
+        }
+
+        // Get values safely
+        const name = nameInput.value || '';
+        const email = emailInput ? emailInput.value : '';
+        const category = categorySelect.value || '';
+        const request = requestTextarea.value || '';
+
+        // Validate
+        if (!name || !category || !request) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        const data = {
+            name: name,
+            email: email,
+            category: category,
+            request: request
+        };
+
+        console.log('Sending prayer request:', data);
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn?.textContent || 'Submit';
+
+        if (submitBtn) {
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE}/public/prayer/`, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            console.log('Response status:', response.status);
+            const result = await response.json();
+            console.log('Response data:', result);
+
+            if (response.ok) {
+                const successDiv = document.getElementById('prayerSuccess');
+                if (successDiv) {
+                    successDiv.classList.remove('hidden');
+                }
+                form.reset();
+                alert('✅ Prayer request submitted! Our team will pray for you.');
+            } else {
+                alert('❌ Failed to submit: ' + (result.error || result.message || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Prayer submission error:', error);
+            alert('❌ Network error. Please try again.');
+        } finally {
+            if (submitBtn) {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+    });
+}
 
     // ========== HAMBURGER MENU ==========
     const hamburger = document.getElementById('hamburger');
