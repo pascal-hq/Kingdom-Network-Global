@@ -434,8 +434,24 @@
 
         // ========== Logout ==========
         function logout() {
-            window.location.href = '/logout/';
+    // Use a POST request instead of GET
+    fetch('/logout/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (response.ok || response.redirected) {
+            window.location.href = '/login/';
         }
+    })
+    .catch(() => {
+        // Fallback: redirect to login directly
+        window.location.href = '/login/';
+    });
+}
 
         // ========== Cloudinary Upload ==========
         async function uploadPoster() {
