@@ -1,4 +1,5 @@
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Q
@@ -38,14 +39,34 @@ def get_public_ministry_settings(request):
         return Response(serializer.data)
     return Response({})
 
+# ========== FIXED: Public prayer request endpoint ==========
 @api_view(['POST'])
 @csrf_exempt
+@permission_classes([AllowAny])  # ← Allow any user (no authentication required)
 def submit_prayer_request(request):
     """Public: Submit a prayer request"""
     try:
         print(f"📝 Prayer request received: {request.data}")
         
-        serializer = PrayerRequestSerializer(data=request.data)
+        # Validate required fields
+        required_fields = ['name', 'category', 'request']
+        for field in required_fields:
+            if not request.data.get(field):
+                return Response(
+                    {'error': f'{field} is required'}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+        
+        # Create prayer request
+        prayer_data = {
+            'name': request.data.get('name'),
+            'email': request.data.get('email', ''),
+            'category': request.data.get('category'),
+            'request': request.data.get('request'),
+            'is_responded': False
+        }
+        
+        serializer = PrayerRequestSerializer(data=prayer_data)
         if serializer.is_valid():
             serializer.save()
             print(f"✅ Prayer request saved: {serializer.data}")
