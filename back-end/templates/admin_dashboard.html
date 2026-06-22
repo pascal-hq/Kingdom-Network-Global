@@ -513,8 +513,8 @@
                             ${event.poster_url ? `<p style="font-size:0.7rem;color:#C9A03D;">Poster uploaded</p>` : ''}
                         </div>
                         <div class="item-actions">
-                            <button class="btn-edit" onclick="editEvent('${event.id}')"></button>
-                            <button class="btn-delete" onclick="deleteEvent('${event.id}')"></button>
+                            <button class="btn-edit" onclick="editEvent('${event.id}')">Edit</button>
+                            <button class="btn-delete" onclick="deleteEvent('${event.id}')">Delete</button>
                         </div>
                     </div>
                 `).join('');
