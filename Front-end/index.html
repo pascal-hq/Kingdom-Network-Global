@@ -459,13 +459,13 @@ function setupPrayerForm() {
                     successDiv.classList.remove('hidden');
                 }
                 form.reset();
-                alert('✅ Prayer request submitted! Our team will pray for you.');
+                alert('Prayer request submitted! Our team will pray for you.');
             } else {
-                alert('❌ Failed to submit: ' + (result.error || result.message || 'Unknown error'));
+                alert('Failed to submit: ' + (result.error || result.message || 'Unknown error'));
             }
         } catch (error) {
             console.error('Prayer submission error:', error);
-            alert('❌ Network error. Please try again.');
+            alert('Network error. Please try again.');
         } finally {
             if (submitBtn) {
                 submitBtn.textContent = originalText;
