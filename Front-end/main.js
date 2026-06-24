@@ -141,7 +141,7 @@ function displayDailyVerse() {
     const verse = getVerseOfTheDay();
     verseTextEl.textContent = verse.text;
     verseRefEl.textContent = verse.ref;
-    console.log('📖 Daily verse loaded:', verse.ref);
+    console.log('Daily verse loaded:', verse.ref);
 }
 
 // Display verse immediately
@@ -285,7 +285,7 @@ async function loadEvents(retryCount = 0) {
         
         eventsContainer.innerHTML = upcomingEvents.map(event => `
             <div class="event-card-mini">
-                <div class="event-date-mini">📅 ${formatDate(event.date)}</div>
+                <div class="event-date-mini">${formatDate(event.date)}</div>
                 <div class="event-title-mini">${escapeHtml(event.title)}</div>
                 <div class="event-location-mini">📍 ${escapeHtml(event.location)}</div>
                 ${event.description ? `<div class="event-desc-mini">${escapeHtml(event.description.substring(0, 100))}${event.description.length > 100 ? '...' : ''}</div>` : ''}
@@ -412,14 +412,14 @@ function setupPrayerForm() {
                     successDiv.classList.remove('hidden');
                     setTimeout(() => successDiv.classList.add('hidden'), 5000);
                 }
-                alert('✅ Prayer request submitted! Our team will pray for you.');
+                alert('Prayer request submitted! Our team will pray for you.');
             } else {
                 const error = await response.json();
-                alert('❌ Failed to submit: ' + (error.error || 'Unknown error'));
+                alert('Failed to submit: ' + (error.error || 'Unknown error'));
             }
         } catch (error) {
             console.error('Prayer submission error:', error);
-            alert('❌ Network error. Please try again.');
+            alert('Network error. Please try again.');
         } finally {
             if (submitBtn) {
                 submitBtn.textContent = originalText;
