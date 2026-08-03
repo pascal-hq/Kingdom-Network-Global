@@ -6,7 +6,7 @@
     <title>Kingdom Network Global | Raising a Generation Strengthened in Christ</title>
     
     <!-- Meta Tags -->
-    <meta name="description" content="Kingdom Network Global is a youth-focused Christian ministry committed to raising a generation strengthened in Christ.">
+    <meta name="description" content="Kingdom Network Global is a Christian community based organization that mainly targets the young generation and aims to lead them to the kingdom of God through the Gospel, Leadership, Mentorship, Guidance and Counseling.">
     <meta name="keywords" content="Christian ministry, youth ministry, worship, mentorship, Kingdom Network Global">
     <meta name="author" content="Kingdom Network Global">
     
@@ -23,6 +23,35 @@
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* About section image stack */
+        .about-image-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .about-image-stack .stack-item {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-smooth);
+        }
+        .about-image-stack .stack-item:hover {
+            transform: scale(1.02);
+        }
+        .about-image-stack .stack-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .about-image-stack {
+                gap: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -70,7 +99,7 @@
                     <p class="verse-text">“Loading daily scripture…”</p>
                     <span class="verse-ref"></span>
                 </div>
-                <a href="#contact" class="btn-primary"><i class="fas fa-heart"></i> Our Generation Must Be Saved</a>
+                <a href="#about" class="btn-primary"><i class="fas fa-heart"></i> Our Generation Must Be Saved</a>
             </div>
         </div>
     </section>
@@ -80,8 +109,55 @@
         <div class="content about-inner scroll-reveal">
             <div class="about-content">
                 <h2>About Kingdom Network Global</h2>
-                <p><strong>Kingdom Network Global</strong> is a youth-focused Christian ministry committed to raising a generation strengthened in Christ, equipped to overcome the challenges of this present age.</p>
-                <p>Our mission is to enhance spiritual growth, deepen revelation, and cultivate lasting spiritual stamina in believers, empowering them to live victorious and impactful lives.</p>
+
+                <p><strong>Kingdom Network Global</strong> is a Christian community based organization that mainly targets the young generation and aims to lead them to the kingdom of God through the Gospel, Leadership, Mentorship, Guidance and Counseling and any other means possible that leads to the Desired end.</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
+                    <div style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem;">
+                        <h4 style="color: var(--gold-primary); margin-bottom: 0.5rem;">Vision</h4>
+                        <p style="font-size: 0.95rem;">To be the hub for all kingdom possibilities.</p>
+                    </div>
+                    <div style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem;">
+                        <h4 style="color: var(--gold-primary); margin-bottom: 0.5rem;">Mission</h4>
+                        <p style="font-size: 0.95rem;">To raise, equip and empower a generation of kings and priests who reign on earth &amp; enhance kingdom advancement agenda.</p>
+                    </div>
+                </div>
+
+                <h3>The Mandate of Kingdom Network</h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0 2rem 0;">
+                    <div style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem;">
+                        <i class="fas fa-praying-hands" style="color: var(--gold-primary); font-size: 1.5rem; margin-bottom: 0.5rem; display: inline-block;"></i>
+                        <h4 style="font-size: 0.95rem; color: var(--gold-light);">Soul Salvation</h4>
+                        <p style="font-size: 0.85rem; opacity: 0.9;">The salvation of souls to take part in the end time massive salvation of souls from the kingdom of darkness through evangelism and discipleship.</p>
+                    </div>
+                    <div style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem;">
+                        <i class="fas fa-chalkboard-teacher" style="color: var(--gold-primary); font-size: 1.5rem; margin-bottom: 0.5rem; display: inline-block;"></i>
+                        <h4 style="font-size: 0.95rem; color: var(--gold-light);">Equip Believers</h4>
+                        <p style="font-size: 0.85rem; opacity: 0.9;">To equip and edify believers for the work of the ministry.</p>
+                    </div>
+                    <div style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem;">
+                        <i class="fas fa-users" style="color: var(--gold-primary); font-size: 1.5rem; margin-bottom: 0.5rem; display: inline-block;"></i>
+                        <h4 style="font-size: 0.95rem; color: var(--gold-light);">Mentorship</h4>
+                        <p style="font-size: 0.85rem; opacity: 0.9;">Mentor a generation to discover and rediscover their purpose and bring up a Godly generation through mentorship programs, workshops, seminars, trainings and leadership forums.</p>
+                    </div>
+                    <div style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem;">
+                        <i class="fas fa-mountain" style="color: var(--gold-primary); font-size: 1.5rem; margin-bottom: 0.5rem; display: inline-block;"></i>
+                        <h4 style="font-size: 0.95rem; color: var(--gold-light);">7 Mountains of Influence</h4>
+                        <p style="font-size: 0.85rem; opacity: 0.9;">To affect the 7 mountains of influence with the aim of sowing seeds of revival.</p>
+                    </div>
+                    <div style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem;">
+                        <i class="fas fa-globe-africa" style="color: var(--gold-primary); font-size: 1.5rem; margin-bottom: 0.5rem; display: inline-block;"></i>
+                        <h4 style="font-size: 0.95rem; color: var(--gold-light);">National Impact</h4>
+                        <p style="font-size: 0.85rem; opacity: 0.9;">To cause national impact to the nations and the globe for the glory of our God through raising change agents.</p>
+                    </div>
+                    <div style="background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem;">
+                        <i class="fas fa-hand-holding-heart" style="color: var(--gold-primary); font-size: 1.5rem; margin-bottom: 0.5rem; display: inline-block;"></i>
+                        <h4 style="font-size: 0.95rem; color: var(--gold-light);">Community Impact</h4>
+                        <p style="font-size: 0.85rem; opacity: 0.9;">To impact the community through local school missions, visiting children's homes and local churches.</p>
+                    </div>
+                </div>
+
                 <h3>Our Anchor Pillars</h3>
                 <div class="pillars">
                     <div class="pillar">
@@ -101,8 +177,22 @@
                     </div>
                 </div>
             </div>
-            <div class="about-image">
-                <img src="images/about.webp" alt="Kingdom Network Global ministry gathering">
+            <div class="about-image-stack">
+                <div class="stack-item">
+                    <img src="images/home1.webp" alt="Kingdom Network Global ministry gathering" onerror="this.src='images/about.webp'">
+                </div>
+                <div class="stack-item">
+                    <img src="images/home2.webp" alt="Kingdom Network Global worship session" onerror="this.src='images/about.webp'">
+                </div>
+                <div class="stack-item">
+                    <img src="images/home3.webp" alt="Kingdom Network Global outreach program" onerror="this.src='images/about.webp'">
+                </div>
+                <div class="stack-item">
+                    <img src="images/home4.webp" alt="Kingdom Network Global outreach program" onerror="this.src='images/about.webp'">
+                </div>
+                <div class="stack-item">
+                    <img src="images/home5.webp" alt="Kingdom Network Global outreach program" onerror="this.src='images/about.webp'">
+                </div>
             </div>
         </div>
     </section>
@@ -240,7 +330,7 @@
     
     // ========== INITIALIZE ==========
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 Kingdom Network Global loaded!');
+        console.log('Kingdom Network Global loaded!');
         checkReveal();
     });
     
