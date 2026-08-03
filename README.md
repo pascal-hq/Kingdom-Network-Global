@@ -1,14 +1,14 @@
-# 🙏 Kingdom Network Global
+# Kingdom Network Global
 
 A modern, responsive website for Kingdom Network Global - a youth-focused Christian ministry committed to raising a generation strengthened in Christ.
 
 
 
-## 🌟 Live Demo
+##  Live Demo
 
 [View Live Website](https://kingdom-network-global.vercel.app/)
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -21,7 +21,7 @@ A modern, responsive website for Kingdom Network Global - a youth-focused Christ
 - [Browser Support](#browser-support)
 - [License](#license)
 
-## ✨ Features
+## Features
 
 - ✅ **Responsive Design** - Works perfectly on desktop, tablet, and mobile
 - ✅ **Glassmorphism UI** - Modern frosted glass effect throughout
@@ -36,7 +36,7 @@ A modern, responsive website for Kingdom Network Global - a youth-focused Christ
 - ✅ **Mobile Hamburger Menu** - Optimized for mobile devices
 - ✅ **SEO Friendly** - Meta tags and semantic HTML structure
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **HTML5** - Semantic markup
 - **CSS3** - Custom properties, flexbox, grid, animations
