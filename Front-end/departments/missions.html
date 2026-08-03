@@ -128,6 +128,87 @@
         .gallery-item:hover img {
             transform: scale(1.1);
         }
+        .talent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .talent-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition-smooth);
+        }
+        .talent-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+        }
+        .talent-card i {
+            font-size: 3rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+        .btn-talent {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.8rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: var(--navy-deep);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-smooth);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .btn-talent:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+        .back-home {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gold-primary);
+            color: var(--navy-deep);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-smooth);
+            z-index: 100;
+        }
+        .back-home:hover {
+            transform: scale(1.1);
+            background: var(--gold-light);
+        }
+        .talent-note {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            color: var(--gray-mid);
+        }
+        .talent-note a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .talent-note a:hover {
+            text-decoration: underline;
+        }
         .join-form {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
@@ -156,31 +237,13 @@
             outline: none;
             border-color: var(--gold-primary);
         }
-        .back-home {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--gold-primary);
-            color: var(--navy-deep);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: var(--shadow-lg);
-            transition: all var(--transition-smooth);
-            z-index: 100;
-        }
-        .back-home:hover {
-            transform: scale(1.1);
-            background: var(--gold-light);
-        }
         @media (max-width: 768px) {
             .event-item {
                 flex-direction: column;
                 text-align: center;
+            }
+            .talent-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -258,8 +321,36 @@
         </div>
     </section>
 
-    <!-- Team Section -->
+    <!-- Actively Looking for Missioners -->
     <section class="section">
+        <div class="content">
+            <h2>Actively Looking for Missioners</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 1.5rem; color: var(--gray-mid);">
+                We are always looking for passionate individuals with a heart for evangelism, outreach, and community impact. If you have a calling to reach the unreached, we want to hear from you!
+            </p>
+            <div class="talent-grid">
+                <div class="talent-card">
+                    <i class="fas fa-hands-praying"></i>
+                    <h3>Evangelism Teams</h3>
+                    <p>Join our outreach teams for street evangelism, school visits, and community outreach programs.</p>
+                    <a href="#" class="btn-talent" onclick="applyNow('Evangelism Team')">Apply Now</a>
+                </div>
+                
+                <div class="talent-card">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>Missions Support</h3>
+                    <p>Behind-the-scenes roles including logistics, prayer support, and missions administration.</p>
+                    <a href="#" class="btn-talent" onclick="applyNow('Missions Support')">Apply Now</a>
+                </div>
+            </div>
+            <div class="talent-note">
+                Contact us on WhatsApp: <a href="https://wa.me/254113100916" target="_blank">+254 113 100916</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section alt">
         <div class="content">
             <h2>Meet the Team</h2>
             <div class="team-grid">
@@ -291,33 +382,10 @@
         </div>
     </section>
 
-    <!-- Upcoming Events -->
-    <section class="section alt">
-        <div class="content">
-            <h2>Upcoming Events</h2>
-            <div class="event-list">
-                <div class="event-item">
-                    <span><strong>Street Outreach - CBD</strong></span>
-                    <span class="event-date-badge">March 15, 2026</span>
-                </div>
-                <div class="event-item">
-                    <span><strong>School Visitation Program</strong></span>
-                    <span class="event-date-badge">March 22, 2026</span>
-                </div>
-                <div class="event-item">
-                    <span><strong>Medical Camp & Evangelism</strong></span>
-                    <span class="event-date-badge">April 5, 2026</span>
-                </div>
-                <div class="event-item">
-                    <span><strong>Prison Outreach</strong></span>
-                    <span class="event-date-badge">April 19, 2026</span>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Photo Gallery -->
-    <section class="section">
+    <section class="section alt">
         <div class="content">
             <h2>Gallery</h2>
             <div class="gallery-grid">

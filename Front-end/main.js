@@ -218,7 +218,38 @@ if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
 }
 
-// ========== 9. LOAD DEPARTMENTS (Hardcoded) ==========
+// ========== 9. WHATSAPP CONTACT ==========
+// WhatsApp number: +254 718 975808
+const WHATSAPP_NUMBER = '254718975808';
+
+function openWhatsApp(message) {
+    const encodedMessage = encodeURIComponent(message || 'Hello, I would like to join the team.');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+}
+
+// ========== 10. SETUP WHATSAPP APPLY BUTTONS ==========
+function setupApplyButtons() {
+    // Find all "Apply Now" buttons with data-whatsapp attribute
+    document.querySelectorAll('[data-whatsapp-apply]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const message = this.getAttribute('data-message') || 'Hello, I would like to join the team.';
+            openWhatsApp(message);
+        });
+    });
+    
+    // Also handle "Apply Now" buttons without data attribute (fallback)
+    document.querySelectorAll('.btn-talent').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const role = this.closest('.talent-card')?.querySelector('h3')?.textContent || 'the team';
+            const message = `Hello, I would like to apply for the ${role} position.`;
+            openWhatsApp(message);
+        });
+    });
+}
+
+// ========== 11. LOAD DEPARTMENTS (Hardcoded) ==========
 function loadDepartments() {
     const container = document.getElementById('departmentsContainer');
     if (!container) return;
@@ -313,14 +344,22 @@ function loadDepartments() {
     }, 100);
 }
 
-// ========== 10. INITIALIZE ==========
+// ========== 12. WHATSAPP CONTACT FOR APPLY BUTTONS IN HTML ==========
+// Also handle inline onclick apply buttons
+function applyNow(role) {
+    const message = `Hello, I would like to apply for the ${role || 'team'} position.`;
+    openWhatsApp(message);
+}
+
+// ========== 13. INITIALIZE ==========
 document.addEventListener('DOMContentLoaded', function() {
     loadDepartments();
     checkScrollReveal();
+    setupApplyButtons();
     console.log('Kingdom Network Global - Website loaded successfully');
 });
 
-// ========== 11. IMAGE FALLBACK HANDLER ==========
+// ========== 14. IMAGE FALLBACK HANDLER ==========
 document.querySelectorAll("img").forEach(img => {
     img.addEventListener("error", function() {
         if (!this.src.includes("placeholder")) {

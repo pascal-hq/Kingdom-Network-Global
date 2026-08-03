@@ -104,29 +104,47 @@
             height: 100%;
             object-fit: cover;
         }
-        .training-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .talent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
             margin-top: 2rem;
         }
-        .training-item {
+        .talent-card {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition-smooth);
         }
-        .training-badge {
-            background: var(--gold-primary);
+        .talent-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+        }
+        .talent-card i {
+            font-size: 3rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
+        .talent-card .btn-talent {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.8rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
             color: var(--navy-deep);
-            padding: 0.25rem 0.75rem;
+            border: none;
             border-radius: 50px;
             font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-smooth);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .talent-card .btn-talent:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
         }
         .back-home {
             position: fixed;
@@ -149,11 +167,35 @@
             transform: scale(1.1);
             background: var(--gold-light);
         }
+        .contact-email {
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-email:hover {
+            text-decoration: underline;
+        }
+        .talent-note {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            color: var(--gray-mid);
+        }
+        .talent-note a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .talent-note a:hover {
+            text-decoration: underline;
+        }
         @media (max-width: 768px) {
-            .training-item {
-                flex-direction: column;
-                gap: 0.5rem;
-                text-align: center;
+            .talent-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -225,16 +267,7 @@
                     <h3>Audio System</h3>
                     <p>Professional sound mixing consoles, speakers, and monitoring systems.</p>
                 </div>
-                <div class="equipment-card">
-                    <i class="fas fa-video"></i>
-                    <h3>Visual Projection</h3>
-                    <p>High-definition projectors and screens for lyrics and sermon visuals.</p>
-                </div>
-                <div class="equipment-card">
-                    <i class="fas fa-lightbulb"></i>
-                    <h3>Stage Lighting</h3>
-                    <p>Dynamic lighting system to create an atmosphere of worship.</p>
-                </div>
+                
                 <div class="equipment-card">
                     <i class="fas fa-guitar"></i>
                     <h3>Instrument Support</h3>
@@ -277,27 +310,35 @@
         </div>
     </section>
 
-    <!-- Training Sessions -->
+    <!-- Actively Looking for Talent -->
     <section class="section alt">
         <div class="content">
-            <h2>Training Sessions</h2>
-            <div class="training-list">
-                <div class="training-item">
-                    <span><strong>🎧 Audio Mixing Basics</strong> - Learn fundamentals</span>
-                    <span class="training-badge">Every Monday, 4PM</span>
+            <h2>Actively Looking for Talent</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 1.5rem; color: var(--gray-mid);">
+                We are always on the lookout for passionate individuals with skills in music, audio engineering, and stage setup. If you have a heart for ministry and technical excellence, we want to hear from you!
+            </p>
+            <div class="talent-grid">
+                <div class="talent-card">
+                    <i class="fas fa-guitar"></i>
+                    <h3>Instrumentalists</h3>
+                    <p>Guitarists, drummers, keyboardists, bass players, and other instrumentalists for worship teams.</p>
+                    <a href="mailto:kingdomnetwork254@gmail.com?subject=Instrumentalist%20Application" class="btn-talent">Apply Now</a>
                 </div>
-                <div class="training-item">
-                    <span><strong>💡 Lighting Design</strong> - Creating worship atmospheres</span>
-                    <span class="training-badge">Every Wednesday, 3PM</span>
+                <div class="talent-card">
+                    <i class="fas fa-headphones"></i>
+                    <h3>Sound Engineers</h3>
+                    <p>Audio engineers for live sound mixing, monitor mixing, and PA system operation.</p>
+                    <a href="mailto:kingdomnetwork254@gmail.com?subject=Sound%20Engineer%20Application" class="btn-talent">Apply Now</a>
                 </div>
-                <div class="training-item">
-                    <span><strong>📽️ ProPresenter Training</strong> - Lyric and media</span>
-                    <span class="training-badge">Every Friday, 2PM</span>
+                <div class="talent-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>Setup Crew</h3>
+                    <p>Stage setup, equipment rigging, cabling, and technical support during events.</p>
+                    <a href="mailto:kingdomnetwork254@gmail.com?subject=Setup%20Crew%20Application" class="btn-talent">Apply Now</a>
                 </div>
-                <div class="training-item">
-                    <span><strong>🔧 Equipment Maintenance</strong> - Care & troubleshooting</span>
-                    <span class="training-badge">1st Saturday, 10AM</span>
-                </div>
+            </div>
+            <div class="talent-note">
+                Send your application or inquiry to: <a href="mailto:kingdomnetwork254@gmail.com">kingdomnetwork254@gmail.com</a>
             </div>
         </div>
     </section>
@@ -306,7 +347,7 @@
     <section class="section">
         <div class="content" style="text-align: center;">
             <h2>Join the Technical Team</h2>
-            <p>Are you passionate about tech and ministry? We need sound engineers, lighting techs, and visual operators.</p>
+            <p>Are you passionate about tech and ministry? We need instrumentalists, sound engineers, and setup crew.</p>
             <p style="margin-top: 0.5rem;"><strong>No experience required — we will train you!</strong></p>
             <a href="../index.html#contact" class="btn-primary" style="margin-top: 1.5rem; display: inline-block;">Volunteer Today</a>
         </div>
