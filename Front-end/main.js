@@ -263,7 +263,7 @@ function loadDepartments() {
             description: 'Building spiritual stamina through intentional teaching, discipleship, and mentorship.',
             team_lead: 'Michelle',
             order: 5,
-            gallery: ['images/mentorship.jpg']
+            gallery: ['images/mentorship.webp']
         }
     ];
 
@@ -317,7 +317,7 @@ function loadDepartments() {
 document.addEventListener('DOMContentLoaded', function() {
     loadDepartments();
     checkScrollReveal();
-    console.log('✅ Kingdom Network Global - Website loaded successfully');
+    console.log('Kingdom Network Global - Website loaded successfully');
 });
 
 // ========== 11. IMAGE FALLBACK HANDLER ==========
