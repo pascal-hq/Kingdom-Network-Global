@@ -1,24 +1,7 @@
 // ========================================
 // KINGDOM NETWORK GLOBAL - MAIN JS
-// All Features: Hamburger | Slider | Bible API | Scroll Effects
+// All Features: Hamburger | Slider | Bible API | Scroll Effects | Departments
 // ========================================
-
-// ========== API CONFIGURATION ==========
-//const API_BASE = 'http://127.0.0.1:8000/api';
-const API_BASE = 'https://kingdom-network-global.onrender.com/api';
-
-// ========== HELPER FUNCTIONS ==========
-function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-}
 
 // ========== 1. HAMBURGER MENU ==========
 const hamburger = document.getElementById("hamburger");
@@ -91,12 +74,11 @@ if (sliderImages.length) {
     }
 }
 
-// ========== 3. DAILY VERSE (Local Only - No API) ==========
+// ========== 3. DAILY VERSE ==========
 const verseTextEl = document.querySelector(".verse-text");
 const verseRefEl = document.querySelector(".verse-ref");
 
-// Pre-defined verses
-const localVerses = [
+const verses = [
     { text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.", ref: "John 3:16" },
     { text: "I can do all things through Christ who strengthens me.", ref: "Philippians 4:13" },
     { text: "The Lord is my shepherd; I shall not want.", ref: "Psalm 23:1" },
@@ -132,19 +114,16 @@ const localVerses = [
 function getVerseOfTheDay() {
     const today = new Date();
     const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-    return localVerses[dayOfYear % localVerses.length];
+    return verses[dayOfYear % verses.length];
 }
 
 function displayDailyVerse() {
     if (!verseTextEl || !verseRefEl) return;
-    
     const verse = getVerseOfTheDay();
     verseTextEl.textContent = verse.text;
     verseRefEl.textContent = verse.ref;
-    console.log('Daily verse loaded:', verse.ref);
 }
 
-// Display verse immediately
 displayDailyVerse();
 
 // ========== 4. HEADER SCROLL EFFECT ==========
@@ -239,101 +218,77 @@ if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
 }
 
-// ========== 9. LOAD MINISTRY SETTINGS ==========
-async function loadMinistrySettings() {
-    try {
-        const response = await fetch(`${API_BASE}/public/settings/`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = await response.json();
-        
-        const pillarRevelation = document.getElementById('pillarRevelation');
-        const pillarManifestation = document.getElementById('pillarManifestation');
-        const pillarExperience = document.getElementById('pillarExperience');
-        
-        if (pillarRevelation && data.pillar_revelation) pillarRevelation.textContent = data.pillar_revelation;
-        if (pillarManifestation && data.pillar_manifestation) pillarManifestation.textContent = data.pillar_manifestation;
-        if (pillarExperience && data.pillar_experience) pillarExperience.textContent = data.pillar_experience;
-    } catch (error) {
-        console.error('Failed to load ministry settings:', error);
-    }
-}
-
-// ========== 10. LOAD EVENTS (with retry) ==========
-async function loadEvents(retryCount = 0) {
-    const eventsContainer = document.getElementById('upcomingEvents');
-    if (!eventsContainer) return;
-    
-    eventsContainer.innerHTML = '<div class="loading">Loading events...</div>';
-    
-    try {
-        const response = await fetch(`${API_BASE}/public/events/`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const events = await response.json();
-        
-        if (events.length === 0) {
-            eventsContainer.innerHTML = '<div class="empty-state">No upcoming events. Check back soon!</div>';
-            return;
-        }
-        
-        const today = new Date().toISOString().split('T')[0];
-        const upcomingEvents = events.filter(event => event.date >= today).slice(0, 6);
-        
-        if (upcomingEvents.length === 0) {
-            eventsContainer.innerHTML = '<div class="empty-state">No upcoming events. Check back soon!</div>';
-            return;
-        }
-        
-        eventsContainer.innerHTML = upcomingEvents.map(event => `
-            <div class="event-card-mini">
-                <div class="event-date-mini">${formatDate(event.date)}</div>
-                <div class="event-title-mini">${escapeHtml(event.title)}</div>
-                <div class="event-location-mini">📍 ${escapeHtml(event.location)}</div>
-                ${event.description ? `<div class="event-desc-mini">${escapeHtml(event.description.substring(0, 100))}${event.description.length > 100 ? '...' : ''}</div>` : ''}
-            </div>
-        `).join('');
-        
-    } catch (error) {
-        console.error('Failed to load events:', error);
-        
-        if (retryCount < 3) {
-            const delay = 1000 * Math.pow(2, retryCount);
-            console.log(`Retrying events... attempt ${retryCount + 1} in ${delay}ms`);
-            setTimeout(() => loadEvents(retryCount + 1), delay);
-        } else {
-            eventsContainer.innerHTML = `
-                <div class="empty-state">
-                    Unable to load events.
-                    <button onclick="loadEvents()" class="btn-retry">Retry</button>
-                </div>
-            `;
-        }
-    }
-}
-
-// ========== 11. LOAD DEPARTMENTS (with retry) ==========
-async function loadDepartments(retryCount = 0) {
+// ========== 9. LOAD DEPARTMENTS (Hardcoded) ==========
+function loadDepartments() {
     const container = document.getElementById('departmentsContainer');
     if (!container) return;
     
-    container.innerHTML = '<div class="loading">Loading departments...</div>';
-    
-    try {
-        const response = await fetch(`${API_BASE}/public/content/`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const departments = await response.json();
-        
-        if (departments.length === 0) {
-            container.innerHTML = '<div class="empty-state">No departments found</div>';
-            return;
+    // Hardcoded department data
+    const departments = [
+        {
+            key: 'missions',
+            name: 'Missions',
+            description: 'Extending the Kingdom through outreach, evangelism, and community impact.',
+            team_lead: 'Jack',
+            order: 1,
+            gallery: ['images/missions.webp']
+        },
+        {
+            key: 'media',
+            name: 'Media',
+            description: 'Communicating revelation and testimony through digital platforms and creative expression.',
+            team_lead: 'Derek',
+            order: 2,
+            gallery: ['images/media.webp']
+        },
+        {
+            key: 'worship',
+            name: 'Praise & Worship',
+            description: 'Leading the ministry into tangible experiences of God\'s presence through worship.',
+            team_lead: 'Stephanie',
+            order: 3,
+            gallery: ['images/worship.webp']
+        },
+        {
+            key: 'sound',
+            name: 'Set & Sound',
+            description: 'Supporting excellence in worship and ministry atmosphere through technical service.',
+            team_lead: 'Mwangi',
+            order: 4,
+            gallery: ['images/sound.webp']
+        },
+        {
+            key: 'mentorship',
+            name: 'Mentorship School',
+            description: 'Building spiritual stamina through intentional teaching, discipleship, and mentorship.',
+            team_lead: 'Michelle',
+            order: 5,
+            gallery: ['images/mentorship.jpg']
         }
+    ];
+
+    // Sort by order
+    departments.sort((a, b) => a.order - b.order);
+
+    // Escape HTML function
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Render departments
+    container.innerHTML = departments.map(dept => {
+        const imageUrl = dept.gallery && dept.gallery.length > 0 
+            ? dept.gallery[0] 
+            : `images/${dept.key}.webp`;
         
-        departments.sort((a, b) => a.order - b.order);
-        
-        container.innerHTML = departments.map(dept => `
+        return `
             <div class="department-card scroll-reveal">
                 <div class="department-frame">
                     <div class="department-image">
-                        <img src="images/${dept.key}.webp" alt="${dept.name} Department" onerror="this.onerror=null; this.src='images/placeholder.jpg'">
+                        <img src="${imageUrl}" alt="${dept.name} Department" onerror="this.onerror=null; this.src='images/placeholder.jpg'">
                     </div>
                     <div class="department-body">
                         <h3>${escapeHtml(dept.name)}</h3>
@@ -347,108 +302,25 @@ async function loadDepartments(retryCount = 0) {
                     </div>
                 </div>
             </div>
-        `).join('');
-        
-        // Force reveal after loading
-        setTimeout(() => {
-            document.querySelectorAll('.scroll-reveal').forEach(el => {
-                el.classList.add('revealed');
-            });
-        }, 100);
-        
-    } catch (error) {
-        console.error('Failed to load departments:', error);
-        
-        if (retryCount < 3) {
-            const delay = 1000 * Math.pow(2, retryCount);
-            console.log(`Retrying departments... attempt ${retryCount + 1} in ${delay}ms`);
-            setTimeout(() => loadDepartments(retryCount + 1), delay);
-        } else {
-            container.innerHTML = `
-                <div class="empty-state">
-                    Unable to load departments.
-                    <button onclick="loadDepartments()" class="btn-retry">Retry</button>
-                </div>
-            `;
-        }
-    }
+        `;
+    }).join('');
+
+    // Re-trigger scroll reveal for new elements
+    setTimeout(() => {
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            el.classList.add('revealed');
+        });
+    }, 100);
 }
 
-// ========== 12. PRAYER FORM ==========
-function setupPrayerForm() {
-    const prayerForm = document.getElementById('prayerForm');
-    const successDiv = document.getElementById('prayerSuccess');
-    
-    if (!prayerForm) return;
-    
-    prayerForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = {
-            name: document.getElementById('prayerName')?.value || '',
-            email: document.getElementById('prayerEmail')?.value || '',
-            category: document.getElementById('prayerCategory')?.value || '',
-            request: document.getElementById('prayerRequest')?.value || ''
-        };
-        
-        const submitBtn = prayerForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn?.textContent || 'Submit';
-        
-        if (submitBtn) {
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-        }
-        
-        try {
-            const response = await fetch(`${API_BASE}/public/prayer/`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-            
-            if (response.ok) {
-                prayerForm.reset();
-                if (successDiv) {
-                    successDiv.classList.remove('hidden');
-                    setTimeout(() => successDiv.classList.add('hidden'), 5000);
-                }
-                alert('Prayer request submitted! Our team will pray for you.');
-            } else {
-                const error = await response.json();
-                alert('Failed to submit: ' + (error.error || 'Unknown error'));
-            }
-        } catch (error) {
-            console.error('Prayer submission error:', error);
-            alert('Network error. Please try again.');
-        } finally {
-            if (submitBtn) {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        }
-    });
-}
+// ========== 10. INITIALIZE ==========
+document.addEventListener('DOMContentLoaded', function() {
+    loadDepartments();
+    checkScrollReveal();
+    console.log('✅ Kingdom Network Global - Website loaded successfully');
+});
 
-// ========== 13. DEPARTMENT PAGE FORM HANDLERS ==========
-const mentorshipForm = document.getElementById("mentorshipForm");
-if (mentorshipForm) {
-    mentorshipForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        alert("Application submitted! Our team will contact you within 3 days.");
-        this.reset();
-    });
-}
-
-const missionsForm = document.getElementById("missionsJoinForm");
-if (missionsForm) {
-    missionsForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        alert("Thank you for your interest! We will contact you soon.");
-        this.reset();
-    });
-}
-
-// ========== 14. IMAGE FALLBACK HANDLER ==========
+// ========== 11. IMAGE FALLBACK HANDLER ==========
 document.querySelectorAll("img").forEach(img => {
     img.addEventListener("error", function() {
         if (!this.src.includes("placeholder")) {
@@ -459,30 +331,4 @@ document.querySelectorAll("img").forEach(img => {
     });
 });
 
-// ========== 15. VIDEO GALLERY PLACEHOLDER ==========
-const youtubeIframes = document.querySelectorAll('iframe[src*="VIDEO_ID"]');
-youtubeIframes.forEach(iframe => {
-    console.log("Please replace VIDEO_ID with actual YouTube video IDs in Media page");
-});
-
-// ========== 16. INITIALIZE EVERYTHING ==========
-document.addEventListener('DOMContentLoaded', () => {
-    // Load everything in parallel using Promise.allSettled
-    Promise.allSettled([
-        loadMinistrySettings(),
-        loadEvents(),
-        loadDepartments(),
-        setupPrayerForm()
-    ]).then(results => {
-        results.forEach((result, index) => {
-            if (result.status === 'rejected') {
-                console.warn(`Feature ${index} failed to load:`, result.reason);
-            }
-        });
-    });
-    
-    checkScrollReveal();
-});
-
-// ========== 17. PAGE LOAD COMPLETE ==========
 console.log("Kingdom Network Global - Website loaded successfully");
