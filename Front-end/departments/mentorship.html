@@ -67,7 +67,11 @@
             transform: translateY(-5px);
             border-color: var(--gold-primary);
         }
-        .program-card i { font-size: 2.5rem; color: var(--gold-primary); margin-bottom: 1rem; }
+        .program-card i {
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -83,7 +87,9 @@
             padding: 1.5rem;
             transition: all var(--transition-smooth);
         }
-        .team-member:hover { transform: translateY(-5px); }
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
         .member-image {
             width: 150px;
             height: 150px;
@@ -110,7 +116,9 @@
             padding: 0.5rem;
             border-bottom: 1px solid var(--glass-border);
         }
-        .curriculum-item i { color: var(--gold-primary); }
+        .curriculum-item i {
+            color: var(--gold-primary);
+        }
         .testimonial-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -125,54 +133,11 @@
             padding: 1.5rem;
             text-align: center;
         }
-        .testimonial-card i { font-size: 2rem; color: var(--gold-primary); opacity: 0.5; margin-bottom: 1rem; }
-        .event-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        .event-item {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.25rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .event-date-badge {
-            background: var(--gold-primary);
-            color: var(--navy-deep);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: var(--text-sm);
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .gallery-item {
-            border-radius: 16px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-smooth);
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
+        .testimonial-card i {
+            font-size: 2rem;
+            color: var(--gold-primary);
+            opacity: 0.5;
+            margin-bottom: 1rem;
         }
         .register-form {
             background: var(--glass-bg);
@@ -191,7 +156,9 @@
         .form-group {
             margin-bottom: 1.5rem;
         }
-        .form-group input, .form-group select, .form-group textarea {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 0.875rem;
             background: rgba(255,255,255,0.1);
@@ -200,7 +167,9 @@
             color: var(--white-off);
             font-family: 'Inter', sans-serif;
         }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: var(--gold-primary);
         }
@@ -217,6 +186,8 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-smooth);
             z-index: 100;
         }
         .back-home:hover {
@@ -224,8 +195,9 @@
             background: var(--gold-light);
         }
         @media (max-width: 768px) {
-            .form-row { grid-template-columns: 1fr; }
-            .event-item { flex-direction: column; text-align: center; }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -252,81 +224,101 @@
 </header>
 
 <main>
+    <!-- Department Hero -->
     <section class="department-hero">
         <div class="overlay"></div>
         <div class="content" style="position: relative; z-index: 2; text-align: center;">
-            <h1 id="deptName">Mentorship School</h1>
-            <p id="deptTagline" style="font-size: 1.25rem;">Building spiritual stamina through intentional teaching, discipleship, and mentorship</p>
+            <h1>Mentorship School</h1>
+            <p style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Building spiritual stamina through intentional teaching, discipleship, and mentorship</p>
         </div>
     </section>
 
+    <!-- Stats Section -->
     <section class="section">
         <div class="content">
             <h2>Our Impact</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number" id="statStudents">150+</div>
+                    <div class="stat-number">150+</div>
                     <p>Students Graduated</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statMentors">20</div>
+                    <div class="stat-number">20</div>
                     <p>Active Mentors</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statPrograms">3</div>
+                    <div class="stat-number">3</div>
                     <p>Programs Offered</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statChurches">12</div>
+                    <div class="stat-number">12</div>
                     <p>Churches Partnered</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Programs -->
     <section class="section alt">
         <div class="content">
             <h2>Our Programs</h2>
             <div class="program-grid">
-                <div class="program-card"><i class="fas fa-bible"></i><h3>Discipleship Track</h3><p>12-week program covering foundational Christian doctrines, prayer life, and spiritual disciplines.</p><p style="color: var(--gold-light); margin-top: 0.5rem;"><strong>Duration:</strong> 3 months</p></div>
-                <div class="program-card"><i class="fas fa-chalkboard-user"></i><h3>Leadership Academy</h3><p>Equipping young leaders with biblical leadership principles and practical ministry skills.</p><p style="color: var(--gold-light); margin-top: 0.5rem;"><strong>Duration:</strong> 6 months</p></div>
-                <div class="program-card"><i class="fas fa-hand-holding-heart"></i><h3>One-on-One Mentorship</h3><p>Personal mentorship matching you with experienced leaders for spiritual growth and accountability.</p><p style="color: var(--gold-light); margin-top: 0.5rem;"><strong>Duration:</strong> Ongoing</p></div>
+                <div class="program-card">
+                    <i class="fas fa-bible"></i>
+                    <h3>Discipleship Track</h3>
+                    <p>12-week program covering foundational Christian doctrines, prayer life, and spiritual disciplines.</p>
+                    <p style="color: var(--gold-light); margin-top: 0.5rem;"><strong>Duration:</strong> 3 months</p>
+                </div>
+                <div class="program-card">
+                    <i class="fas fa-chalkboard-user"></i>
+                    <h3>Leadership Academy</h3>
+                    <p>Equipping young leaders with biblical leadership principles and practical ministry skills.</p>
+                    <p style="color: var(--gold-light); margin-top: 0.5rem;"><strong>Duration:</strong> 6 months</p>
+                </div>
+                <div class="program-card">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h3>One-on-One Mentorship</h3>
+                    <p>Personal mentorship matching you with experienced leaders for spiritual growth and accountability.</p>
+                    <p style="color: var(--gold-light); margin-top: 0.5rem;"><strong>Duration:</strong> Ongoing</p>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Team -->
     <section class="section">
         <div class="content">
             <h2>Mentorship Team</h2>
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/mish.webp" alt="Michelle" onerror="this.src='../images/mentorship.jpg'">
+                        <img src="../images/michelle.webp" alt="Michelle" onerror="this.src='../images/mentorship.webp'">
                     </div>
-                    <h3 id="deptLeadName">Michelle Nzilani</h3>
+                    <h3>Michelle</h3>
                     <p style="color: var(--gold-light);">Program Director</p>
-                    <p id="deptLeadBio">Passionate about raising the next generation of Spirit-led leaders.</p>
+                    <p style="padding: 0 1rem 1rem;">Passionate about raising the next generation of Spirit-led leaders.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/gloria.webp" alt="Gloria" onerror="this.src='../images/mentorship.jpg'">
+                        <img src="../images/peter_mentor.webp" alt="Peter" onerror="this.src='../images/mentorship.webp'">
                     </div>
-                    <h3>Dr. Gloria</h3>
+                    <h3>Pastor Peter</h3>
                     <p style="color: var(--gold-light);">Teaching Mentor</p>
-                    <p>Experienced Bible teacher and discipleship coach.</p>
+                    <p style="padding: 0 1rem 1rem;">Experienced Bible teacher and discipleship coach.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/pascal.webp" alt="Pascal" onerror="this.src='../images/mentorship.jpg'">
+                        <img src="../images/ruth.webp" alt="Ruth" onerror="this.src='../images/mentorship.webp'">
                     </div>
-                    <h3>Pascal Muthama</h3>
+                    <h3>Ruth A.</h3>
                     <p style="color: var(--gold-light);">Prayer & Life Coach</p>
-                    <p>Guides students in prayer and personal development.</p>
+                    <p style="padding: 0 1rem 1rem;">Guides students in prayer and personal development.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Curriculum -->
     <section class="section alt">
         <div class="content">
             <h2>What You'll Learn</h2>
@@ -359,63 +351,63 @@
         </div>
     </section>
 
+    <!-- Testimonials -->
     <section class="section">
         <div class="content">
             <h2>Student Testimonials</h2>
             <div class="testimonial-grid">
-                <div class="testimonial-card"><i class="fas fa-quote-left"></i><p>"The Mentorship School transformed my prayer life. I now have clarity on my purpose in ministry."</p><h4 style="margin-top: 1rem;">- Sarah K.</h4></div>
-                <div class="testimonial-card"><i class="fas fa-quote-left"></i><p>"The leadership lessons I learned here are priceless. I'm now leading a small group at my local church."</p><h4 style="margin-top: 1rem;">- John M.</h4></div>
-                <div class="testimonial-card"><i class="fas fa-quote-left"></i><p>"One-on-one mentorship gave me accountability and direction. Highly recommend!"</p><h4 style="margin-top: 1rem;">- Mercy N.</h4></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section alt">
-        <div class="content">
-            <h2>Upcoming Events</h2>
-            <div id="deptEvents" class="event-list">
-                <div class="event-item">
-                    <span><em>Loading events...</em></span>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"The Mentorship School transformed my prayer life. I now have clarity on my purpose in ministry."</p>
+                    <h4 style="margin-top: 1rem;">- Sarah K.</h4>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"The leadership lessons I learned here are priceless. I'm now leading a small group at my local church."</p>
+                    <h4 style="margin-top: 1rem;">- John M.</h4>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"One-on-one mentorship gave me accountability and direction. Highly recommend!"</p>
+                    <h4 style="margin-top: 1rem;">- Mercy N.</h4>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <div class="content">
-            <h2>Gallery</h2>
-            <div id="deptGallery" class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="../images/home1.webp" alt="Gallery image" onerror="this.src='../images/mentorship.jpg'">
-                </div>
-                <div class="gallery-item">
-                    <img src="../images/home2.webp" alt="Gallery image" onerror="this.src='../images/mentorship.jpg'">
-                </div>
-                <div class="gallery-item">
-                    <img src="../images/home3.webp" alt="Gallery image" onerror="this.src='../images/mentorship.jpg'">
-                </div>
-                <div class="gallery-item">
-                    <img src="../images/home4.webp" alt="Gallery image" onerror="this.src='../images/mentorship.jpg'">
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Register -->
     <section class="section alt">
         <div class="content">
             <h2>Register for Mentorship School</h2>
             <div class="register-form">
                 <form id="mentorshipForm">
                     <div class="form-row">
-                        <div class="form-group"><input type="text" placeholder="Full Name" required></div>
-                        <div class="form-group"><input type="email" placeholder="Email Address" required></div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group"><input type="tel" placeholder="Phone Number" required></div>
-                        <div class="form-group"><select required><option value="">Select Program</option><option>Discipleship Track (3 months)</option><option>Leadership Academy (6 months)</option><option>One-on-One Mentorship</option></select></div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="">Select Program</option>
+                                <option>Discipleship Track (3 months)</option>
+                                <option>Leadership Academy (6 months)</option>
+                                <option>One-on-One Mentorship</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group"><input type="text" placeholder="Church Name (Optional)"></div>
-                    <div class="form-group"><textarea rows="3" placeholder="Why do you want to join the Mentorship School?"></textarea></div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Church Name (Optional)">
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="3" placeholder="Why do you want to join the Mentorship School?"></textarea>
+                    </div>
                     <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Apply Now</button>
                 </form>
             </div>
@@ -433,103 +425,7 @@
 
 <script src="../main.js"></script>
 <script>
-    //const API_BASE = 'http://127.0.0.1:8000/api';
-    const API_BASE = 'https://kingdom-network-global.onrender.com/api';
-    const DEPT_KEY = 'mentorship';
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    }
-
-    async function loadDepartmentPage() {
-    try {
-        document.getElementById('deptName').textContent = 'Loading...';
-        
-        const response = await fetch(`${API_BASE}/public/content/`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const departments = await response.json();
-        const dept = departments.find(item => item.key === DEPT_KEY);
-        
-        if (!dept) {
-            document.getElementById('deptName').textContent = 'Department Not Found';
-            return;
-        }
-
-        const data = dept;
-
-        // Update hero section
-        document.getElementById('deptName').textContent = data.name || 'Department';
-        document.getElementById('deptTagline').textContent = data.description || '';
-
-        // Update mission & vision
-        document.getElementById('deptMission').textContent = data.mission || data.description || '';
-        document.getElementById('deptVision').textContent = data.vision || 'To impact lives through this ministry.';
-
-        // Update team lead
-        document.getElementById('deptLeadName').textContent = data.team_lead || 'TBA';
-        document.getElementById('deptLeadBio').textContent = data.lead_bio || `Leading the ${data.name || 'department'} team with passion and dedication.`;
-
-        // Update stats
-        if (data.stats) {
-            document.getElementById('statOutreaches').textContent = data.stats.outreaches || '30+';
-            document.getElementById('statLivesReached').textContent = data.stats.lives_reached || '2,500+';
-            document.getElementById('statFields').textContent = data.stats.fields || '5';
-            document.getElementById('statVolunteers').textContent = data.stats.volunteers || '47';
-        }
-
-        // Update gallery
-        if (data.gallery && data.gallery.length > 0) {
-            const galleryContainer = document.getElementById('deptGallery');
-            galleryContainer.innerHTML = data.gallery.map(img => `
-                <div class="gallery-item">
-                    <img src="${img}" alt="Gallery image" onerror="this.src='../images/${DEPT_KEY}.webp'">
-                </div>
-            `).join('');
-        }
-
-        await loadDepartmentEvents();
-
-    } catch (error) {
-        console.error('Failed to load department:', error);
-        document.getElementById('deptName').textContent = 'Error Loading Department';
-    }
-}
-
-    async function loadDepartmentEvents() {
-        const eventContainer = document.getElementById('deptEvents');
-        if (!eventContainer) return;
-        try {
-            const response = await fetch(`${API_BASE}/public/events/`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const allEvents = await response.json();
-            const today = new Date().toISOString().split('T')[0];
-            const upcomingEvents = allEvents.filter(event => event.date >= today).slice(0, 4);
-            if (upcomingEvents.length === 0) {
-                eventContainer.innerHTML = `<div class="event-item"><span><em>No upcoming events. Check back soon!</em></span></div>`;
-                return;
-            }
-            eventContainer.innerHTML = upcomingEvents.map(event => `
-                <div class="event-item">
-                    <span><strong>${escapeHtml(event.title)}</strong>${event.location ? ` - ${escapeHtml(event.location)}` : ''}</span>
-                    <span class="event-date-badge">${formatDate(event.date)}</span>
-                </div>
-            `).join('');
-        } catch (error) {
-            console.error('Failed to load events:', error);
-            eventContainer.innerHTML = `<div class="event-item"><span><em>Unable to load events</em></span></div>`;
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadDepartmentPage);
-
+    // Form submission handler
     document.getElementById('mentorshipForm')?.addEventListener('submit', function(e) {
         e.preventDefault();
         alert('Application submitted! Our team will contact you within 3 days.');

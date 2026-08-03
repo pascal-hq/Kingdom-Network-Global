@@ -68,7 +68,11 @@
             transform: translateY(-5px);
             border-color: var(--gold-primary);
         }
-        .equipment-card i { font-size: 3rem; color: var(--gold-primary); margin-bottom: 1rem; }
+        .equipment-card i {
+            font-size: 3rem;
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+        }
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -84,7 +88,9 @@
             padding: 1.5rem;
             transition: all var(--transition-smooth);
         }
-        .team-member:hover { transform: translateY(-5px); }
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
         .member-image {
             width: 150px;
             height: 150px;
@@ -122,54 +128,6 @@
             border-radius: 50px;
             font-weight: 600;
         }
-        .event-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        .event-item {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.25rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .event-date-badge {
-            background: var(--gold-primary);
-            color: var(--navy-deep);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: var(--text-sm);
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .gallery-item {
-            border-radius: 16px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-smooth);
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
         .back-home {
             position: fixed;
             bottom: 30px;
@@ -183,6 +141,8 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-smooth);
             z-index: 100;
         }
         .back-home:hover {
@@ -190,8 +150,11 @@
             background: var(--gold-light);
         }
         @media (max-width: 768px) {
-            .training-item { flex-direction: column; gap: 0.5rem; text-align: center; }
-            .event-item { flex-direction: column; text-align: center; }
+            .training-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -218,125 +181,128 @@
 </header>
 
 <main>
+    <!-- Department Hero -->
     <section class="department-hero">
         <div class="overlay"></div>
         <div class="content" style="position: relative; z-index: 2; text-align: center;">
-            <h1 id="deptName">Set & Sound</h1>
-            <p id="deptTagline" style="font-size: 1.25rem;">Supporting excellence in worship and ministry atmosphere through technical service</p>
+            <h1>Set & Sound</h1>
+            <p style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Supporting excellence in worship and ministry atmosphere through technical service</p>
         </div>
     </section>
 
+    <!-- Stats Section -->
     <section class="section">
         <div class="content">
             <h2>Our Impact</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number" id="statEvents">200+</div>
+                    <div class="stat-number">200+</div>
                     <p>Events Supported</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statVolunteers">15</div>
+                    <div class="stat-number">15</div>
                     <p>Technical Volunteers</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statTraining">10</div>
+                    <div class="stat-number">10</div>
                     <p>Training Sessions</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statHours">500+</div>
+                    <div class="stat-number">500+</div>
                     <p>Service Hours</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Equipment -->
     <section class="section alt">
         <div class="content">
             <h2>Our Equipment</h2>
             <div class="equipment-grid">
-                <div class="equipment-card"><i class="fas fa-microphone-alt"></i><h3>Audio System</h3><p>Professional sound mixing consoles, speakers, and monitoring systems.</p></div>
-                <div class="equipment-card"><i class="fas fa-video"></i><h3>Visual Projection</h3><p>High-definition projectors and screens for lyrics and sermon visuals.</p></div>
-                <div class="equipment-card"><i class="fas fa-lightbulb"></i><h3>Stage Lighting</h3><p>Dynamic lighting system to create an atmosphere of worship.</p></div>
-                <div class="equipment-card"><i class="fas fa-guitar"></i><h3>Instrument Support</h3><p>DI boxes, amplifiers, and cabling for all musical instruments.</p></div>
+                <div class="equipment-card">
+                    <i class="fas fa-microphone-alt"></i>
+                    <h3>Audio System</h3>
+                    <p>Professional sound mixing consoles, speakers, and monitoring systems.</p>
+                </div>
+                <div class="equipment-card">
+                    <i class="fas fa-video"></i>
+                    <h3>Visual Projection</h3>
+                    <p>High-definition projectors and screens for lyrics and sermon visuals.</p>
+                </div>
+                <div class="equipment-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Stage Lighting</h3>
+                    <p>Dynamic lighting system to create an atmosphere of worship.</p>
+                </div>
+                <div class="equipment-card">
+                    <i class="fas fa-guitar"></i>
+                    <h3>Instrument Support</h3>
+                    <p>DI boxes, amplifiers, and cabling for all musical instruments.</p>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Meet the Team -->
     <section class="section">
         <div class="content">
             <h2>Meet the Team</h2>
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/placeholder.webp" alt="Mwangi" onerror="this.src='../images/sound.webp'">
+                        <img src="../images/mwangi.webp" alt="Mwangi" onerror="this.src='../images/sound.webp'">
                     </div>
-                    <h3 id="deptLeadName">Mwangi</h3>
+                    <h3>Mwangi</h3>
                     <p style="color: var(--gold-light);">Team Lead / Audio Engineer</p>
-                    <p id="deptLeadBio">Certified sound engineer with 8+ years of experience in live sound mixing.</p>
+                    <p style="padding: 0 1rem 1rem;">Certified sound engineer with 8+ years of experience in live sound mixing.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/placeholder.webp" alt="Lighting" onerror="this.src='../images/sound.webp'">
+                        <img src="../images/james.webp" alt="Lighting" onerror="this.src='../images/sound.webp'">
                     </div>
                     <h3>James K.</h3>
                     <p style="color: var(--gold-light);">Lighting Director</p>
-                    <p>Creates immersive lighting experiences for worship services.</p>
+                    <p style="padding: 0 1rem 1rem;">Creates immersive lighting experiences for worship services.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/placeholder.webp" alt="Visual" onerror="this.src='../images/sound.webp'">
+                        <img src="../images/peter.webp" alt="Visual" onerror="this.src='../images/sound.webp'">
                     </div>
                     <h3>Peter O.</h3>
                     <p style="color: var(--gold-light);">Visual Technician</p>
-                    <p>Manages projection and live streaming visuals.</p>
+                    <p style="padding: 0 1rem 1rem;">Manages projection and live streaming visuals.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Training Sessions -->
     <section class="section alt">
         <div class="content">
             <h2>Training Sessions</h2>
             <div class="training-list">
-                <div class="training-item"><span><strong>Audio Mixing Basics</strong> - Learn fundamentals</span><span class="training-badge">Every Monday, 4PM</span></div>
-                <div class="training-item"><span><strong>Lighting Design</strong> - Creating worship atmospheres</span><span class="training-badge">Every Wednesday, 3PM</span></div>
-                <div class="training-item"><span><strong>ProPresenter Training</strong> - Lyric and media</span><span class="training-badge">Every Friday, 2PM</span></div>
-                <div class="training-item"><span><strong>Equipment Maintenance</strong> - Care & troubleshooting</span><span class="training-badge">1st Saturday, 10AM</span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="content">
-            <h2>Upcoming Events</h2>
-            <div id="deptEvents" class="event-list">
-                <div class="event-item">
-                    <span><em>Loading events...</em></span>
+                <div class="training-item">
+                    <span><strong>🎧 Audio Mixing Basics</strong> - Learn fundamentals</span>
+                    <span class="training-badge">Every Monday, 4PM</span>
+                </div>
+                <div class="training-item">
+                    <span><strong>💡 Lighting Design</strong> - Creating worship atmospheres</span>
+                    <span class="training-badge">Every Wednesday, 3PM</span>
+                </div>
+                <div class="training-item">
+                    <span><strong>📽️ ProPresenter Training</strong> - Lyric and media</span>
+                    <span class="training-badge">Every Friday, 2PM</span>
+                </div>
+                <div class="training-item">
+                    <span><strong>🔧 Equipment Maintenance</strong> - Care & troubleshooting</span>
+                    <span class="training-badge">1st Saturday, 10AM</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section alt">
-        <div class="content">
-            <h2>Gallery</h2>
-            <div id="deptGallery" class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="../images/home1.webp" alt="Gallery image" onerror="this.src='../images/sound.webp'">
-                </div>
-                <div class="gallery-item">
-                    <img src="../images/home2.webp" alt="Gallery image" onerror="this.src='../images/sound.webp'">
-                </div>
-                <div class="gallery-item">
-                    <img src="../images/home3.webp" alt="Gallery image" onerror="this.src='../images/sound.webp'">
-                </div>
-                <div class="gallery-item">
-                    <img src="../images/home4.webp" alt="Gallery image" onerror="this.src='../images/sound.webp'">
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Join the Team -->
     <section class="section">
         <div class="content" style="text-align: center;">
             <h2>Join the Technical Team</h2>
@@ -356,103 +322,5 @@
 </a>
 
 <script src="../main.js"></script>
-<script>
-    //const API_BASE = 'http://127.0.0.1:8000/api';
-    const API_BASE = 'https://kingdom-network-global.onrender.com/api';
-    const DEPT_KEY = 'sound';
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    }
-
-   async function loadDepartmentPage() {
-    try {
-        document.getElementById('deptName').textContent = 'Loading...';
-        
-        const response = await fetch(`${API_BASE}/public/content/`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const departments = await response.json();
-        const dept = departments.find(item => item.key === DEPT_KEY);
-        
-        if (!dept) {
-            document.getElementById('deptName').textContent = 'Department Not Found';
-            return;
-        }
-
-        const data = dept;
-
-        // Update hero section
-        document.getElementById('deptName').textContent = data.name || 'Department';
-        document.getElementById('deptTagline').textContent = data.description || '';
-
-        // Update mission & vision
-        document.getElementById('deptMission').textContent = data.mission || data.description || '';
-        document.getElementById('deptVision').textContent = data.vision || 'To impact lives through this ministry.';
-
-        // Update team lead
-        document.getElementById('deptLeadName').textContent = data.team_lead || 'TBA';
-        document.getElementById('deptLeadBio').textContent = data.lead_bio || `Leading the ${data.name || 'department'} team with passion and dedication.`;
-
-        // Update stats
-        if (data.stats) {
-            document.getElementById('statOutreaches').textContent = data.stats.outreaches || '30+';
-            document.getElementById('statLivesReached').textContent = data.stats.lives_reached || '2,500+';
-            document.getElementById('statFields').textContent = data.stats.fields || '5';
-            document.getElementById('statVolunteers').textContent = data.stats.volunteers || '47';
-        }
-
-        // Update gallery
-        if (data.gallery && data.gallery.length > 0) {
-            const galleryContainer = document.getElementById('deptGallery');
-            galleryContainer.innerHTML = data.gallery.map(img => `
-                <div class="gallery-item">
-                    <img src="${img}" alt="Gallery image" onerror="this.src='../images/${DEPT_KEY}.webp'">
-                </div>
-            `).join('');
-        }
-
-        await loadDepartmentEvents();
-
-    } catch (error) {
-        console.error('Failed to load department:', error);
-        document.getElementById('deptName').textContent = 'Error Loading Department';
-    }
-}
-
-    async function loadDepartmentEvents() {
-        const eventContainer = document.getElementById('deptEvents');
-        if (!eventContainer) return;
-        try {
-            const response = await fetch(`${API_BASE}/public/events/`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const allEvents = await response.json();
-            const today = new Date().toISOString().split('T')[0];
-            const upcomingEvents = allEvents.filter(event => event.date >= today).slice(0, 4);
-            if (upcomingEvents.length === 0) {
-                eventContainer.innerHTML = `<div class="event-item"><span><em>No upcoming events. Check back soon!</em></span></div>`;
-                return;
-            }
-            eventContainer.innerHTML = upcomingEvents.map(event => `
-                <div class="event-item">
-                    <span><strong>${escapeHtml(event.title)}</strong>${event.location ? ` - ${escapeHtml(event.location)}` : ''}</span>
-                    <span class="event-date-badge">${formatDate(event.date)}</span>
-                </div>
-            `).join('');
-        } catch (error) {
-            console.error('Failed to load events:', error);
-            eventContainer.innerHTML = `<div class="event-item"><span><em>Unable to load events</em></span></div>`;
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadDepartmentPage);
-</script>
 </body>
 </html>

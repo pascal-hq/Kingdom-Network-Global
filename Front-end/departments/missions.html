@@ -177,16 +177,6 @@
             transform: scale(1.1);
             background: var(--gold-light);
         }
-        .loading-state {
-            text-align: center;
-            padding: 3rem;
-            color: var(--white-off);
-        }
-        .error-state {
-            text-align: center;
-            padding: 3rem;
-            color: #ef4444;
-        }
         @media (max-width: 768px) {
             .event-item {
                 flex-direction: column;
@@ -222,7 +212,7 @@
     <section class="department-hero">
         <div class="overlay"></div>
         <div class="content" style="position: relative; z-index: 2; text-align: center;">
-            <h1 id="deptName">Missions Department</h1>
+            <h1>Missions Department</h1>
             <p id="deptTagline" style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Extending the Kingdom through outreach, evangelism, and community impact</p>
         </div>
     </section>
@@ -233,19 +223,19 @@
             <h2>Our Impact</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number" id="statOutreaches">30+</div>
+                    <div class="stat-number">30+</div>
                     <p>Outreaches Completed</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statLivesReached">2,500+</div>
+                    <div class="stat-number">2,500+</div>
                     <p>Lives Reached</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statFields">5</div>
+                    <div class="stat-number">5</div>
                     <p>Active Mission Fields</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statVolunteers">47</div>
+                    <div class="stat-number">47</div>
                     <p>Volunteers</p>
                 </div>
             </div>
@@ -258,11 +248,11 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
                 <div>
                     <h3>Our Mission</h3>
-                    <p id="deptMission">To take the Gospel to unreached communities through strategic outreach programs, evangelism campaigns, and sustainable community development projects.</p>
+                    <p>To take the Gospel to unreached communities through strategic outreach programs, evangelism campaigns, and sustainable community development projects.</p>
                 </div>
                 <div>
                     <h3>Our Vision</h3>
-                    <p id="deptVision">To see every soul in Kenya and beyond have an opportunity to hear the Gospel and experience God's love in practical ways.</p>
+                    <p>To see every soul in Kenya and beyond have an opportunity to hear the Gospel and experience God's love in practical ways.</p>
                 </div>
             </div>
         </div>
@@ -275,11 +265,11 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/bishop.webp" alt="Team Lead" onerror="this.src='../images/missions.webp'">
+                        <img src="../images/bishop.webp" alt="Team Lead Jack" onerror="this.src='../images/missions.webp'">
                     </div>
-                    <h3 id="deptLeadName">Jackson Musya (Bishop)</h3>
+                    <h3>Jackson Musya (Bishop)</h3>
                     <p style="color: var(--gold-light);">Team Lead</p>
-                    <p id="deptLeadBio" style="padding: 0 1rem 1rem;">Passionate about reaching the unreached and mobilizing youth for missions.</p>
+                    <p style="padding: 0 1rem 1rem;">Passionate about reaching the unreached and mobilizing youth for missions.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
@@ -305,9 +295,22 @@
     <section class="section alt">
         <div class="content">
             <h2>Upcoming Events</h2>
-            <div id="deptEvents" class="event-list">
+            <div class="event-list">
                 <div class="event-item">
-                    <span><em>Loading events...</em></span>
+                    <span><strong>Street Outreach - CBD</strong></span>
+                    <span class="event-date-badge">March 15, 2026</span>
+                </div>
+                <div class="event-item">
+                    <span><strong>School Visitation Program</strong></span>
+                    <span class="event-date-badge">March 22, 2026</span>
+                </div>
+                <div class="event-item">
+                    <span><strong>Medical Camp & Evangelism</strong></span>
+                    <span class="event-date-badge">April 5, 2026</span>
+                </div>
+                <div class="event-item">
+                    <span><strong>Prison Outreach</strong></span>
+                    <span class="event-date-badge">April 19, 2026</span>
                 </div>
             </div>
         </div>
@@ -317,52 +320,19 @@
     <section class="section">
         <div class="content">
             <h2>Gallery</h2>
-            <div id="deptGallery" class="gallery-grid">
+            <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="../images/home1.webp" alt="Gallery image" onerror="this.src='../images/missions.webp'">
+                    <img src="../images/home1.webp" alt="Outreach 1" onerror="this.src='../images/missions.webp'">
                 </div>
                 <div class="gallery-item">
-                    <img src="../images/home2.webp" alt="Gallery image" onerror="this.src='../images/missions.webp'">
+                    <img src="../images/home2.webp" alt="Outreach 2" onerror="this.src='../images/missions.webp'">
                 </div>
                 <div class="gallery-item">
-                    <img src="../images/home3.webp" alt="Gallery image" onerror="this.src='../images/missions.webp'">
+                    <img src="../images/home3.webp" alt="Outreach 3" onerror="this.src='../images/missions.webp'">
                 </div>
                 <div class="gallery-item">
-                    <img src="../images/home4.webp" alt="Gallery image" onerror="this.src='../images/missions.webp'">
+                    <img src="../images/home4.webp" alt="Outreach 4" onerror="this.src='../images/missions.webp'">
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Join Form -->
-    <section class="section alt">
-        <div class="content">
-            <h2>Join Missions Department</h2>
-            <div class="join-form">
-                <form id="missionsJoinForm">
-                    <div class="form-group">
-                        <input type="text" placeholder="Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Phone Number" required>
-                    </div>
-                    <div class="form-group">
-                        <select>
-                            <option>Interested Area</option>
-                            <option>Evangelism</option>
-                            <option>Community Service</option>
-                            <option>Prayer Team</option>
-                            <option>Logistics</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="3" placeholder="Why do you want to join missions?"></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Join Now</button>
-                </form>
             </div>
         </div>
     </section>
@@ -377,124 +347,5 @@
 </a>
 
 <script src="../main.js"></script>
-<script>
-    //const API_BASE = 'http://127.0.0.1:8000/api';
-    const API_BASE = 'https://kingdom-network-global.onrender.com/api';
-    const DEPT_KEY = 'missions';
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    }
-
-    async function loadDepartmentPage() {
-    try {
-        document.getElementById('deptName').textContent = 'Loading...';
-        
-        const response = await fetch(`${API_BASE}/public/content/`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const departments = await response.json();
-        const dept = departments.find(item => item.key === DEPT_KEY);
-        
-        if (!dept) {
-            document.getElementById('deptName').textContent = 'Department Not Found';
-            return;
-        }
-
-        const data = dept;
-
-        // Update hero section
-        document.getElementById('deptName').textContent = data.name || 'Department';
-        document.getElementById('deptTagline').textContent = data.description || '';
-
-        // Update mission & vision
-        document.getElementById('deptMission').textContent = data.mission || data.description || '';
-        document.getElementById('deptVision').textContent = data.vision || 'To impact lives through this ministry.';
-
-        // Update team lead
-        document.getElementById('deptLeadName').textContent = data.team_lead || 'TBA';
-        document.getElementById('deptLeadBio').textContent = data.lead_bio || `Leading the ${data.name || 'department'} team with passion and dedication.`;
-
-        // Update stats
-        if (data.stats) {
-            document.getElementById('statOutreaches').textContent = data.stats.outreaches || '30+';
-            document.getElementById('statLivesReached').textContent = data.stats.lives_reached || '2,500+';
-            document.getElementById('statFields').textContent = data.stats.fields || '5';
-            document.getElementById('statVolunteers').textContent = data.stats.volunteers || '47';
-        }
-
-        // Update gallery
-        if (data.gallery && data.gallery.length > 0) {
-            const galleryContainer = document.getElementById('deptGallery');
-            galleryContainer.innerHTML = data.gallery.map(img => `
-                <div class="gallery-item">
-                    <img src="${img}" alt="Gallery image" onerror="this.src='../images/${DEPT_KEY}.webp'">
-                </div>
-            `).join('');
-        }
-
-        await loadDepartmentEvents();
-
-    } catch (error) {
-        console.error('Failed to load department:', error);
-        document.getElementById('deptName').textContent = 'Error Loading Department';
-    }
-}
-
-    async function loadDepartmentEvents() {
-        const eventContainer = document.getElementById('deptEvents');
-        if (!eventContainer) return;
-
-        try {
-            const response = await fetch(`${API_BASE}/public/events/`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const allEvents = await response.json();
-            
-            const today = new Date().toISOString().split('T')[0];
-            const upcomingEvents = allEvents
-                .filter(event => event.date >= today)
-                .slice(0, 4);
-
-            if (upcomingEvents.length === 0) {
-                eventContainer.innerHTML = `
-                    <div class="event-item">
-                        <span><em>No upcoming events. Check back soon!</em></span>
-                    </div>
-                `;
-                return;
-            }
-
-            eventContainer.innerHTML = upcomingEvents.map(event => `
-                <div class="event-item">
-                    <span><strong>${escapeHtml(event.title)}</strong>${event.location ? ` - ${escapeHtml(event.location)}` : ''}</span>
-                    <span class="event-date-badge">${formatDate(event.date)}</span>
-                </div>
-            `).join('');
-
-        } catch (error) {
-            console.error('Failed to load events:', error);
-            eventContainer.innerHTML = `
-                <div class="event-item">
-                    <span><em>Unable to load events</em></span>
-                </div>
-            `;
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadDepartmentPage);
-
-    document.getElementById('missionsJoinForm')?.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Thank you for your interest! We will contact you soon.');
-        this.reset();
-    });
-</script>
 </body>
 </html>

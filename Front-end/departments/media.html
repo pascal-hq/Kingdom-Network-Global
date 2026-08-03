@@ -102,54 +102,6 @@
             aspect-ratio: 16/9;
             border: none;
         }
-        .event-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        .event-item {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.25rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .event-date-badge {
-            background: var(--gold-primary);
-            color: var(--navy-deep);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: var(--text-sm);
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .gallery-item {
-            border-radius: 16px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-            cursor: pointer;
-            transition: all var(--transition-smooth);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-smooth);
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
         .back-home {
             position: fixed;
             bottom: 30px;
@@ -163,6 +115,8 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-smooth);
             z-index: 100;
         }
         .back-home:hover {
@@ -170,8 +124,9 @@
             background: var(--gold-light);
         }
         @media (max-width: 768px) {
-            .video-grid { grid-template-columns: 1fr; }
-            .event-item { flex-direction: column; text-align: center; }
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -198,38 +153,41 @@
 </header>
 
 <main>
+    <!-- Department Hero -->
     <section class="department-hero">
         <div class="overlay"></div>
         <div class="content" style="position: relative; z-index: 2; text-align: center;">
-            <h1 id="deptName">Media Department</h1>
-            <p id="deptTagline" style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Communicating revelation and testimony through digital platforms</p>
+            <h1>Media Department</h1>
+            <p style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Communicating revelation and testimony through digital platforms and creative expression</p>
         </div>
     </section>
 
+    <!-- Stats Section -->
     <section class="section">
         <div class="content">
             <h2>Our Reach</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number" id="statYoutube">1.2K+</div>
+                    <div class="stat-number">1.2K+</div>
                     <p>YouTube Subscribers</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statInstagram">5K+</div>
+                    <div class="stat-number">5K+</div>
                     <p>Instagram Followers</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statFacebook">3K+</div>
+                    <div class="stat-number">3K+</div>
                     <p>Facebook Followers</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="statTikTok">10K+</div>
+                    <div class="stat-number">10K+</div>
                     <p>TikTok Followers</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Meet the Team -->
     <section class="section alt">
         <div class="content">
             <h2>Meet the Team</h2>
@@ -238,23 +196,23 @@
                     <div class="member-image">
                         <img src="../images/derek.webp" alt="Derek" onerror="this.src='../images/media.webp'">
                     </div>
-                    <h3 id="deptLeadName">Derek Makila</h3>
+                    <h3>Derek</h3>
                     <p style="color: var(--gold-light);">Team Lead</p>
-                    <p id="deptLeadBio" style="padding: 0 1rem 1rem;">Creative director overseeing all media production.</p>
+                    <p style="padding: 0 1rem 1rem;">Creative director overseeing all media production.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/rango.webp" alt="Content Creator" onerror="this.src='../images/media.webp'">
+                        <img src="../images/grace.webp" alt="Content Creator" onerror="this.src='../images/media.webp'">
                     </div>
-                    <h3>Rango</h3>
+                    <h3>Grace W.</h3>
                     <p style="color: var(--gold-light);">Content Creator</p>
                     <p style="padding: 0 1rem 1rem;">Creates engaging social media content and reels.</p>
                 </div>
                 <div class="team-member">
                     <div class="member-image">
-                        <img src="../images/pascal.webp" alt="Video Editor" onerror="this.src='../images/media.webp'">
+                        <img src="../images/brian.webp" alt="Video Editor" onerror="this.src='../images/media.webp'">
                     </div>
-                    <h3>Pascal Muthama</h3>
+                    <h3>Brian K.</h3>
                     <p style="color: var(--gold-light);">Video Editor</p>
                     <p style="padding: 0 1rem 1rem;">Edits sermons and ministry highlight videos.</p>
                 </div>
@@ -262,6 +220,7 @@
         </div>
     </section>
 
+    <!-- Latest Sermons -->
     <section class="section">
         <div class="content">
             <h2>Latest Sermons</h2>
@@ -291,37 +250,7 @@
         </div>
     </section>
 
-    <section class="section alt">
-        <div class="content">
-            <h2>Upcoming Events</h2>
-            <div id="deptEvents" class="event-list">
-                <div class="event-item">
-                    <span><em>Loading events...</em></span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="content">
-            <h2>Gallery</h2>
-            <div id="deptGallery" class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="../images/home1.webp" alt="Gallery image" onerror="this.src='../images/media.webp'">
-                </div>
-                <div class="gallery-item">
-                    <img src="../images/home2.webp" alt="Gallery image" onerror="this.src='../images/media.webp'">
-                </div>
-                <div class="gallery-item">
-                    <img src="../images/home3.webp" alt="Gallery image" onerror="this.src='../images/media.webp'">
-                </div>
-                <div class="gallery-item">
-                    <img src="../images/home4.webp" alt="Gallery image" onerror="this.src='../images/media.webp'">
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Social Media -->
     <section class="section alt">
         <div class="content">
             <h2>Social Media</h2>
@@ -344,103 +273,5 @@
 </a>
 
 <script src="../main.js"></script>
-<script>
-    //const API_BASE = 'http://127.0.0.1:8000/api';
-    const API_BASE = 'https://kingdom-network-global.onrender.com/api';
-    const DEPT_KEY = 'media';
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
-
-    function formatDate(dateString) {
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    }
-
-    async function loadDepartmentPage() {
-    try {
-        document.getElementById('deptName').textContent = 'Loading...';
-        
-        const response = await fetch(`${API_BASE}/public/content/`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const departments = await response.json();
-        const dept = departments.find(item => item.key === DEPT_KEY);
-        
-        if (!dept) {
-            document.getElementById('deptName').textContent = 'Department Not Found';
-            return;
-        }
-
-        const data = dept;
-
-        // Update hero section
-        document.getElementById('deptName').textContent = data.name || 'Department';
-        document.getElementById('deptTagline').textContent = data.description || '';
-
-        // Update mission & vision
-        document.getElementById('deptMission').textContent = data.mission || data.description || '';
-        document.getElementById('deptVision').textContent = data.vision || 'To impact lives through this ministry.';
-
-        // Update team lead
-        document.getElementById('deptLeadName').textContent = data.team_lead || 'TBA';
-        document.getElementById('deptLeadBio').textContent = data.lead_bio || `Leading the ${data.name || 'department'} team with passion and dedication.`;
-
-        // Update stats
-        if (data.stats) {
-            document.getElementById('statOutreaches').textContent = data.stats.outreaches || '30+';
-            document.getElementById('statLivesReached').textContent = data.stats.lives_reached || '2,500+';
-            document.getElementById('statFields').textContent = data.stats.fields || '5';
-            document.getElementById('statVolunteers').textContent = data.stats.volunteers || '47';
-        }
-
-        // Update gallery
-        if (data.gallery && data.gallery.length > 0) {
-            const galleryContainer = document.getElementById('deptGallery');
-            galleryContainer.innerHTML = data.gallery.map(img => `
-                <div class="gallery-item">
-                    <img src="${img}" alt="Gallery image" onerror="this.src='../images/${DEPT_KEY}.webp'">
-                </div>
-            `).join('');
-        }
-
-        await loadDepartmentEvents();
-
-    } catch (error) {
-        console.error('Failed to load department:', error);
-        document.getElementById('deptName').textContent = 'Error Loading Department';
-    }
-}
-
-    async function loadDepartmentEvents() {
-        const eventContainer = document.getElementById('deptEvents');
-        if (!eventContainer) return;
-        try {
-            const response = await fetch(`${API_BASE}/public/events/`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const allEvents = await response.json();
-            const today = new Date().toISOString().split('T')[0];
-            const upcomingEvents = allEvents.filter(event => event.date >= today).slice(0, 4);
-            if (upcomingEvents.length === 0) {
-                eventContainer.innerHTML = `<div class="event-item"><span><em>No upcoming events. Check back soon!</em></span></div>`;
-                return;
-            }
-            eventContainer.innerHTML = upcomingEvents.map(event => `
-                <div class="event-item">
-                    <span><strong>${escapeHtml(event.title)}</strong>${event.location ? ` - ${escapeHtml(event.location)}` : ''}</span>
-                    <span class="event-date-badge">${formatDate(event.date)}</span>
-                </div>
-            `).join('');
-        } catch (error) {
-            console.error('Failed to load events:', error);
-            eventContainer.innerHTML = `<div class="event-item"><span><em>Unable to load events</em></span></div>`;
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadDepartmentPage);
-</script>
 </body>
 </html>
