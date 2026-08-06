@@ -229,7 +229,6 @@ function openWhatsApp(message) {
 
 // ========== 10. SETUP WHATSAPP APPLY BUTTONS ==========
 function setupApplyButtons() {
-    // Find all "Apply Now" buttons with data-whatsapp attribute
     document.querySelectorAll('[data-whatsapp-apply]').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -238,7 +237,6 @@ function setupApplyButtons() {
         });
     });
     
-    // Also handle "Apply Now" buttons without data attribute (fallback)
     document.querySelectorAll('.btn-talent').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -249,12 +247,12 @@ function setupApplyButtons() {
     });
 }
 
-// ========== 11. LOAD DEPARTMENTS (Hardcoded) ==========
+// ========== 11. LOAD DEPARTMENTS (Hardcoded - Set & Sound Removed) ==========
 function loadDepartments() {
     const container = document.getElementById('departmentsContainer');
     if (!container) return;
     
-    // Hardcoded department data
+    // Hardcoded department data - Set & Sound removed (now a partner)
     const departments = [
         {
             key: 'missions',
@@ -281,19 +279,11 @@ function loadDepartments() {
             gallery: ['images/worship.webp']
         },
         {
-            key: 'sound',
-            name: 'Set & Sound',
-            description: 'Supporting excellence in worship and ministry atmosphere through technical service.',
-            team_lead: 'Mwangi',
-            order: 4,
-            gallery: ['images/sound.webp']
-        },
-        {
             key: 'mentorship',
             name: 'Mentorship School',
             description: 'Building spiritual stamina through intentional teaching, discipleship, and mentorship.',
             team_lead: 'Michelle',
-            order: 5,
+            order: 4,
             gallery: ['images/mentorship.webp']
         }
     ];
@@ -345,7 +335,6 @@ function loadDepartments() {
 }
 
 // ========== 12. WHATSAPP CONTACT FOR APPLY BUTTONS IN HTML ==========
-// Also handle inline onclick apply buttons
 function applyNow(role) {
     const message = `Hello, I would like to apply for the ${role || 'team'} position.`;
     openWhatsApp(message);
