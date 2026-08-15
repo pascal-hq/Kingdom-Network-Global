@@ -22,7 +22,10 @@ if (hamburger && navMenu) {
 }
 
 // ========== 2. HERO IMAGE SLIDER ==========
-const sliderTrack = document.querySelector(".slider-track");
+// Scoped to the hero's own .image-slider so it can never collide with the
+// About section's slider markup elsewhere on the page.
+const heroSliderRoot = document.querySelector(".image-slider");
+const sliderTrack = heroSliderRoot ? heroSliderRoot.querySelector(".slider-track") : null;
 const sliderImages = sliderTrack ? sliderTrack.querySelectorAll("img") : [];
 let activeIndex = 0;
 let sliderInterval;
@@ -335,27 +338,28 @@ function applyNow(role) {
 }
 
 // ========== 13. ABOUT PAGE IMAGE SLIDER (Mobile Only) ==========
-(function initAboutSlider() {
+// FIX: the track's class was renamed in the HTML from "slider-track" to
+// "about-slider-track" so it no longer matches the hero slider's global
+// ".slider-track img { opacity: 0 }" rule in styles.css. This IIFE is now
+// the ONLY place this slider is initialized — the duplicate copy that used
+// to live in an inline <script> at the bottom of index.html has been
+// deleted, so there is exactly one autoplay interval and one set of dots.
+(function() {
     const track = document.getElementById('aboutSliderTrack');
     const slides = track ? track.querySelectorAll('.slide') : [];
     const prevBtn = document.getElementById('aboutSliderPrev');
     const nextBtn = document.getElementById('aboutSliderNext');
     const dotsContainer = document.getElementById('aboutSliderDots');
 
-    // Check if slider exists
     if (!track || slides.length === 0) {
-        console.log('⚠️ About slider: No slides found');
+        console.warn('About slider not initialized - no slides found');
         return;
     }
 
-    console.log(`✅ About slider: ${slides.length} slides found`);
-
     let currentIndex = 0;
-    let autoplayInterval;
 
     // Create dots
     if (dotsContainer) {
-        dotsContainer.innerHTML = '';
         slides.forEach((_, index) => {
             const dot = document.createElement('button');
             dot.className = 'dot' + (index === 0 ? ' active' : '');
@@ -370,8 +374,6 @@ function applyNow(role) {
         if (index >= slides.length) index = 0;
         currentIndex = index;
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        
-        // Update dots
         if (dotsContainer) {
             dotsContainer.querySelectorAll('.dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentIndex);
@@ -382,24 +384,20 @@ function applyNow(role) {
     function nextSlide() { goToSlide(currentIndex + 1); }
     function prevSlide() { goToSlide(currentIndex - 1); }
 
-    // Event listeners
     if (prevBtn) prevBtn.addEventListener('click', prevSlide);
     if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
-    // Autoplay
+    // Auto-play
+    let autoplayInterval;
     function startAutoplay() {
-        stopAutoplay();
+        if (autoplayInterval) clearInterval(autoplayInterval);
         autoplayInterval = setInterval(nextSlide, 4000);
     }
-
     function stopAutoplay() {
-        if (autoplayInterval) {
-            clearInterval(autoplayInterval);
-            autoplayInterval = null;
-        }
+        if (autoplayInterval) clearInterval(autoplayInterval);
     }
 
-    // Only run on mobile
+    // Only run autoplay on mobile
     function checkScreenSize() {
         if (window.innerWidth <= 768) {
             startAutoplay();
@@ -408,8 +406,11 @@ function applyNow(role) {
         }
     }
 
-    // Pause on hover
-    const container = document.getElementById('aboutSliderContainer');
+    // Initial check
+    checkScreenSize();
+
+    // Pause on hover/touch
+    const container = document.querySelector('.about-image-slider-mobile');
     if (container) {
         container.addEventListener('mouseenter', stopAutoplay);
         container.addEventListener('mouseleave', checkScreenSize);
@@ -419,17 +420,15 @@ function applyNow(role) {
         });
     }
 
-    // Handle resize
+    // Re-check on resize
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(checkScreenSize, 200);
     });
 
-    // Initialize
-    checkScreenSize();
+    // Initial render
     goToSlide(0);
-    console.log('✅ About slider initialized!');
 })();
 
 // ========== 14. INITIALIZE ==========
@@ -437,7 +436,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadDepartments();
     checkScrollReveal();
     setupApplyButtons();
-    console.log('✅ Kingdom Network Global - Website loaded successfully');
+    console.log('Kingdom Network Global - Website loaded successfully');
 });
 
 // ========== 15. IMAGE FALLBACK HANDLER ==========
@@ -450,5 +449,3 @@ document.querySelectorAll("img").forEach(img => {
         }
     });
 });
-
-console.log("Kingdom Network Global - Website loaded successfully");

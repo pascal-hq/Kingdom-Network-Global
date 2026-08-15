@@ -275,7 +275,7 @@ h4 {
     z-index: 2;
 }
 
-/* Image Slider */
+/* Image Slider (HERO ONLY) */
 .image-slider {
     width: 100%;
     height: 450px;
@@ -286,13 +286,20 @@ h4 {
     box-shadow: var(--shadow-lg);
 }
 
-.slider-track {
+/* FIX: scoped to ".image-slider .slider-track" (was the unscoped
+   ".slider-track") so these rules can never match any other element on
+   the page that happens to share the "slider-track" class name — such as
+   the About section's mobile slider, which previously inherited
+   opacity:0 from this rule and never got it cleared because that
+   slider's JS only ever toggled the wrapping track's transform, not an
+   .active class on individual <img> children. */
+.image-slider .slider-track {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-.slider-track img {
+.image-slider .slider-track img {
     position: absolute;
     top: 0;
     left: 0;
@@ -305,7 +312,7 @@ h4 {
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.slider-track img.active {
+.image-slider .slider-track img.active {
     opacity: 1;
     transform: scale(1);
 }
@@ -436,136 +443,6 @@ h4 {
     box-shadow: var(--shadow-glow);
 }
 
-/* ---------- ABOUT SECTION IMAGE STACK (Desktop) & SLIDER (Mobile) ---------- */
-/* Desktop: Stacked images */
-.about-image-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.about-image-stack .stack-item {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: transform var(--transition-smooth);
-}
-
-.about-image-stack .stack-item:hover {
-    transform: scale(1.02);
-}
-
-.about-image-stack .stack-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-}
-
-/* Mobile: Image Slider */
-.about-image-slider-mobile {
-    display: none;
-    position: relative;
-    overflow: hidden;
-    border-radius: 16px;
-    box-shadow: var(--shadow-md);
-    min-height: 200px;
-    background: rgba(255, 255, 255, 0.03);
-}
-
-.about-image-slider-mobile .slider-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.about-image-slider-mobile .slide {
-    min-width: 100%;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    background: rgba(10, 17, 40, 0.3);
-}
-
-.about-image-slider-mobile .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.about-image-slider-mobile .slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    color: white;
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: all var(--transition-fast);
-    z-index: 10;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-}
-
-.about-image-slider-mobile .slider-btn:hover {
-    background: var(--gold-primary);
-    color: var(--navy-deep);
-}
-
-.about-image-slider-mobile .slider-btn.prev {
-    left: 10px;
-}
-
-.about-image-slider-mobile .slider-btn.next {
-    right: 10px;
-}
-
-.about-image-slider-mobile .slider-dots {
-    display: flex !important;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 0 0.5rem;
-}
-
-.about-image-slider-mobile .slider-dots .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--gray-mid);
-    border: none;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-}
-
-.about-image-slider-mobile .slider-dots .dot.active {
-    background: var(--gold-primary);
-    width: 24px;
-    border-radius: 5px;
-}
-
-@media (max-width: 768px) {
-    .about-image-stack {
-        display: none !important;
-    }
-    .about-image-slider-mobile {
-        display: block !important;
-    }
-}
-
-@media (min-width: 769px) {
-    .about-image-slider-mobile {
-        display: none !important;
-    }
-    .about-image-stack {
-        display: flex !important;
-    }
-}
-
 /* ---------- PRAYER REQUEST SECTION ---------- */
 .prayer-container {
     max-width: 700px;
@@ -631,7 +508,7 @@ h4 {
     display: none;
 }
 
-/* ---------- ABOUT SECTION (Content) ---------- */
+/* ---------- ABOUT SECTION ---------- */
 .about-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -667,7 +544,31 @@ h4 {
     box-shadow: var(--shadow-md);
 }
 
-/* ---------- DEPARTMENTS SECTION ---------- */
+/* About Image */
+.about-image {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--transition-smooth);
+}
+
+.about-image:hover {
+    transform: scale(1.02);
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-position: top;
+    transition: transform var(--transition-smooth);
+}
+
+.about-image:hover img {
+    transform: scale(1.05);
+}
+
+/* ---------- DEPARTMENTS SECTION - AUTO-ADJUST TO IMAGE ---------- */
 .departments-center {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -698,6 +599,7 @@ h4 {
     box-shadow: var(--shadow-lg);
 }
 
+/* Department Image - Auto-adjusts to uploaded image */
 .department-image {
     width: 100%;
     height: auto;
@@ -784,7 +686,7 @@ h4 {
     transform: translateY(0px);
 }
 
-/* ---------- EVENTS SECTION ---------- */
+/* ---------- EVENTS SECTION - AUTO-ADJUST TO IMAGE ---------- */
 .events-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -815,6 +717,7 @@ h4 {
     border-color: var(--gold-primary);
 }
 
+/* Event Poster - Auto-adjusts to uploaded image */
 .event-poster {
     width: 100%;
     height: auto;
