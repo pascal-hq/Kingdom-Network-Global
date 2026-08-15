@@ -273,7 +273,7 @@ function loadDepartments() {
         },
         {
             key: 'worship',
-            name: 'Worship Experiences',
+            name: 'Praise & Worship',
             description: 'Leading the ministry into tangible experiences of God\'s presence through worship.',
             team_lead: 'Stephanie',
             order: 3,
@@ -281,7 +281,7 @@ function loadDepartments() {
         },
         {
             key: 'mentorship',
-            name: 'Mentorship School',
+            name: 'School of Mentorship',
             description: 'Building spiritual stamina through intentional teaching, discipleship, and mentorship.',
             team_lead: 'Michelle',
             order: 4,
