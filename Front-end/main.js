@@ -21,7 +21,7 @@ if (hamburger && navMenu) {
     });
 }
 
-// ========== 2. IMAGE SLIDER ==========
+// ========== 2. HERO IMAGE SLIDER ==========
 const sliderTrack = document.querySelector(".slider-track");
 const sliderImages = sliderTrack ? sliderTrack.querySelectorAll("img") : [];
 let activeIndex = 0;
@@ -219,7 +219,6 @@ if (yearSpan) {
 }
 
 // ========== 9. WHATSAPP CONTACT ==========
-// WhatsApp number: +254 718 975808
 const WHATSAPP_NUMBER = '254718975808';
 
 function openWhatsApp(message) {
@@ -247,12 +246,11 @@ function setupApplyButtons() {
     });
 }
 
-// ========== 11. LOAD DEPARTMENTS (Hardcoded - Set & Sound Removed) ==========
+// ========== 11. LOAD DEPARTMENTS ==========
 function loadDepartments() {
     const container = document.getElementById('departmentsContainer');
     if (!container) return;
     
-    // Hardcoded department data - Set & Sound removed (now a partner)
     const departments = [
         {
             key: 'missions',
@@ -272,7 +270,7 @@ function loadDepartments() {
         },
         {
             key: 'worship',
-            name: 'Praise & Worship',
+            name: 'Worship Experiences',
             description: 'Leading the ministry into tangible experiences of God\'s presence through worship.',
             team_lead: 'Stephanie',
             order: 3,
@@ -288,10 +286,8 @@ function loadDepartments() {
         }
     ];
 
-    // Sort by order
     departments.sort((a, b) => a.order - b.order);
 
-    // Escape HTML function
     function escapeHtml(text) {
         if (!text) return '';
         const div = document.createElement('div');
@@ -299,7 +295,6 @@ function loadDepartments() {
         return div.innerHTML;
     }
 
-    // Render departments
     container.innerHTML = departments.map(dept => {
         const imageUrl = dept.gallery && dept.gallery.length > 0 
             ? dept.gallery[0] 
@@ -326,7 +321,6 @@ function loadDepartments() {
         `;
     }).join('');
 
-    // Re-trigger scroll reveal for new elements
     setTimeout(() => {
         document.querySelectorAll('.scroll-reveal').forEach(el => {
             el.classList.add('revealed');
@@ -334,21 +328,119 @@ function loadDepartments() {
     }, 100);
 }
 
-// ========== 12. WHATSAPP CONTACT FOR APPLY BUTTONS IN HTML ==========
+// ========== 12. WHATSAPP CONTACT FOR APPLY BUTTONS ==========
 function applyNow(role) {
     const message = `Hello, I would like to apply for the ${role || 'team'} position.`;
     openWhatsApp(message);
 }
 
-// ========== 13. INITIALIZE ==========
+// ========== 13. ABOUT PAGE IMAGE SLIDER (Mobile Only) ==========
+(function initAboutSlider() {
+    const track = document.getElementById('aboutSliderTrack');
+    const slides = track ? track.querySelectorAll('.slide') : [];
+    const prevBtn = document.getElementById('aboutSliderPrev');
+    const nextBtn = document.getElementById('aboutSliderNext');
+    const dotsContainer = document.getElementById('aboutSliderDots');
+
+    // Check if slider exists
+    if (!track || slides.length === 0) {
+        console.log('⚠️ About slider: No slides found');
+        return;
+    }
+
+    console.log(`✅ About slider: ${slides.length} slides found`);
+
+    let currentIndex = 0;
+    let autoplayInterval;
+
+    // Create dots
+    if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        slides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = 'dot' + (index === 0 ? ' active' : '');
+            dot.setAttribute('data-index', index);
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+    }
+
+    function goToSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        currentIndex = index;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Update dots
+        if (dotsContainer) {
+            dotsContainer.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+    }
+
+    function nextSlide() { goToSlide(currentIndex + 1); }
+    function prevSlide() { goToSlide(currentIndex - 1); }
+
+    // Event listeners
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
+    // Autoplay
+    function startAutoplay() {
+        stopAutoplay();
+        autoplayInterval = setInterval(nextSlide, 4000);
+    }
+
+    function stopAutoplay() {
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            autoplayInterval = null;
+        }
+    }
+
+    // Only run on mobile
+    function checkScreenSize() {
+        if (window.innerWidth <= 768) {
+            startAutoplay();
+        } else {
+            stopAutoplay();
+        }
+    }
+
+    // Pause on hover
+    const container = document.getElementById('aboutSliderContainer');
+    if (container) {
+        container.addEventListener('mouseenter', stopAutoplay);
+        container.addEventListener('mouseleave', checkScreenSize);
+        container.addEventListener('touchstart', stopAutoplay);
+        container.addEventListener('touchend', () => {
+            setTimeout(checkScreenSize, 3000);
+        });
+    }
+
+    // Handle resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(checkScreenSize, 200);
+    });
+
+    // Initialize
+    checkScreenSize();
+    goToSlide(0);
+    console.log('✅ About slider initialized!');
+})();
+
+// ========== 14. INITIALIZE ==========
 document.addEventListener('DOMContentLoaded', function() {
     loadDepartments();
     checkScrollReveal();
     setupApplyButtons();
-    console.log('Kingdom Network Global - Website loaded successfully');
+    console.log('✅ Kingdom Network Global - Website loaded successfully');
 });
 
-// ========== 14. IMAGE FALLBACK HANDLER ==========
+// ========== 15. IMAGE FALLBACK HANDLER ==========
 document.querySelectorAll("img").forEach(img => {
     img.addEventListener("error", function() {
         if (!this.src.includes("placeholder")) {

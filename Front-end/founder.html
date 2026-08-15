@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founder - Kingdom Network Global</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .founder-hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+        }
+        .founder-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10,17,40,0.8), rgba(10,17,40,0.95));
+            z-index: 1;
+        }
+        .founder-hero .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .founder-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+        .founder-hero p {
+            font-size: 1.2rem;
+            color: var(--gray-mid);
+            margin-top: 1rem;
+        }
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            color: var(--gold-primary);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+        }
+        .back-home:hover {
+            gap: 0.75rem;
+            color: var(--gold-light);
+        }
+        .founder-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+            align-items: start;
+        }
+        .founder-grid .image-side img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+        }
+        .founder-grid .bio-side {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .founder-grid .bio-side p {
+            color: var(--gray-mid);
+            line-height: 1.8;
+        }
+        .founder-grid .bio-side h3 {
+            color: var(--gold-primary);
+            margin-bottom: 0.5rem;
+        }
+        .founder-social {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        .founder-social a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            color: var(--white-off);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all var(--transition-fast);
+        }
+        .founder-social a:hover {
+            background: var(--gold-primary);
+            color: var(--navy-deep);
+            transform: translateY(-2px);
+        }
+        .founder-book {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-left: 3px solid var(--gold-primary);
+        }
+        .founder-book h4 {
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
+        }
+        .founder-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .founder-stats .stat-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .founder-stats .stat-box .number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            font-family: 'Playfair Display', serif;
+        }
+        .founder-stats .stat-box .label {
+            font-size: 0.7rem;
+            color: var(--gray-mid);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.2rem;
+        }
+        .founder-mantra {
+            background: linear-gradient(135deg, rgba(201,160,61,0.1), rgba(201,160,61,0.05));
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .founder-mantra h3 {
+            color: var(--gold-primary);
+            font-size: 1.5rem;
+        }
+        .founder-mantra p {
+            color: var(--gray-mid);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .schools-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .schools-list li {
+            list-style: none;
+            padding: 0.3rem 0;
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .schools-list li i {
+            color: var(--gold-primary);
+            margin-right: 0.5rem;
+        }
+        .contact-phone {
+            color: var(--gold-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-phone:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .founder-grid {
+                grid-template-columns: 1fr;
+            }
+            .founder-grid .image-side {
+                order: -1;
+            }
+            .founder-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+            .schools-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .founder-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <img src="KN LOGO.png" alt="Kingdom Network Global Logo">
+        </div>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav" id="nav-menu">
+            <a href="index.html#home">Home</a>
+            <a href="about.html">About</a>
+            <a href="index.html#departments">Departments</a>
+            <a href="index.html#mentorship">Mentorship</a>
+            <a href="index.html#impact">Impact</a>
+            <a href="founder.html">Founder</a>
+            <a href="index.html#contact">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <!-- Hero Section -->
+    <section class="founder-hero">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Founder & Vision Bearer</h1>
+            <p>Discover the journey, vision, and heart behind Kingdom Network Global.</p>
+            <a href="index.html#home" class="back-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </section>
+
+    <!-- Founder Profile -->
+    <section class="section">
+        <div class="content">
+            <div class="founder-grid">
+                <div class="image-side">
+                    <img src="images/vision.webp" alt="Pastor Emmanuel Favour - Founder of Kingdom Network Global">
+                </div>
+                <div class="bio-side">
+                    <h2>Pst. Emmanuel Favour</h2>
+                    <p style="font-size: 1rem; color: var(--gold-light);">Transformative Speaker | Author | Leader</p>
+                    
+                    <p><strong>Emmanuel Favour</strong> is a Kingdom-minded leader and transformative speaker. He is an author, mentor and opinion leader across various fronts; in institutions of higher learning, schools, corporates, ministries and global platforms. Professionally, Emmanuel is an accountant and a strategist by mastery. He is also a minister of the Gospel of Jesus Christ.</p>
+
+                    <p>He is the founder of <strong>Kingdom Network Global</strong>, a Christian community based organization, focused on transforming lives and impacting generations through evangelism, mentorship, leadership, prayer and the Word of God.</p>
+
+                    <div class="founder-book">
+                        <h4>Building Capacity - The Book</h4>
+                        <p>In a season where God is raising disruptors and kingdom leaders in the marketplace, this book is a tool that shall shift the language from a place of victim mentality to a place of capacity building. I love the fact that it has touched on the aspect of being young as an advantage.</p>
+                        <p style="margin-top: 0.5rem;"><em>"The book 'Building Capacity' is an essential rallying call for our generation to plug into the practical requirements and standards necessary to realize and sustain God's purposes in our time."</em></p>
+                    </div>
+
+                    <p>Emmanuel Favour is an embodiment of what he has written. When you sit down with him all you can see is a man with a burden of a generation who is ready to build capacity at whatever cost for the sake of a generation.</p>
+
+                    <div class="founder-stats">
+                        <div class="stat-box">
+                            <div class="number">75%</div>
+                            <div class="label">Young People (18-30yrs)</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">50+</div>
+                            <div class="label">Schools Reached</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="number">10K+</div>
+                            <div class="label">Students Impacted</div>
+                        </div>
+                    </div>
+
+                    <h3>Target Audience</h3>
+                    <ul style="color: var(--gray-mid); line-height: 2; list-style: none; padding: 0;">
+                        <li><i class="fas fa-check-circle" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Young professionals looking to break into the corporate world as well as established professionals looking to level up their mindset.</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Students in high school and higher learning institutions: universities, TVETs & colleges looking to discover their life's purpose and align direction.</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Anyone feeling stuck and unsatisfied with their life, wanting a change in mindset, in career or developing a deeper relationship with God.</li>
+                    </ul>
+
+                    <h3>Schools Impacted</h3>
+                    <ul class="schools-list">
+                        <li><i class="fas fa-school"></i> Kaonyweni Sec School - 200 students</li>
+                        <li><i class="fas fa-school"></i> Olkeri Sec School - 300 students</li>
+                        <li><i class="fas fa-school"></i> Oloosirkon Sec School - 300 students</li>
+                        <li><i class="fas fa-school"></i> Ongata Seniors Sec School - 500 students</li>
+                        <li><i class="fas fa-school"></i> Kangundo High School - 2,000 students</li>
+                        <li><i class="fas fa-school"></i> Nakeel Boys High School - 1,300 students</li>
+                        <li><i class="fas fa-school"></i> Emmanuel Springs Group of Schools - 1,000 students</li>
+                        <li><i class="fas fa-school"></i> Ole Kasasi Sec School - 900 students</li>
+                        <li><i class="fas fa-university"></i> Africa Nazarene University</li>
+                        <li><i class="fas fa-university"></i> Multimedia University of Kenya</li>
+                    </ul>
+
+                    <h3>Corporate Engagements</h3>
+                    <ul style="color: var(--gray-mid); line-height: 2; list-style: none; padding: 0;">
+                        <li><i class="fas fa-building" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Africa Nazarene University</li>
+                        <li><i class="fas fa-building" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Multimedia University of Kenya</li>
+                    </ul>
+
+                    <div class="founder-mantra">
+                        <h3>"For God and my generation"</h3>
+                        <p>Because of the burden he has to see lives transformed and people living up to their full potentials. He believes in doing the work now, because tomorrow is too far.</p>
+                    </div>
+
+                    <h3>Reach Out to Emmanuel Favour</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem;">
+                        <a href="tel:+254704023923" style="color: var(--gold-primary); text-decoration: none; font-weight: 500;"><i class="fas fa-phone"></i> +254 704 023 923</a>
+                        <a href="mailto:emunyao17@gmail.com" style="color: var(--gold-primary); text-decoration: none; font-weight: 500;"><i class="fas fa-envelope"></i> emunyao17@gmail.com</a>
+                        <span style="color: var(--gray-mid);"><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</span>
+                    </div>
+
+                    <div class="founder-social">
+                        <a href="https://www.facebook.com/mannufavour" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        <a href="https://www.instagram.com/mannu_favour" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                        <a href="https://www.tiktok.com/@mannufavour" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+                        <a href="https://www.youtube.com/@pastoremmanuelfavour" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+                        <a href="mailto:emunyao17@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <p>&copy; <span id="currentYear"></span> Kingdom Network Global. All rights reserved.</p>
+</footer>
+
+<script src="main.js"></script>
+<script>
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+    }
+</script>
+</body>
+</html>

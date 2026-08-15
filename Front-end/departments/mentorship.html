@@ -24,6 +24,29 @@
             background: linear-gradient(135deg, rgba(10,17,40,0.8), rgba(10,17,40,0.95));
             z-index: 1;
         }
+        .department-hero .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        .department-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+        .department-hero p {
+            font-size: 1.2rem;
+            color: var(--gray-mid);
+            margin-top: 1rem;
+        }
+        .cohort-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: var(--navy-deep);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+        }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -49,28 +72,122 @@
             color: var(--gold-primary);
             font-family: 'Playfair Display', serif;
         }
-        .program-grid {
+        .program-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
             margin-top: 2rem;
         }
-        .program-card {
+        .program-details .info-card {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 1.5rem;
+        }
+        .program-details .info-card h4 {
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
+        }
+        .program-details .info-card p {
+            color: var(--gray-mid);
+            line-height: 1.6;
+        }
+        .program-details .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .program-details .info-card ul li {
+            padding: 0.4rem 0;
+            color: var(--gray-mid);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .program-details .info-card ul li:last-child {
+            border-bottom: none;
+        }
+        .program-details .info-card ul li i {
+            color: var(--gold-primary);
+            margin-right: 0.5rem;
+        }
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .speaker-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            text-align: center;
             transition: all var(--transition-smooth);
         }
-        .program-card:hover {
+        .speaker-card:hover {
             transform: translateY(-5px);
             border-color: var(--gold-primary);
         }
-        .program-card i {
+        .speaker-card i {
             font-size: 2.5rem;
             color: var(--gold-primary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .speaker-card h4 {
+            color: var(--gold-light);
+        }
+        .speaker-card p {
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+            margin-top: 0.25rem;
+        }
+        .topics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .topics-grid .topic-item {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+            transition: all var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .topics-grid .topic-item i {
+            color: var(--gold-primary);
+        }
+        .topics-grid .topic-item:hover {
+            border-color: var(--gold-primary);
+        }
+        .meeting-details {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .meeting-details h4 {
+            color: var(--gold-light);
+            margin-bottom: 0.75rem;
+        }
+        .meeting-details p {
+            color: var(--gray-mid);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        .meeting-details .meeting-icon {
+            font-size: 2rem;
+            color: var(--gold-primary);
+            margin-bottom: 0.5rem;
         }
         .team-grid {
             display: grid;
@@ -195,7 +312,13 @@
             background: var(--gold-light);
         }
         @media (max-width: 768px) {
+            .program-details {
+                grid-template-columns: 1fr;
+            }
             .form-row {
+                grid-template-columns: 1fr;
+            }
+            .topics-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -217,6 +340,8 @@
             <a href="../index.html#home">Home</a>
             <a href="../index.html#about">About</a>
             <a href="../index.html#departments">Departments</a>
+            <a href="../index.html#mentorship">Mentorship</a>
+            <a href="../index.html#impact">Impact</a>
             <a href="../index.html#founder">Founder</a>
             <a href="../index.html#contact">Contact</a>
         </nav>
@@ -227,9 +352,10 @@
     <!-- Department Hero -->
     <section class="department-hero">
         <div class="overlay"></div>
-        <div class="content" style="position: relative; z-index: 2; text-align: center;">
+        <div class="content">
             <h1>Mentorship School</h1>
-            <p style="font-size: 1.25rem; max-width: 700px; margin: 1rem auto;">Building spiritual stamina through intentional teaching, discipleship, and mentorship</p>
+            <p>Building spiritual stamina through intentional teaching, discipleship, and mentorship</p>
+            <div class="cohort-badge">Cohort 3 • Started June 18, 2026</div>
         </div>
     </section>
 
@@ -239,86 +365,130 @@
             <h2>Our Impact</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number">150+</div>
-                    <p>Students Graduated</p>
+                    <div class="stat-number">500+</div>
+                    <p>Students Mentored</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">20</div>
+                    <div class="stat-number">30+</div>
                     <p>Active Mentors</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">3</div>
-                    <p>Programs Offered</p>
+                    <div class="stat-number">25+</div>
+                    <p>Partner Schools</p>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">12</div>
-                    <p>Churches Partnered</p>
+                    <div class="stat-number">200+</div>
+                    <p>Graduates</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Programs -->
+    <!-- Program Details -->
     <section class="section alt">
         <div class="content">
-            <h2>Our Programs</h2>
-            <div class="program-grid">
-                <div class="program-card">
-                    <i class="fas fa-bible"></i>
-                    <h3>Discipleship Track</h3>
-                    <p>12-week program covering foundational Christian doctrines, prayer life, and spiritual disciplines.</p>
-                    <p style="color: var(--gold-light); margin-top: 0.5rem;"><strong>Duration:</strong> 3 months</p>
+            <h2>About the Program</h2>
+            <div class="program-details">
+                <div class="info-card">
+                    <h4><i class="fas fa-info-circle" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Program Overview</h4>
+                    <p>The Mentorship Masterclass is a <strong>6-month intensive program</strong> designed to raise, equip, and empower young people through intentional mentorship, discipleship, and leadership development.</p>
+                    <p style="margin-top: 0.5rem;">Sessions happen <strong>every other week</strong>, providing consistent engagement and growth opportunities.</p>
                 </div>
-                <div class="program-card">
-                    <i class="fas fa-chalkboard-user"></i>
-                    <h3>Leadership Academy</h3>
-                    <p>Equipping young leaders with biblical leadership principles and practical ministry skills.</p>
-                    <p style="color: var(--gold-light); margin-top: 0.5rem;"><strong>Duration:</strong> 6 months</p>
-                </div>
-                <div class="program-card">
-                    <i class="fas fa-hand-holding-heart"></i>
-                    <h3>One-on-One Mentorship</h3>
-                    <p>Personal mentorship matching you with experienced leaders for spiritual growth and accountability.</p>
-                    <p style="color: var(--gold-light); margin-top: 0.5rem;"><strong>Duration:</strong> Ongoing</p>
+                <div class="info-card">
+                    <h4><i class="fas fa-calendar-alt" style="color: var(--gold-primary); margin-right: 0.5rem;"></i> Program Details</h4>
+                    <ul>
+                        <li><i class="fas fa-tag"></i> Cohort 3</li>
+                        <li><i class="fas fa-calendar-day"></i> Started: June 18, 2026</li>
+                        <li><i class="fas fa-clock"></i> Duration: 6 months</li>
+                        <li><i class="fas fa-calendar-week"></i> Frequency: Every other week</li>
+                        <li><i class="fas fa-video"></i> Platform: Google Meet</li>
+                        <li><i class="fas fa-clock"></i> Time: 8:30 PM - 10:00 PM EAT</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Team -->
+    <!-- Guest Speakers -->
     <section class="section">
         <div class="content">
-            <h2>Mentorship Team</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="../images/michelle.webp" alt="Michelle" onerror="this.src='../images/mentorship.webp'">
-                    </div>
-                    <h3>Michelle</h3>
-                    <p style="color: var(--gold-light);">Program Director</p>
-                    <p style="padding: 0 1rem 1rem;">Passionate about raising the next generation of Spirit-led leaders.</p>
+            <h2>These are some of the great leaders who have poured into our previous training sessions.</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 1.5rem; color: var(--gray-mid);">We have been blessed to have these great leaders pour into our students.</p>
+            <div class="speakers-grid">
+                <div class="speaker-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Bennyhinn Walubengo</h4>
+                    <p>Transformational Speaker & Mentor</p>
                 </div>
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="../images/peter_mentor.webp" alt="Peter" onerror="this.src='../images/mentorship.webp'">
-                    </div>
-                    <h3>Pastor Peter</h3>
-                    <p style="color: var(--gold-light);">Teaching Mentor</p>
-                    <p style="padding: 0 1rem 1rem;">Experienced Bible teacher and discipleship coach.</p>
+                <div class="speaker-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Min PISH Mwaura</h4>
+                    <p>Minister & Youth Leader</p>
                 </div>
-                <div class="team-member">
-                    <div class="member-image">
-                        <img src="../images/ruth.webp" alt="Ruth" onerror="this.src='../images/mentorship.webp'">
-                    </div>
-                    <h3>Ruth A.</h3>
-                    <p style="color: var(--gold-light);">Prayer & Life Coach</p>
-                    <p style="padding: 0 1rem 1rem;">Guides students in prayer and personal development.</p>
+                <div class="speaker-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Florence Otory</h4>
+                    <p>Former Deputy Commissioner, KRA</p>
+                </div>
+                <div class="speaker-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Apostle Damon Shunetc</h4>
+                    <p>Apostle & Kingdom Leader</p>
+                </div>
+                <div class="speaker-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>Amb Meryben Omollo</h4>
+                    <p>Ambassador & Transformational Leader</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Curriculum -->
+    <!-- Topics Covered -->
+    <section class="section alt">
+        <div class="content">
+            <h2>Topics Covered</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 1.5rem; color: var(--gray-mid);">Real issues affecting young people today, tackled with biblical wisdom and practical application.</p>
+            <div class="topics-grid">
+                <div class="topic-item"><i class="fas fa-check-circle"></i> Sex & Sex-Related Addictions</div>
+                <div class="topic-item"><i class="fas fa-check-circle"></i> Handling Life Transitions as a Young Person</div>
+                <div class="topic-item"><i class="fas fa-check-circle"></i> Dealing with Trauma & Mental Health Issues</div>
+                <div class="topic-item"><i class="fas fa-check-circle"></i> Talents & Gifts as Tools of Influence</div>
+                <div class="topic-item"><i class="fas fa-check-circle"></i> Redefining Success as a Young Person</div>
+                <div class="topic-item"><i class="fas fa-check-circle"></i> Definition of Success as a Young Person</div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Meeting Details -->
+<section class="section">
+    <div class="content">
+        <h2>Meeting Details</h2>
+        <div class="meeting-details">
+            <div class="meeting-icon"><i class="fas fa-video"></i></div>
+            <h4>Join Us Every Other Week</h4>
+            <p>
+                <strong>Platform:</strong> Google Meet<br>
+                <strong>Time:</strong> 8:30 PM - 10:00 PM EAT<br>
+                <strong>Frequency:</strong> Every other week<br>
+                <strong>Cohort:</strong> 3 (Started June 18, 2026)<br>
+                <strong>Next Meeting:</strong> August 28, 2026
+            </p>
+            <p style="margin-top: 1rem;">
+                <a href="https://meet.google.com/smg-orqu-zbi" target="_blank" 
+                   style="display: inline-block; background: linear-gradient(135deg, #C9A03D, #A8842A); 
+                          color: #0A1128; padding: 0.7rem 2rem; border-radius: 50px; 
+                          font-weight: 600; text-decoration: none; transition: all var(--transition-smooth);">
+                    <i class="fas fa-video"></i> Join Google Meet
+                </a>
+            </p>
+            <p style="margin-top: 0.5rem; color: var(--gray-mid); font-size: 0.85rem;">
+                <i class="fas fa-link"></i> KN Mentorship Masterclass - Cohort 3
+            </p>
+        </div>
+    </div>
+</section>
+    <!-- What You'll Learn -->
     <section class="section alt">
         <div class="content">
             <h2>What You'll Learn</h2>
@@ -351,8 +521,41 @@
         </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Team -->
     <section class="section">
+        <div class="content">
+            <h2>Mentorship Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="../images/mish.webp" alt="Michelle" onerror="this.src='../images/mentorship.webp'">
+                    </div>
+                    <h3>Michelle</h3>
+                    <p style="color: var(--gold-light);">Program Director</p>
+                    <p style="padding: 0 1rem 1rem;">Passionate about raising the next generation of Spirit-led leaders.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="../images/pascal.webp" alt="Pascal" onerror="this.src='../images/mentorship.webp'">
+                    </div>
+                    <h3>Pascal</h3>
+                    <p style="color: var(--gold-light);">Teaching Mentor</p>
+                    <p style="padding: 0 1rem 1rem;">Experienced Bible teacher and discipleship coach.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="../images/gloria.webp" alt="Ruth" onerror="this.src='../images/mentorship.webp'">
+                    </div>
+                    <h3>Gloria</h3>
+                    <p style="color: var(--gold-light);">Prayer & Life Coach</p>
+                    <p style="padding: 0 1rem 1rem;">Guides students in prayer and personal development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials --
+    <section class="section alt">
         <div class="content">
             <h2>Student Testimonials</h2>
             <div class="testimonial-grid">
@@ -376,43 +579,31 @@
     </section>
 
     <!-- Register -->
-    <section class="section alt">
-        <div class="content">
-            <h2>Register for Mentorship School</h2>
-            <div class="register-form">
-                <form id="mentorshipForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" placeholder="Full Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Email Address" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="tel" placeholder="Phone Number" required>
-                        </div>
-                        <div class="form-group">
-                            <select required>
-                                <option value="">Select Program</option>
-                                <option>Discipleship Track (3 months)</option>
-                                <option>Leadership Academy (6 months)</option>
-                                <option>One-on-One Mentorship</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" placeholder="Church Name (Optional)">
-                    </div>
-                    <div class="form-group">
-                        <textarea rows="3" placeholder="Why do you want to join the Mentorship School?"></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Apply Now</button>
-                </form>
-            </div>
+<section class="section">
+    <div class="content">
+        <h2>Register for Mentorship School</h2>
+        <p style="text-align: center; max-width: 600px; margin: 0 auto 1.5rem; color: var(--gray-mid);">Join Cohort 3 of the Mentorship Masterclass. Limited spots available!</p>
+        <div class="register-form" style="text-align: center;">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--gold-light);">
+                <i class="fas fa-file-alt"></i> Apply using the Google Form below
+            </p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdgTdT0A5_WuBwa7qZ1hV1YXLEs18dZse8JwgD-pmkJMH-w3w/viewform?usp=sharing" 
+               target="_blank" 
+               style="display: inline-block; background: linear-gradient(135deg, #C9A03D, #A8842A); 
+                      color: #0A1128; padding: 0.8rem 2.5rem; border-radius: 50px; 
+                      font-weight: 600; text-decoration: none; transition: all var(--transition-smooth);
+                      font-size: 1.1rem;">
+                <i class="fas fa-external-link-alt"></i> Apply Now
+            </a>
+            <p style="margin-top: 1.5rem; color: var(--gray-mid); font-size: 0.85rem;">
+                <i class="fas fa-info-circle"></i> You will be redirected to the KN School of Mentorship – Cohort 3 Application Form
+            </p>
+            <p style="margin-top: 0.5rem; color: var(--gray-mid); font-size: 0.85rem;">
+                <i class="fab fa-whatsapp"></i> After applying, join our official WhatsApp group for updates.
+            </p>
         </div>
-    </section>
+    </div>
+</section>
 </main>
 
 <footer class="footer">
