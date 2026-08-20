@@ -24,6 +24,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
     
+    
     <style>
         /* About section image stack - desktop */
         .about-image-stack {
@@ -292,32 +293,46 @@
 <main>
 
     <!-- ========== HOME / HERO SECTION ========== -->
-    <section id="home" class="section hero">
-        <div class="overlay"></div>
-        <div class="hero-inner">
-            <div class="image-slider">
-                <div class="slider-track">
-                    <img src="images/home1.webp" alt="Kingdom Network Global worship gathering" class="active">
-                    <img src="images/home2.webp" alt="Youth ministry outreach event">
-                    <img src="images/home3.webp" alt="Praise and worship session">
-                    <img src="images/home4.webp" alt="Mentorship school graduation">
-                    <img src="images/home5.webp" alt="Missions outreach team">
-                    <img src="images/home6.webp" alt="Church service congregation">
-                </div>
-            </div>
-            <div class="hero-content">
-                <h1>Welcome to <br><strong>Kingdom Network Global</strong></h1>
-                <p><em><u>Revelation, Manifestation, and Experience</u></em></p>
-                <div class="daily-verse">
-                    <h3><i class="fas fa-bible"></i> Daily Verse</h3>
-                    <p class="verse-text">"Loading daily scripture…"</p>
-                    <span class="verse-ref"></span>
-                </div>
-                <a href="#about" class="btn-primary"><i class="fas fa-heart"></i> Our Generation Must Be Saved</a>
+<section id="home" class="section hero">
+    <div class="overlay"></div>
+    <div class="hero-inner">
+        <!-- Default Image Slider (visible on mobile/tablet) -->
+        <div class="image-slider">
+            <div class="slider-track">
+                <img src="images/home1.webp" alt="Kingdom Network Global worship gathering" class="active">
+                <img src="images/home2.webp" alt="Youth ministry outreach event">
+                <img src="images/home3.webp" alt="Praise and worship session">
+                <img src="images/home4.webp" alt="Mentorship school graduation">
+                <img src="images/home5.webp" alt="Missions outreach team">
+                <img src="images/home6.webp" alt="Church service congregation">
             </div>
         </div>
-    </section>
-
+        
+        <!-- Split Image Grid (visible on large screens) -->
+        <div class="hero-image-grid" style="display: none;">
+            <div class="grid-item">
+                <img src="images/home1.webp" alt="Kingdom Network Global worship gathering">
+            </div>
+            <div class="grid-item">
+                <img src="images/home3.webp" alt="Praise and worship session">
+            </div>
+            <div class="grid-item">
+                <img src="images/home2.webp" alt="Youth ministry outreach event">
+            </div>
+        </div>
+        
+        <div class="hero-content">
+            <h1>Welcome to <br><strong>Kingdom Network Global</strong></h1>
+            <p><em><u>Revelation, Manifestation, and Experience</u></em></p>
+            <div class="daily-verse">
+                <h3><i class="fas fa-bible"></i> Daily Verse</h3>
+                <p class="verse-text">"Loading daily scripture…"</p>
+                <span class="verse-ref"></span>
+            </div>
+            <a href="#about" class="btn-primary"><i class="fas fa-heart"></i> Our Generation Must Be Saved</a>
+        </div>
+    </div>
+</section>
     <!-- ========== ABOUT SECTION ========== -->
     <section id="about" class="section about">
         <div class="content about-inner scroll-reveal">
